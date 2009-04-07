@@ -20,5 +20,7 @@ public final class StringTaken_Dex {
 
     public static String catches = "      catches";
     
+    public static String locals = "      locals";
+    
     
 }

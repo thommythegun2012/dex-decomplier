@@ -10,15 +10,15 @@ public class Dex_Method {
     
 //    private ArrayList<String> code_list;
 
-    private int registers;
-    private int ins;
-    private int outs;
-    private String insns_size;
+//    private int registers;
+//    private int ins;
+//    private int outs;
+//    private String insns_size;
     
     private ArrayList<String> opcodes_list = new ArrayList<String>();
 
     private ArrayList<String> catches_list = new ArrayList<String>();
-    private ArrayList<String> positions_list = new ArrayList<String>();
+//    private ArrayList<String> positions_list = new ArrayList<String>();
     private ArrayList<String> locals_list = new ArrayList<String>();
     
     private ArrayList<String> method_data;
@@ -45,6 +45,38 @@ public class Dex_Method {
                     if(method_data.get(i).startsWith(StringTaken_Dex.catches)) break;
                     opcodes_list.add(method_data.get(i));
                 }
+            }
+            
+            {
+                catches_list.clear();
+                boolean flag = false;
+                for (int i = 8; i < method_data.size(); i++) {
+                    if(method_data.get(i).startsWith(StringTaken_Dex.catches)) {
+                        flag = true;
+                        continue;
+                    }
+                    if (method_data.get(i).startsWith(StringTaken_Dex.locals)) {
+                        break;
+                    }
+                    if(flag){
+                        locals_list.add(method_data.get(i));
+                    }
+                } 
+            }
+            
+            //´¦Àílocals
+            {
+                locals_list.clear();
+                boolean flag = false;
+                for (int i = 8; i < method_data.size(); i++) {
+                    if(method_data.get(i).startsWith(StringTaken_Dex.locals)) {
+                        flag = true;
+                        continue;
+                    }
+                    if(flag){
+                        locals_list.add(method_data.get(i));
+                    }
+                } 
             }
         }
     }

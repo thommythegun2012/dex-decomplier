@@ -1,0 +1,33 @@
+Processing 'SimpleClass_Instance_SomeInterfaces.dex'...
+Opened 'SimpleClass_Instance_SomeInterfaces.dex', DEX version '035'
+Class #0            -
+  Class descriptor  : 'Lcom/wendal/dex/simple/easy/SimpleClass_SomeInterfaces;'
+  Access flags      : 0x0001 (PUBLIC)
+  Superclass        : 'Ljava/lang/Object;'
+  Interfaces        -
+    #0              : 'Ljava/lang/Cloneable;'
+    #1              : 'Ljava/io/Serializable;'
+  Static fields     -
+  Instance fields   -
+  Direct methods    -
+    #0              : (in Lcom/wendal/dex/simple/easy/SimpleClass_SomeInterfaces;)
+      name          : '<init>'
+      type          : '()V'
+      access        : 0x10001 (PUBLIC CONSTRUCTOR)
+      code          -
+      registers     : 1
+      ins           : 1
+      outs          : 1
+      insns size    : 4 16-bit code units
+0000e0:                                        |[0000e0] com.wendal.dex.simple.easy.SimpleClass_SomeInterfaces.<init>:()V
+0000f0: 7010 0100 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@0001
+0000f6: 0e00                                   |0003: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=5
+      locals        : 
+        0x0000 - 0x0004 reg=0 this Lcom/wendal/dex/simple/easy/SimpleClass_SomeInterfaces; 
+
+  Virtual methods   -
+  source_file_idx   : 5 (SimpleClass_SomeInterfaces.java)
+

@@ -1,0 +1,31 @@
+Processing 'SimpleClass_final.dex'...
+Opened 'SimpleClass_final.dex', DEX version '035'
+Class #0            -
+  Class descriptor  : 'Lcom/wendal/dex/simple/easy/SimpleClass_final;'
+  Access flags      : 0x0011 (PUBLIC FINAL)
+  Superclass        : 'Ljava/lang/Object;'
+  Interfaces        -
+  Static fields     -
+  Instance fields   -
+  Direct methods    -
+    #0              : (in Lcom/wendal/dex/simple/easy/SimpleClass_final;)
+      name          : '<init>'
+      type          : '()V'
+      access        : 0x10001 (PUBLIC CONSTRUCTOR)
+      code          -
+      registers     : 1
+      ins           : 1
+      outs          : 1
+      insns size    : 4 16-bit code units
+0000d0:                                        |[0000d0] com.wendal.dex.simple.easy.SimpleClass_final.<init>:()V
+0000e0: 7010 0100 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@0001
+0000e6: 0e00                                   |0003: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=3
+      locals        : 
+        0x0000 - 0x0004 reg=0 this Lcom/wendal/dex/simple/easy/SimpleClass_final; 
+
+  Virtual methods   -
+  source_file_idx   : 3 (SimpleClass_final.java)
+

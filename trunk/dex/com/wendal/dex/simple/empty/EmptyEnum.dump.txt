@@ -1,0 +1,95 @@
+Processing 'EmptyEnum.dex'...
+Opened 'EmptyEnum.dex', DEX version '035'
+Class #0            -
+  Class descriptor  : 'Lcom/wendal/dex/simple/empty/EmptyEnum;'
+  Access flags      : 0x4011 (PUBLIC FINAL ENUM)
+  Superclass        : 'Ljava/lang/Enum;'
+  Interfaces        -
+  Static fields     -
+    #0              : (in Lcom/wendal/dex/simple/empty/EmptyEnum;)
+      name          : 'ENUM$VALUES'
+      type          : '[Lcom/wendal/dex/simple/empty/EmptyEnum;'
+      access        : 0x101a (PRIVATE STATIC FINAL SYNTHETIC)
+  Instance fields   -
+  Direct methods    -
+    #0              : (in Lcom/wendal/dex/simple/empty/EmptyEnum;)
+      name          : '<clinit>'
+      type          : '()V'
+      access        : 0x10008 (STATIC CONSTRUCTOR)
+      code          -
+      registers     : 1
+      ins           : 0
+      outs          : 0
+      insns size    : 6 16-bit code units
+0001b4:                                        |[0001b4] com.wendal.dex.simple.empty.EmptyEnum.<clinit>:()V
+0001c4: 1200                                   |0000: const/4 v0, #int 0 // #0
+0001c6: 2300 0900                              |0001: new-array v0, v0, [Lcom/wendal/dex/simple/empty/EmptyEnum; // class@0009
+0001ca: 6900 0000                              |0003: sput-object v0, Lcom/wendal/dex/simple/empty/EmptyEnum;.ENUM$VALUES:[Lcom/wendal/dex/simple/empty/EmptyEnum; // field@0000
+0001ce: 0e00                                   |0005: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=3
+      locals        : 
+
+    #1              : (in Lcom/wendal/dex/simple/empty/EmptyEnum;)
+      name          : '<init>'
+      type          : '(Ljava/lang/String;I)V'
+      access        : 0x10002 (PRIVATE CONSTRUCTOR)
+      code          -
+      registers     : 3
+      ins           : 3
+      outs          : 3
+      insns size    : 4 16-bit code units
+0001d0:                                        |[0001d0] com.wendal.dex.simple.empty.EmptyEnum.<init>:(Ljava/lang/String;I)V
+0001e0: 7030 0400 1002                         |0000: invoke-direct {v0, v1, v2}, Ljava/lang/Enum;.<init>:(Ljava/lang/String;I)V // method@0004
+0001e6: 0e00                                   |0003: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=3
+      locals        : 
+        0x0000 - 0x0004 reg=0 this Lcom/wendal/dex/simple/empty/EmptyEnum; 
+
+    #2              : (in Lcom/wendal/dex/simple/empty/EmptyEnum;)
+      name          : 'valueOf'
+      type          : '(Ljava/lang/String;)Lcom/wendal/dex/simple/empty/EmptyEnum;'
+      access        : 0x0009 (PUBLIC STATIC)
+      code          -
+      registers     : 2
+      ins           : 1
+      outs          : 2
+      insns size    : 9 16-bit code units
+0001e8:                                        |[0001e8] com.wendal.dex.simple.empty.EmptyEnum.valueOf:(Ljava/lang/String;)Lcom/wendal/dex/simple/empty/EmptyEnum;
+0001f8: 1c00 0100                              |0000: const-class v0, Lcom/wendal/dex/simple/empty/EmptyEnum; // class@0001
+0001fc: 7120 0500 1000                         |0002: invoke-static {v0, v1}, Ljava/lang/Enum;.valueOf:(Ljava/lang/Class;Ljava/lang/String;)Ljava/lang/Enum; // method@0005
+000202: 0c01                                   |0005: move-result-object v1
+000204: 1f01 0100                              |0006: check-cast v1, Lcom/wendal/dex/simple/empty/EmptyEnum; // class@0001
+000208: 1101                                   |0008: return-object v1
+      catches       : (none)
+      positions     : 
+        0x0000 line=1
+      locals        : 
+
+    #3              : (in Lcom/wendal/dex/simple/empty/EmptyEnum;)
+      name          : 'values'
+      type          : '()[Lcom/wendal/dex/simple/empty/EmptyEnum;'
+      access        : 0x0009 (PUBLIC STATIC)
+      code          -
+      registers     : 4
+      ins           : 0
+      outs          : 5
+      insns size    : 10 16-bit code units
+00020c:                                        |[00020c] com.wendal.dex.simple.empty.EmptyEnum.values:()[Lcom/wendal/dex/simple/empty/EmptyEnum;
+00021c: 1203                                   |0000: const/4 v3, #int 0 // #0
+00021e: 6200 0000                              |0001: sget-object v0, Lcom/wendal/dex/simple/empty/EmptyEnum;.ENUM$VALUES:[Lcom/wendal/dex/simple/empty/EmptyEnum; // field@0000
+000222: 2101                                   |0003: array-length v1, v0
+000224: 2312 0900                              |0004: new-array v2, v1, [Lcom/wendal/dex/simple/empty/EmptyEnum; // class@0009
+000228: 7151 0600 3032                         |0006: invoke-static {v0, v3, v2, v3, v1}, Ljava/lang/System;.arraycopy:(Ljava/lang/Object;ILjava/lang/Object;II)V // method@0006
+00022e: 1102                                   |0009: return-object v2
+      catches       : (none)
+      positions     : 
+        0x0001 line=1
+      locals        : 
+
+  Virtual methods   -
+  source_file_idx   : 5 (EmptyEnum.java)
+

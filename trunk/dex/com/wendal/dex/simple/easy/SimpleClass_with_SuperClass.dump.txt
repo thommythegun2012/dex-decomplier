@@ -1,0 +1,31 @@
+Processing 'SimpleClass_Instance_with_SuperClass.dex'...
+Opened 'SimpleClass_Instance_with_SuperClass.dex', DEX version '035'
+Class #0            -
+  Class descriptor  : 'Lcom/wendal/dex/simple/easy/SimpleClass_with_SuperClass;'
+  Access flags      : 0x0001 (PUBLIC)
+  Superclass        : 'Ljava/lang/Thread;'
+  Interfaces        -
+  Static fields     -
+  Instance fields   -
+  Direct methods    -
+    #0              : (in Lcom/wendal/dex/simple/easy/SimpleClass_with_SuperClass;)
+      name          : '<init>'
+      type          : '()V'
+      access        : 0x10001 (PUBLIC CONSTRUCTOR)
+      code          -
+      registers     : 1
+      ins           : 1
+      outs          : 1
+      insns size    : 4 16-bit code units
+0000d0:                                        |[0000d0] com.wendal.dex.simple.easy.SimpleClass_with_SuperClass.<init>:()V
+0000e0: 7010 0100 0000                         |0000: invoke-direct {v0}, Ljava/lang/Thread;.<init>:()V // method@0001
+0000e6: 0e00                                   |0003: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=4
+      locals        : 
+        0x0000 - 0x0004 reg=0 this Lcom/wendal/dex/simple/easy/SimpleClass_with_SuperClass; 
+
+  Virtual methods   -
+  source_file_idx   : 3 (SimpleClass_with_SuperClass.java)
+

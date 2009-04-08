@@ -1,5 +1,8 @@
 package com.wendal.java.dex.decomplier.javafile.model;
 
+import com.wendal.java.dex.decomplier.dexfile.model.Dex_Field;
+import com.wendal.java.dex.decomplier.toolkit.String_Toolkit;
+
 public class JavaField {
     
     /**
@@ -18,6 +21,34 @@ public class JavaField {
     public static String PRIVATE = "private";
     public static String PROTECTED = "protected";
     public static String DEFAUFT = "";
+    
+    private Dex_Field dex_field;
+    
+    public JavaField(Dex_Field dex_field) {
+        this.dex_field = dex_field;
+    }
+    
+    public void parse(){
+        //处理访问控制符
+        String access_flag = dex_field.getAccess_flags();
+        if(access_flag.indexOf("PUBLIC") > -1){
+            this.access_flags = PUBLIC;
+        }else if(access_flag.indexOf("PRIVATE") > -1){
+            this.access_flags = PRIVATE;
+        }else if(access_flag.indexOf("PROTECTED") > -1){
+            this.access_flags = PROTECTED;
+        }
+        
+        if(access_flag.indexOf("FINAL") > -1){
+            this.isFinal = true;
+        }
+        
+        this.type = String_Toolkit.parseType(dex_field.getType());
+        
+        this.name = dex_field.getName();
+    }
+    
+    
     
     @Override
     public String toString() {

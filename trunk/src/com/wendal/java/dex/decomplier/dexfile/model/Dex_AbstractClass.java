@@ -2,6 +2,8 @@ package com.wendal.java.dex.decomplier.dexfile.model;
 
 import java.util.ArrayList;
 
+import com.wendal.java.dex.decomplier.toolkit.String_Toolkit;
+
 public class Dex_AbstractClass {
 
     private int class_index;
@@ -98,7 +100,7 @@ public class Dex_AbstractClass {
                     }
                     if (flag) {
                         String[] data_array_2 = data_str_2.split(":");
-                        String dest = parseSingleClassName(data_array_2[1]);
+                        String dest = String_Toolkit.parseSingleClassName(data_array_2[1]);
                         interface_list.add(dest);
                     }
                 }
@@ -279,22 +281,6 @@ public class Dex_AbstractClass {
         }
     }
 
-    static String parseSingleClassName(String src_srt) {
-        String value_temp = src_srt.trim().replaceAll("'", "");
-        String value_temp2 = value_temp.replaceAll(";", "");
-//        value_temp2 = value_temp2.replaceAll("\\(", "");
-//        value_temp2 = value_temp2.replaceAll("\\)", "");
-//        if(value_temp2.startsWith("IL")){
-//            value_temp2 = value_temp2.substring(2);
-//        }
-        if(value_temp2.startsWith("L")){
-            value_temp2 = value_temp2.substring(1);
-        }
-        return value_temp2.replaceAll("/", ".");
-    }
-
-    
-    
     public ArrayList<String> getDex_data() {
         return dex_data;
     }
@@ -315,6 +301,82 @@ public class Dex_AbstractClass {
     public String toString() {
 
         return super.toString();
+    }
+
+
+    /**************Get Set Methods**************************/
+    
+    
+    public String getClass_descriptor() {
+        return Class_descriptor;
+    }
+
+    public void setClass_descriptor(String class_descriptor) {
+        Class_descriptor = class_descriptor;
+    }
+
+    public String getAccess_flags() {
+        return Access_flags;
+    }
+
+    public void setAccess_flags(String access_flags) {
+        Access_flags = access_flags;
+    }
+
+    public String getSuperclass() {
+        return Superclass;
+    }
+
+    public void setSuperclass(String superclass) {
+        Superclass = superclass;
+    }
+
+    public ArrayList<String> getInterface_list() {
+        return interface_list;
+    }
+
+    public void setInterface_list(ArrayList<String> interface_list) {
+        this.interface_list = interface_list;
+    }
+
+    public ArrayList<Dex_Field> getStatic_fields_list() {
+        return Static_fields_list;
+    }
+
+    public void setStatic_fields_list(ArrayList<Dex_Field> static_fields_list) {
+        Static_fields_list = static_fields_list;
+    }
+
+    public ArrayList<Dex_Field> getInstance_fields_list() {
+        return Instance_fields_list;
+    }
+
+    public void setInstance_fields_list(ArrayList<Dex_Field> instance_fields_list) {
+        Instance_fields_list = instance_fields_list;
+    }
+
+    public ArrayList<Dex_Method> getDirect_methods_list() {
+        return Direct_methods_list;
+    }
+
+    public void setDirect_methods_list(ArrayList<Dex_Method> direct_methods_list) {
+        Direct_methods_list = direct_methods_list;
+    }
+
+    public ArrayList<Dex_Method> getVirtual_methods_list() {
+        return Virtual_methods_list;
+    }
+
+    public void setVirtual_methods_list(ArrayList<Dex_Method> virtual_methods_list) {
+        Virtual_methods_list = virtual_methods_list;
+    }
+
+    public String getSource_file() {
+        return source_file;
+    }
+
+    public void setSource_file(String source_file) {
+        this.source_file = source_file;
     }
 
     

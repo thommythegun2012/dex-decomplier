@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import com.wendal.java.dex.decomplier.converter.Dex2Java;
 import com.wendal.java.dex.decomplier.dexfile.model.DexTaken;
 import com.wendal.java.dex.decomplier.dexfile.model.Dex_AbstractClass;
 import com.wendal.java.dex.decomplier.toolkit.IO_Tool;
@@ -20,6 +21,7 @@ public class Main {
         System.out.println();
         for (Dex_AbstractClass dex_AbstractClass : dex_class_list) {
             dex_AbstractClass.parse();
+            Dex2Java.parseDex(dex_AbstractClass);
         }
     }
 

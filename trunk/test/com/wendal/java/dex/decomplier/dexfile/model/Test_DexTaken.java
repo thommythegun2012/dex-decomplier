@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.junit.Test;
 
+import com.wendal.java.dex.decomplier.converter.Dex2Java;
 import com.wendal.java.dex.decomplier.toolkit.IO_Tool;
 
 public class Test_DexTaken {
@@ -23,6 +24,8 @@ public class Test_DexTaken {
                 ,"dex/com/wendal/dex/simple/easy/SimpleClass_SomeInterfaces.dump.txt"
                 ,"dex/com/wendal/dex/simple/easy/SimpleClass_Static_fields.dump.txt"
                 ,"dex/com/wendal/dex/simple/easy/SimpleClass_with_SuperClass.dump.txt"
+                ,"dex/com/wendal/dex/simple/easy/methods/Void_String_Method.dump.txt"
+                ,"dex/com/wendal/dex/simple/easy/methods/Static_Methods.dump.txt"
         };
         
         for (String string : fileList) {
@@ -30,6 +33,7 @@ public class Test_DexTaken {
             assertTrue(list.size() > 0);
             for (Dex_AbstractClass dex_AbstractClass : list) {
                 dex_AbstractClass.parse();
+                Dex2Java.parseDex(dex_AbstractClass);
             }
         }
         

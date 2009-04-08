@@ -14,7 +14,8 @@ public class Test_DexTaken {
 
     @Test
     public void testGetDexClassList() throws IOException {
-        String fileList [] = new String[]{"dex/com/wendal/dex/simple/multi/xrace_v2.dump.txt"
+        String fileList [] = new String[]{
+                "dex/com/wendal/dex/simple/multi/xrace_v2.dump.txt"
                 , "dex/com/wendal/dex/simple/empty/EmptyClass.dump.txt"
                 ,"dex/com/wendal/dex/simple/empty/EmptyInterface.dump.txt"
                 ,"dex/com/wendal/dex/simple/empty/EmptyEnum.dump.txt"
@@ -25,7 +26,8 @@ public class Test_DexTaken {
                 ,"dex/com/wendal/dex/simple/easy/SimpleClass_Static_fields.dump.txt"
                 ,"dex/com/wendal/dex/simple/easy/SimpleClass_with_SuperClass.dump.txt"
                 ,"dex/com/wendal/dex/simple/easy/methods/Void_String_Method.dump.txt"
-                ,"dex/com/wendal/dex/simple/easy/methods/Static_Methods.dump.txt"
+                ,
+                "dex/com/wendal/dex/simple/easy/methods/Static_Methods.dump.txt"
         };
         
         for (String string : fileList) {

@@ -4,6 +4,9 @@ import java.util.ArrayList;
 
 import com.wendal.java.dex.decomplier.dexfile.model.Dex_Method;
 import com.wendal.java.dex.decomplier.dexfile.model.Dex_Method.LocalVar;
+import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_Goto;
+import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_Invoke_Static;
+import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_ReturnVoid;
 import com.wendal.java.dex.decomplier.toolkit.String_Toolkit;
 
 public class JavaMethod {
@@ -33,6 +36,8 @@ public class JavaMethod {
     private Dex_Method dex_method;
 
     private boolean isStaticConstructor = false;
+    
+    private ArrayList<PrototypeStatement> ps_list;
 
     @Override
     public String toString() {
@@ -64,8 +69,11 @@ public class JavaMethod {
             ;
         } else {
             sb.append("{\n");
-            for (String str : src_code) {
-                sb.append(str).append(";\n");
+//            for (String str : src_code) {
+//                sb.append(str).append(";\n");
+//            }
+            for (PrototypeStatement ps : ps_list) {
+                sb.append(ps.toString()).append(";\n");
             }
             sb.append("}\n");
         }
@@ -153,7 +161,50 @@ public class JavaMethod {
         ArrayList<String> opcode_src = this.dex_method.getOpcodes_list();
         opcode_src.remove(0);//去掉第一行,即方法签名
         
-        PrototypeStatement.newInstanceList(opcode_src);
+        
+        ps_list = PrototypeStatement.newInstanceList(opcode_src);
+        //登记全部return-void语句,只记录line_index
+        ArrayList<String> ps_returnvoid_list = new ArrayList<String>();
+        for (PrototypeStatement ps : ps_list) {
+            if (ps instanceof PrototypeStatement_ReturnVoid) {
+                ps_returnvoid_list.add(ps.line_index);
+            }
+        }
+        //替换掉指向return-void的goto语句
+        //System.out.println(ps_returnvoid_list.size());
+        for (int i = 0;i < ps_list.size();i++) {
+            PrototypeStatement ps = ps_list.get(i);
+            if (ps instanceof PrototypeStatement_Goto) {
+                PrototypeStatement_Goto ps_goto = (PrototypeStatement_Goto)ps;
+                for (String string : ps_returnvoid_list) {
+                    if(string.equals(ps_goto.goto_line_index)){
+                        //替换成return-void
+                        int index = ps_list.indexOf(ps);
+                        ps_list.set(index, new PrototypeStatement_ReturnVoid(ps.line_index));
+                        break;
+                    }
+                }
+            }
+        }
+        
+        for (int i = 0;i < ps_list.size();i++) {
+            PrototypeStatement ps = ps_list.get(i);
+            //处理 Invoke_Static
+            
+            if(ps instanceof PrototypeStatement_ReturnVoid){
+                continue;
+            }
+            
+            if(ps instanceof PrototypeStatement_Goto){
+                continue;
+            }
+                
+            if(ps.opcodes.startsWith(OpCode_List.Op_Invoke_Static)){
+                ps_list.set(ps_list.lastIndexOf(ps), new PrototypeStatement_Invoke_Static(ps));
+            }
+        }
+        
+        
     }
     
     

@@ -68,4 +68,8 @@ public final class String_Toolkit {
             return value_temp.replaceAll("/", ".");
         }
 
+    
+    public static String join(Object [] obj_list , String sp) {
+        return "";
+    }
 }

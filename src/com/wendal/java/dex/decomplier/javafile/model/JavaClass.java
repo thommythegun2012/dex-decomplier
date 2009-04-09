@@ -173,8 +173,11 @@ public class JavaClass {
 
         if (interface_list.size() > 0) {
             sb.append("implements").append(" ");
-            for (String str : interface_list) {
-                sb.append(str).append(" ,");
+            for (int i = 0; i < interface_list.size(); i++) {
+                sb.append(interface_list.get(i));
+                if(i < interface_list.size() -1){
+                    sb.append(" ,");
+                }
             }
         }
 

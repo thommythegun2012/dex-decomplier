@@ -79,11 +79,11 @@ public class Dex_AbstractClass {
                 }
 
             }
-            System.out.println("Class #" + class_index);
-            System.out.println(Class_descriptor);
-            System.out.println(Access_flags);
-            System.out.println(Superclass);
-            System.out.println(source_file);
+//            System.out.println("Class #" + class_index);
+//            System.out.println(Class_descriptor);
+//            System.out.println(Access_flags);
+//            System.out.println(Superclass);
+//            System.out.println(source_file);
 
             // 开始处理implemente的Interface
             {
@@ -100,15 +100,15 @@ public class Dex_AbstractClass {
                     }
                     if (flag) {
                         String[] data_array_2 = data_str_2.split(":");
-                        String dest = String_Toolkit.parseSingleClassName(data_array_2[1]);
+                        String dest = String_Toolkit.parseSingleClassName(data_array_2[1]).replaceAll(";", "");
                         interface_list.add(dest);
                     }
                 }
 //                interface_list = if_list;
-                System.out.println("Interfaces --> " + interface_list.size());
-                for (String string : interface_list) {
-                    System.out.println(" -- " + string);
-                }
+//                System.out.println("Interfaces --> " + interface_list.size());
+//                for (String string : interface_list) {
+//                    System.out.println(" -- " + string);
+//                }
             }
 
             // 开始处理静态字段
@@ -136,10 +136,10 @@ public class Dex_AbstractClass {
                         }
                     }
                 }
-                System.out.println("Static_fields --> " + Static_fields_list.size());
-                for (Dex_Field field : Static_fields_list) {
-                    System.out.println(" -- " + field);
-                }
+//                System.out.println("Static_fields --> " + Static_fields_list.size());
+//                for (Dex_Field field : Static_fields_list) {
+//                    System.out.println(" -- " + field);
+//                }
             }
             
          // 开始处理实例字段
@@ -167,10 +167,10 @@ public class Dex_AbstractClass {
                         }
                     }
                 }
-                System.out.println("Instance_fields --> " + Instance_fields_list.size());
-                for (Dex_Field field : Instance_fields_list) {
-                    System.out.println(" -- " + field);
-                }
+//                System.out.println("Instance_fields --> " + Instance_fields_list.size());
+//                for (Dex_Field field : Instance_fields_list) {
+//                    System.out.println(" -- " + field);
+//                }
             }
             //开始处理Direct_methods
             {
@@ -198,10 +198,10 @@ public class Dex_AbstractClass {
                         data.add(dex_data.get(i));
                     }
                 }
-                System.out.println("Direct_methods --> " + Direct_methods_list.size());
+//                System.out.println("Direct_methods --> " + Direct_methods_list.size());
                 for (Dex_Method method : Direct_methods_list) {
                     method.parse();
-                    System.out.println(" -- " + method);
+//                    System.out.println(" -- " + method);
                 }
             }
             
@@ -231,10 +231,10 @@ public class Dex_AbstractClass {
                         data.add(dex_data.get(i));
                     }
                 }
-                System.out.println("Virtual_methods --> " + Virtual_methods_list.size());
+//                System.out.println("Virtual_methods --> " + Virtual_methods_list.size());
                 for (Dex_Method method : Virtual_methods_list) {
                     method.parse();
-                    System.out.println(" -- " + method);
+//                    System.out.println(" -- " + method);
                 }
             }
 

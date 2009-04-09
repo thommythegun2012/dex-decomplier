@@ -32,6 +32,8 @@ public class JavaMethod {
 
     private Dex_Method dex_method;
 
+    private boolean isStaticConstructor = false;
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -44,22 +46,29 @@ public class JavaMethod {
             sb.append("final").append(" ");
         }
         sb.append(return_value).append(" ");
-        sb.append(name);
-        sb.append("(");
-        for (int i = parameter_list.size() - 1; i > -1; i--) {
-            sb.append(parameter_list.get(i));
-            if(i > 0){
-                sb.append(" ,");
+        if (isStaticConstructor) {
+            ;
+        } else {
+            sb.append(name);
+            sb.append("(");
+            for (int i = parameter_list.size() - 1; i > -1; i--) {
+                sb.append(parameter_list.get(i));
+                if (i > 0) {
+                    sb.append(" ,");
+                }
             }
+            sb.append(")");
         }
-        sb.append(")");
-
         sb.append("\n");
-        sb.append("{\n");
-        for (String str : src_code) {
-            sb.append(str).append(";\n");
+        if (isAbstract) {
+            ;
+        } else {
+            sb.append("{\n");
+            for (String str : src_code) {
+                sb.append(str).append(";\n");
+            }
+            sb.append("}\n");
         }
-        sb.append("}\n");
         return sb.toString();
     }
 
@@ -99,39 +108,52 @@ public class JavaMethod {
             if (tmp_type.equals("V")) {
                 ;
             } else {
-                this.return_value = String_Toolkit.parseType(tmp_type).replaceAll(";", "");
+                this.return_value = String_Toolkit.parseType(tmp_type)
+                        .replaceAll(";", "");
             }
             // 如果包含<init>,则表示其为构造方法,如果为<clinit>则为静态块
             if (this.name.indexOf("<init>") > -1) {
                 this.return_value = "";
-            }else if(this.name.indexOf("<clinit>") > -1){
+            } else if (this.name.indexOf("<clinit>") > -1) {
                 this.return_value = "";
+                this.isStaticConstructor = true;
             }
         }
         // 处理parameter列表
         {
             String src_type = this.dex_method.getType();
-            String tmp_type = src_type.substring(1 , src_type.indexOf(")")).trim();
-            
-            if(tmp_type.length() < 1){
-                ;//表示该方法是没有带参数的
-            }else{
-//                System.out.println("------------------------->>> "+ tmp_type);
+            String tmp_type = src_type.substring(1, src_type.indexOf(")"))
+                    .trim();
+
+            if (tmp_type.length() < 1) {
+                ;// 表示该方法是没有带参数的
+            } else {
+                // System.out.println("------------------------->>> "+
+                // tmp_type);
                 ArrayList<LocalVar> cv_list = this.dex_method.getLocals_list();
                 String tmp_str = "";
                 int count_parameter = 0;
-                for (int i = cv_list.size() - 1 ; i > -1; i--) {
+                for (int i = cv_list.size() - 1; i > -1; i--) {
                     tmp_str = cv_list.get(i).src_name + tmp_str;
                     count_parameter++;
-                    String parameter_type = String_Toolkit.parseType(cv_list.get(i).type).replaceAll(";", "");
-                    String parameter = parameter_type  +" "+ cv_list.get(i).name;
+                    String parameter_type = String_Toolkit.parseType(
+                            cv_list.get(i).type).replaceAll(";", "");
+                    String parameter = parameter_type + " "
+                            + cv_list.get(i).name;
                     parameter_list.add(parameter);
-                    if(tmp_str.equals(tmp_type)){
+                    if (tmp_str.equals(tmp_type)) {
                         break;
                     }
                 }
             }
         }
+        parseOpcode();
+    }
+    private void parseOpcode() {
+        ArrayList<String> opcode_src = this.dex_method.getOpcodes_list();
+        opcode_src.remove(0);//去掉第一行,即方法签名
+        
+        PrototypeStatement.newInstanceList(opcode_src);
     }
     
     

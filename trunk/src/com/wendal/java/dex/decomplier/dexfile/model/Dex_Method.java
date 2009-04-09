@@ -32,7 +32,7 @@ public class Dex_Method {
                 this.name = data_array[1].replaceAll("'", "").trim();
             }
             {
-                //这里有问题!
+                
                 String[] data_array = method_data.get(1).split(":");
                 this.type = String_Toolkit.parseSingleClassName(data_array[1]);
             }

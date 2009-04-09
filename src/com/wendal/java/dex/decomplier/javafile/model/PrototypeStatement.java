@@ -2,17 +2,45 @@ package com.wendal.java.dex.decomplier.javafile.model;
 
 import java.util.ArrayList;
 
+import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_Goto;
+import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_ReturnVoid;
+import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_String;
+
 public class PrototypeStatement {
 
-    String dex_offset;
-    String opcodes;
-    String line_index;
+    public String dex_offset;
+    public String opcodes;
+    public String line_index;
 
-    String info;
+    public String info;
 
-    String note;
+    public String note;
     
-    boolean isString;
+    //public boolean isString;
+    
+    public int type = NORMAL;
+
+    public static final int NORMAL = 1000;
+    public static final int RETRUN_VOID = 2000;
+    public static final int RETRUN_OBJECT = 3000;
+    public static final int GOTO = 4000;
+    public static final int IF = 5000;
+    public static final int STRING = 6000;
+    
+    protected PrototypeStatement(){}
+    
+    /**
+     * 判断这段opcode的类型
+     */
+    public void parseType() {
+        if(opcodes.startsWith(OpCode_List.Op_Goto)){
+            this.type = GOTO;
+        }
+        if(opcodes.startsWith(OpCode_List.Op_Return_Void)){
+            this.type = RETRUN_VOID;
+        }
+
+    }
 
     /**
      * 已知格式 dex_offset: opcodes |line_index info note
@@ -37,12 +65,15 @@ public class PrototypeStatement {
             //String的opcode为1a03
             //由于String本身可能包含换行,所以要额外处理
             if(ps.opcodes.startsWith("1a03")){
-                ps.isString = true;
+                PrototypeStatement ps_new = new PrototypeStatement_String();
+                ps_new.dex_offset = ps.dex_offset;
+                ps_new.opcodes = ps.opcodes;
+                ps = ps_new;
                 int len = src_statement.indexOf("\"");
                 while(true){
                     String src_tmp = src_statement.substring(len);
                     if(src_tmp.matches("\\\".+ // string@[0-9a-z]{4}$")){
-                        System.out.println("Here---------------------------------------------------");
+                        //System.out.println("Here---------------------------------------------------");
                         break;
                     }else{
                         i++;
@@ -58,9 +89,30 @@ public class PrototypeStatement {
                         .lastIndexOf("//"));
                 ps.note = src_statement.substring(src_statement
                         .lastIndexOf("//") + 3);
+            }else{
+                ps.info = src_statement.substring(index_1 + 6);
             }
-//            System.out.println(ps.line_index);
+            
+            //处理类型
+            if(ps.opcodes.startsWith(OpCode_List.Op_Goto)){
+                ps = new PrototypeStatement_Goto(ps);
+            }
+            if(ps.opcodes.startsWith(OpCode_List.Op_Return_Void)){
+                ps = new PrototypeStatement_ReturnVoid(ps.line_index);
+            }
+            ps_list.add(ps);
         }
         return ps_list;
+    }
+    
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder("/*");
+        sb.append(this.info);
+        if(this.info == null){
+            System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+dex_offset);
+        }
+        sb.append("*/");
+        return sb.toString();
     }
 }

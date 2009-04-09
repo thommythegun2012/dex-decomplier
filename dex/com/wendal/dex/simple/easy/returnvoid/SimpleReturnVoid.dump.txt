@@ -1,0 +1,69 @@
+Processing 'SimpleReturnVoid.dex'...
+Opened 'SimpleReturnVoid.dex', DEX version '035'
+Class #0            -
+  Class descriptor  : 'Lcom/wendal/dex/simple/easy/returnvoid/SimpleReturnVoid;'
+  Access flags      : 0x0001 (PUBLIC)
+  Superclass        : 'Ljava/lang/Object;'
+  Interfaces        -
+  Static fields     -
+  Instance fields   -
+  Direct methods    -
+    #0              : (in Lcom/wendal/dex/simple/easy/returnvoid/SimpleReturnVoid;)
+      name          : '<init>'
+      type          : '()V'
+      access        : 0x10001 (PUBLIC CONSTRUCTOR)
+      code          -
+      registers     : 1
+      ins           : 1
+      outs          : 1
+      insns size    : 4 16-bit code units
+000128:                                        |[000128] com.wendal.dex.simple.easy.returnvoid.SimpleReturnVoid.<init>:()V
+000138: 7010 0300 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@0003
+00013e: 0e00                                   |0003: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=3
+      locals        : 
+        0x0000 - 0x0004 reg=0 this Lcom/wendal/dex/simple/easy/returnvoid/SimpleReturnVoid; 
+
+  Virtual methods   -
+    #0              : (in Lcom/wendal/dex/simple/easy/returnvoid/SimpleReturnVoid;)
+      name          : 'getA'
+      type          : '(I)V'
+      access        : 0x0000 ()
+      code          -
+      registers     : 6
+      ins           : 2
+      outs          : 2
+      insns size    : 23 16-bit code units
+000140:                                        |[000140] com.wendal.dex.simple.easy.returnvoid.SimpleReturnVoid.getA:(I)V
+000150: 1211                                   |0000: const/4 v1, #int 1 // #1
+000152: d801 0101                              |0001: add-int/lit8 v1, v1, #int 1 // #01
+000156: 1300 6400                              |0003: const/16 v0, #int 100 // #64
+00015a: d801 0002                              |0005: add-int/lit8 v1, v0, #int 2 // #02
+00015e: 3351 0800                              |0007: if-ne v1, v5, 000f // +0008
+000162: 6202 0000                              |0009: sget-object v2, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+000166: 6e20 0200 5200                         |000b: invoke-virtual {v2, v5}, Ljava/io/PrintStream;.println:(I)V // method@0002
+00016c: 0e00                                   |000e: return-void
+00016e: 6202 0000                              |000f: sget-object v2, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+000172: d803 0066                              |0011: add-int/lit8 v3, v0, #int 102 // #66
+000176: 6e20 0200 3200                         |0013: invoke-virtual {v2, v3}, Ljava/io/PrintStream;.println:(I)V // method@0002
+00017c: 28f8                                   |0016: goto 000e // -0008
+      catches       : (none)
+      positions     : 
+        0x0000 line=6
+        0x0001 line=7
+        0x0003 line=8
+        0x0005 line=9
+        0x0007 line=10
+        0x0009 line=11
+        0x000e line=15
+        0x000f line=14
+      locals        : 
+        0x0005 - 0x0017 reg=0 b I 
+        0x0001 - 0x0017 reg=1 i I 
+        0x0000 - 0x0017 reg=4 this Lcom/wendal/dex/simple/easy/returnvoid/SimpleReturnVoid; 
+        0x0000 - 0x0017 reg=5 p I 
+
+  source_file_idx   : 6 (SimpleReturnVoid.java)
+

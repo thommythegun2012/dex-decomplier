@@ -1,0 +1,35 @@
+package com.wendal.java.dex.decomplier.javafile.model.statement;
+
+import com.wendal.java.dex.decomplier.javafile.model.PrototypeStatement;
+
+public class PrototypeStatement_Move extends PrototypeStatement {
+    
+    public boolean isWide;
+    
+    public boolean isObject;
+
+    public String var_a_name;
+    public String var_b_name;
+    
+    @Override
+    public void parse() {
+        super.parse();
+        
+        var_a_name = info.substring(info.indexOf(" ")+1 , info.indexOf(",")).trim();
+        var_b_name = info.substring(info.indexOf(",")+1).trim();
+        
+        if(info.indexOf("-wide") > -1){
+            isWide = true;
+        }
+        
+        if(info.indexOf("-object ") > -1){
+            isObject = true;
+        }
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() + "\nMove : "+var_a_name +" = " + var_b_name;
+    }
+
+}

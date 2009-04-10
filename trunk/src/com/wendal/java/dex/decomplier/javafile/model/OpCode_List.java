@@ -19,6 +19,9 @@ public class OpCode_List {
     public static final String Op_Return_Object = "11";
     public static final String Op_Return_V = "0f";
     public static final String Op_Return_Wide = "10";
+    
+
+    public static final String Op_CheckCase = "1f";
 
 
     public String Op_If_eq =  "32";

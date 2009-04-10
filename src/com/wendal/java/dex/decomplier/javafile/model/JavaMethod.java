@@ -8,8 +8,11 @@ import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatemen
 import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_Const;
 import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_Goto;
 import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_If;
+import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_Instance_Of;
 import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_Invoke_Direct;
 import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_Invoke_Static;
+import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_Move;
+import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_Move_Result;
 import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_ReturnX;
 import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_ReturnVoid;
 import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_Throw;
@@ -251,6 +254,34 @@ public class JavaMethod {
             //暂时使用Invoke_Direct处理Invoke_Interface
             if(ps.opcodes.startsWith(OpCode_List.Op_Invoke_Interface)){
                 ps_list.set(ps_list.lastIndexOf(ps), new PrototypeStatement_Invoke_Direct(ps));
+                continue;
+            }
+            
+            //处理Move-Result
+            if(ps.opcodes.startsWith(OpCode_List.Op_Move_Result) ||
+                    ps.opcodes.startsWith(OpCode_List.Op_Move_Result_Wide) ||
+                    ps.opcodes.startsWith(OpCode_List.Op_Move_Result_Object)){
+                ps_list.set(ps_list.lastIndexOf(ps), PrototypeStatement.convertTotype(ps, PrototypeStatement_Move_Result.class));
+                continue;
+            }
+            
+            //处理Move
+            if(ps.opcodes.startsWith(OpCode_List.Op_Move) ||
+                    ps.opcodes.startsWith(OpCode_List.Op_Move_from16) ||
+                    ps.opcodes.startsWith(OpCode_List.Op_Move_16) ||
+                    ps.opcodes.startsWith(OpCode_List.Op_Move_wide) ||
+                    ps.opcodes.startsWith(OpCode_List.Op_Move_wide_from16) ||
+                    ps.opcodes.startsWith(OpCode_List.Op_Move_wide_16) ||
+                    ps.opcodes.startsWith(OpCode_List.Op_Move_object) ||
+                    ps.opcodes.startsWith(OpCode_List.Op_Move_object_16) ||
+                    ps.opcodes.startsWith(OpCode_List.Op_Move_object_from16)){
+                ps_list.set(ps_list.lastIndexOf(ps), PrototypeStatement.convertTotype(ps, PrototypeStatement_Move.class));
+                continue;
+            }
+            
+            //处理instance of
+            if(ps.opcodes.startsWith(OpCode_List.Op_Instance_of)){
+                ps_list.set(ps_list.lastIndexOf(ps), PrototypeStatement.convertTotype(ps, PrototypeStatement_Instance_Of.class));
                 continue;
             }
             

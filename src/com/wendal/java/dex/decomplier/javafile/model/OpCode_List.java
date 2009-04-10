@@ -48,4 +48,23 @@ public class OpCode_List {
     public static final String Op_Conset_wide32 = "17";
     public static final String Op_Conset_wide = "18";
     public static final String Op_Conset_wide_high16 = "19";
+
+    public static final String Op_Move_Result = "0a";
+    public static final String Op_Move_Result_Wide = "0b";
+    public static final String Op_Move_Result_Object = "0c";
+    
+    
+
+    public static final String Op_Move = "01";
+    public static final String Op_Move_from16 = "02";
+    public static final String Op_Move_16 = "03";
+    public static final String Op_Move_wide = "04";
+    public static final String Op_Move_wide_from16 = "05";
+    public static final String Op_Move_wide_16 = "06";
+    public static final String Op_Move_object = "07";
+    public static final String Op_Move_object_from16 = "08";
+    public static final String Op_Move_object_16 = "09";
+    
+    public static final String Op_Instance_of = "20";
+    
 }

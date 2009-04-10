@@ -64,10 +64,10 @@ public class PrototypeStatement {
             
             //String的opcode为1a03
             //由于String本身可能包含换行,所以要额外处理
-            if(ps.opcodes.startsWith("1a03")){
-                PrototypeStatement ps_new = new PrototypeStatement_String();
-                ps_new.dex_offset = ps.dex_offset;
-                ps_new.opcodes = ps.opcodes;
+            if(ps.opcodes.startsWith("1a")){
+                PrototypeStatement ps_new = new PrototypeStatement_String(ps);
+//                ps_new.dex_offset = ps.dex_offset;
+//                ps_new.opcodes = ps.opcodes;
                 ps = ps_new;
                 int len = src_statement.indexOf("\"");
                 while(true){
@@ -80,17 +80,18 @@ public class PrototypeStatement {
                         src_statement+=opcode_src.get(i);
                     }
                 }
+                
             }
 
             ps.line_index = src_statement.substring(index_1 + 1, index_1 + 5);
 
             if (src_statement.lastIndexOf("//") > -1) {
                 ps.info = src_statement.substring(index_1 + 6, src_statement
-                        .lastIndexOf("//"));
+                        .lastIndexOf("//")).trim();
                 ps.note = src_statement.substring(src_statement
-                        .lastIndexOf("//") + 3);
+                        .lastIndexOf("//") + 3).trim();
             }else{
-                ps.info = src_statement.substring(index_1 + 6);
+                ps.info = src_statement.substring(index_1 + 6).trim();
             }
             
             //处理类型
@@ -99,6 +100,9 @@ public class PrototypeStatement {
             }
             if(ps.opcodes.startsWith(OpCode_List.Op_Return_Void)){
                 ps = new PrototypeStatement_ReturnVoid(ps.line_index);
+            }
+            if(ps instanceof PrototypeStatement_String){
+                ((PrototypeStatement_String) ps).parse();
             }
             ps_list.add(ps);
         }
@@ -114,5 +118,29 @@ public class PrototypeStatement {
         }
         sb.append("*/");
         return sb.toString();
+    }
+    
+    public static PrototypeStatement convertTotype(PrototypeStatement ps_src , Class<? extends PrototypeStatement> totype) {
+        try {
+            PrototypeStatement ps_new = totype.newInstance();
+            ps_new.dex_offset = ps_src.dex_offset;
+            ps_new.opcodes = ps_src.opcodes;
+            ps_new.info = ps_src.info.trim();
+            ps_new.line_index = ps_src.line_index;
+            ps_new.note = ps_src.note;
+            ps_new.parse();
+            return ps_new;
+        } catch (InstantiationException e) {
+            
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            
+            e.printStackTrace();
+        }
+        return null;
+    }
+    
+    public void parse() {
+        ;
     }
 }

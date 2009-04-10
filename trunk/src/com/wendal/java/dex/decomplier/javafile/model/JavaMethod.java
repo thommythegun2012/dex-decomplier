@@ -5,8 +5,12 @@ import java.util.ArrayList;
 import com.wendal.java.dex.decomplier.dexfile.model.Dex_Method;
 import com.wendal.java.dex.decomplier.dexfile.model.Dex_Method.LocalVar;
 import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_Goto;
+import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_If;
+import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_Invoke_Direct;
 import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_Invoke_Static;
+import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_ReturnX;
 import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_ReturnVoid;
+import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_Throw;
 import com.wendal.java.dex.decomplier.toolkit.String_Toolkit;
 
 public class JavaMethod {
@@ -189,7 +193,6 @@ public class JavaMethod {
         
         for (int i = 0;i < ps_list.size();i++) {
             PrototypeStatement ps = ps_list.get(i);
-            //处理 Invoke_Static
             
             if(ps instanceof PrototypeStatement_ReturnVoid){
                 continue;
@@ -198,13 +201,69 @@ public class JavaMethod {
             if(ps instanceof PrototypeStatement_Goto){
                 continue;
             }
-                
+
+            //处理Return-X
+            if(ps.opcodes.startsWith(OpCode_List.Op_Return_Object) ||
+                    ps.opcodes.startsWith(OpCode_List.Op_Return_V) ||
+                    ps.opcodes.startsWith(OpCode_List.Op_Return_Wide)){
+                ps_list.set(ps_list.lastIndexOf(ps), PrototypeStatement.convertTotype(ps, PrototypeStatement_ReturnX.class));
+                continue;
+            }
+            
+           
+            
+            
             if(ps.opcodes.startsWith(OpCode_List.Op_Invoke_Static)){
                 ps_list.set(ps_list.lastIndexOf(ps), new PrototypeStatement_Invoke_Static(ps));
+                continue;
+            }
+            
+            if(ps.opcodes.startsWith(OpCode_List.Op_Invoke_Direct)){
+                ps_list.set(ps_list.lastIndexOf(ps), new PrototypeStatement_Invoke_Direct(ps));
+                continue;
+            }
+            //暂时使用Invoke_Direct处理Invoke_Virtual
+            if(ps.opcodes.startsWith(OpCode_List.Op_Invoke_Virtual)){
+                ps_list.set(ps_list.lastIndexOf(ps), new PrototypeStatement_Invoke_Direct(ps));
+                continue;
+            }//暂时使用Invoke_Direct处理Invoke_Interface
+            if(ps.opcodes.startsWith(OpCode_List.Op_Invoke_Interface)){
+                ps_list.set(ps_list.lastIndexOf(ps), new PrototypeStatement_Invoke_Direct(ps));
+                continue;
+            }
+            
+            if(ps.opcodes.startsWith(OpCode_List.Op_Throw)){
+                ps_list.set(ps_list.lastIndexOf(ps), PrototypeStatement.convertTotype(ps, PrototypeStatement_Throw.class));
+                continue;
+            }
+            
+            //处理if
+            if(ps.opcodes.startsWith("3")){
+                String tmp_str = ps.opcodes.substring(0,2);
+                int op_int = Integer.parseInt(tmp_str, 16);
+                if(op_int >= 0x32 && op_int <= 0x3d){
+                    ps_list.set(ps_list.lastIndexOf(ps), new PrototypeStatement_If(ps));
+                    continue;
+                }
             }
         }
         
+        //寻找新建对象
+        if(this.name.equals("<init>")){
+            return;
+        }
         
+        int new_i = 0;
+        int init_i = 0;
+        for (int i = 0;i < ps_list.size();i++) {
+            PrototypeStatement ps = ps_list.get(i);
+            if(ps.opcodes == null) continue;
+            if(ps.opcodes.startsWith("22")) new_i++;
+            if(ps instanceof PrototypeStatement_Invoke_Direct){
+                if(((PrototypeStatement_Invoke_Direct) ps).method_name.equals("<init>")) init_i++;
+            }
+        }
+        System.out.println("----> "+new_i+"  -->"+init_i +"  Eq ?---->>>>" + (new_i == init_i));
     }
     
     

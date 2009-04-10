@@ -301,6 +301,18 @@ public class JavaMethod {
                 }
             }
             
+            //¥¶¿Ìsget
+            if(ps.opcodes.startsWith(OpCode_List.Op_sget) ||
+                    ps.opcodes.startsWith(OpCode_List.Op_sget_wide) ||
+                    ps.opcodes.startsWith(OpCode_List.Op_sget_object) ||
+                    ps.opcodes.startsWith(OpCode_List.Op_sget_short) ||
+                    ps.opcodes.startsWith(OpCode_List.Op_sget_boolean) ||
+                    ps.opcodes.startsWith(OpCode_List.op_sget_byte) ||
+                    ps.opcodes.startsWith(OpCode_List.Op_sget_char) ||
+                    ps.opcodes.startsWith(OpCode_List.Op_sget_char) ){
+                ps_list.set(ps_list.lastIndexOf(ps), PrototypeStatement.convertTotype(ps, PrototypeStatement_Move.class));
+                continue;
+            }
             
         }
         

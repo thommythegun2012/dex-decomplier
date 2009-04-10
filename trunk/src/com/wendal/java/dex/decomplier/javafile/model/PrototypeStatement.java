@@ -18,29 +18,29 @@ public class PrototypeStatement {
     
     //public boolean isString;
     
-    public int type = NORMAL;
-
-    public static final int NORMAL = 1000;
-    public static final int RETRUN_VOID = 2000;
-    public static final int RETRUN_OBJECT = 3000;
-    public static final int GOTO = 4000;
-    public static final int IF = 5000;
-    public static final int STRING = 6000;
+//    public int type = NORMAL;
+//
+//    public static final int NORMAL = 1000;
+//    public static final int RETRUN_VOID = 2000;
+//    public static final int RETRUN_OBJECT = 3000;
+//    public static final int GOTO = 4000;
+//    public static final int IF = 5000;
+//    public static final int STRING = 6000;
     
     protected PrototypeStatement(){}
     
-    /**
-     * 判断这段opcode的类型
-     */
-    public void parseType() {
-        if(opcodes.startsWith(OpCode_List.Op_Goto)){
-            this.type = GOTO;
-        }
-        if(opcodes.startsWith(OpCode_List.Op_Return_Void)){
-            this.type = RETRUN_VOID;
-        }
-
-    }
+//    /**
+//     * 判断这段opcode的类型
+//     */
+//    public void parseType() {
+//        if(opcodes.startsWith(OpCode_List.Op_Goto)){
+//            this.type = GOTO;
+//        }
+//        if(opcodes.startsWith(OpCode_List.Op_Return_Void)){
+//            this.type = RETRUN_VOID;
+//        }
+//
+//    }
 
     /**
      * 已知格式 dex_offset: opcodes |line_index info note
@@ -95,8 +95,9 @@ public class PrototypeStatement {
             }
             
             //处理类型
-            if(ps.opcodes.startsWith(OpCode_List.Op_Goto)){
-                ps = new PrototypeStatement_Goto(ps);
+            if(ps.opcodes.startsWith(OpCode_List.Op_Goto)
+                    || ps.opcodes.startsWith(OpCode_List.Op_Goto16)){
+                ps = PrototypeStatement.convertTotype(ps, PrototypeStatement_Goto.class);
             }
             if(ps.opcodes.startsWith(OpCode_List.Op_Return_Void)){
                 ps = new PrototypeStatement_ReturnVoid(ps.line_index);
@@ -111,7 +112,8 @@ public class PrototypeStatement {
     
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder("/*");
+        StringBuilder sb = new StringBuilder("/* ");
+        sb.append(line_index).append(" :  ");
         sb.append(this.info);
         if(this.info == null){
             System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+dex_offset);

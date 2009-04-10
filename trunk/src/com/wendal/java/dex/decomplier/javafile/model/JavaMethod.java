@@ -185,6 +185,8 @@ public class JavaMethod {
                         //替换成return-void
                         int index = ps_list.indexOf(ps);
                         ps_list.set(index, new PrototypeStatement_ReturnVoid(ps.line_index));
+                        
+//                        System.out.println("--->替换跳转return-void: " + ps_goto.line_index+" --> "+ps_goto.goto_line_index);
                         break;
                     }
                 }
@@ -248,22 +250,22 @@ public class JavaMethod {
             }
         }
         
-        //寻找新建对象
-        if(this.name.equals("<init>")){
-            return;
-        }
-        
-        int new_i = 0;
-        int init_i = 0;
-        for (int i = 0;i < ps_list.size();i++) {
-            PrototypeStatement ps = ps_list.get(i);
-            if(ps.opcodes == null) continue;
-            if(ps.opcodes.startsWith("22")) new_i++;
-            if(ps instanceof PrototypeStatement_Invoke_Direct){
-                if(((PrototypeStatement_Invoke_Direct) ps).method_name.equals("<init>")) init_i++;
-            }
-        }
-        System.out.println("----> "+new_i+"  -->"+init_i +"  Eq ?---->>>>" + (new_i == init_i));
+//        //寻找新建对象
+//        if(this.name.equals("<init>")){
+//            return;
+//        }
+//        
+//        int new_i = 0;
+//        int init_i = 0;
+//        for (int i = 0;i < ps_list.size();i++) {
+//            PrototypeStatement ps = ps_list.get(i);
+//            if(ps.opcodes == null) continue;
+//            if(ps.opcodes.startsWith("22")) new_i++;
+//            if(ps instanceof PrototypeStatement_Invoke_Direct){
+//                if(((PrototypeStatement_Invoke_Direct) ps).method_name.equals("<init>")) init_i++;
+//            }
+//        }
+//        System.out.println("----> "+new_i+"  -->"+init_i +"  Eq ?---->>>>" + (new_i == init_i));
     }
     
     

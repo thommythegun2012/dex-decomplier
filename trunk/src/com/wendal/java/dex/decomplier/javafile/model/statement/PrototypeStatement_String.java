@@ -5,7 +5,7 @@ import com.wendal.java.dex.decomplier.javafile.model.PrototypeStatement;
 public class PrototypeStatement_String extends PrototypeStatement {
     
     public PrototypeStatement_String(PrototypeStatement ps) {
-        this.type = STRING;
+//        this.type = STRING;
         this.info = ps.info;
         this.dex_offset = ps.dex_offset;
         this.note = ps.note;

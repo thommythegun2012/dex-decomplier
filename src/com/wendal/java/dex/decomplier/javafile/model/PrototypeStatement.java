@@ -118,7 +118,7 @@ public class PrototypeStatement {
         if(this.info == null){
             System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+dex_offset);
         }
-        sb.append("*/");
+        sb.append(" */");
         return sb.toString();
     }
     

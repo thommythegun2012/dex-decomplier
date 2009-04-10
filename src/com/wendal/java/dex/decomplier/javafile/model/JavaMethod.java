@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.wendal.java.dex.decomplier.dexfile.model.Dex_Method;
 import com.wendal.java.dex.decomplier.dexfile.model.Dex_Method.LocalVar;
+import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_Check_Cast;
 import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_Goto;
 import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_If;
 import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_Invoke_Direct;
@@ -212,7 +213,11 @@ public class JavaMethod {
                 continue;
             }
             
-           
+           //¥¶¿ÌCheckCase
+            if(ps.opcodes.startsWith(OpCode_List.Op_CheckCase)){
+                ps_list.set(ps_list.lastIndexOf(ps), PrototypeStatement.convertTotype(ps,PrototypeStatement_Check_Cast.class));
+                continue;
+            }
             
             
             if(ps.opcodes.startsWith(OpCode_List.Op_Invoke_Static)){

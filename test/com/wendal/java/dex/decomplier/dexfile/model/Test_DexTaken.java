@@ -16,6 +16,8 @@ public class Test_DexTaken {
     public void testGetDexClassList() throws IOException {
         String fileList [] = new String[]{
                 "dex/com/wendal/dex/simple/multi/xrace_v2.dump.txt"
+                ,
+                "dex/com/wendal/dex/simple/multi/rec.dump.txt"
                 , "dex/com/wendal/dex/simple/empty/EmptyClass.dump.txt"
                 ,"dex/com/wendal/dex/simple/empty/EmptyInterface.dump.txt"
                 ,"dex/com/wendal/dex/simple/empty/EmptyEnum.dump.txt"

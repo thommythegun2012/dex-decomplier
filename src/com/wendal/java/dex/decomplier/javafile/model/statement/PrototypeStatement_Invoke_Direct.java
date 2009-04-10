@@ -1,11 +1,12 @@
 package com.wendal.java.dex.decomplier.javafile.model.statement;
 
+import java.util.Arrays;
+
 import com.wendal.java.dex.decomplier.javafile.model.PrototypeStatement;
-import com.wendal.java.dex.decomplier.toolkit.String_Toolkit;
 
-public class PrototypeStatement_Invoke_Static extends PrototypeStatement {
-
-    public String class_name;
+public class PrototypeStatement_Invoke_Direct extends PrototypeStatement {
+    
+    public String object_var;
     
     public String method_name;
     
@@ -13,7 +14,7 @@ public class PrototypeStatement_Invoke_Static extends PrototypeStatement {
     
     public boolean hasRetrun = false;
     
-    public PrototypeStatement_Invoke_Static(PrototypeStatement ps) {
+    public PrototypeStatement_Invoke_Direct(PrototypeStatement ps) {
         this.dex_offset = ps.dex_offset;
         this.note = ps.note;
         this.info = ps.info;
@@ -25,9 +26,17 @@ public class PrototypeStatement_Invoke_Static extends PrototypeStatement {
             for (int i = 0; i < parameters.length; i++) {
                 parameters[i] = parameters[i].trim();
             }
+            //第一应该为object_var
+            object_var = parameters[0];
+//            System.out.println(parameters.length);
+            if(parameters.length > 1){
+                parameters = Arrays.copyOfRange(parameters, 1, parameters.length );
+            }else{
+                parameters = new String[]{};
+            }
             
-            String tmp_str = info.substring(info.indexOf(", L")+1, info.indexOf(";"));
-            class_name = String_Toolkit.parseSingleClassName(tmp_str);
+//            System.out.println(parameters.length);
+            
             
             method_name = info.substring(info.indexOf(".")+1, info.indexOf(":"));
             
@@ -38,14 +47,14 @@ public class PrototypeStatement_Invoke_Static extends PrototypeStatement {
             }
         }
     }
-    
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         
 //        sb.append(super.toString()).append("\n");
         
-        sb.append(class_name).append(".").append(method_name);
+        sb.append(object_var).append(".").append(method_name);
         sb.append("(");
         for (int i = 0; i < parameters.length; i++) {
             sb.append(parameters[i]);

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.wendal.java.dex.decomplier.dexfile.model.Dex_Method;
 import com.wendal.java.dex.decomplier.dexfile.model.Dex_Method.LocalVar;
 import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_Check_Cast;
+import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_Const;
 import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_Goto;
 import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_If;
 import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_Invoke_Direct;
@@ -219,6 +220,19 @@ public class JavaMethod {
                 continue;
             }
             
+            //处理Const
+            if(ps.opcodes.startsWith(OpCode_List.Op_Conset4) ||
+                    ps.opcodes.startsWith(OpCode_List.Op_Conset16) ||
+                    ps.opcodes.startsWith(OpCode_List.Op_Conset_V) ||
+                    ps.opcodes.startsWith(OpCode_List.Op_Conset_high16) ||
+                    ps.opcodes.startsWith(OpCode_List.Op_Conset_wide16) ||
+                    ps.opcodes.startsWith(OpCode_List.Op_Conset_wide32) ||
+                    ps.opcodes.startsWith(OpCode_List.Op_Conset_wide) ||
+                    ps.opcodes.startsWith(OpCode_List.Op_Conset_wide_high16)){
+                ps_list.set(ps_list.lastIndexOf(ps), PrototypeStatement.convertTotype(ps, PrototypeStatement_Const.class));
+                continue;
+            }
+            
             
             if(ps.opcodes.startsWith(OpCode_List.Op_Invoke_Static)){
                 ps_list.set(ps_list.lastIndexOf(ps), new PrototypeStatement_Invoke_Static(ps));
@@ -233,12 +247,14 @@ public class JavaMethod {
             if(ps.opcodes.startsWith(OpCode_List.Op_Invoke_Virtual)){
                 ps_list.set(ps_list.lastIndexOf(ps), new PrototypeStatement_Invoke_Direct(ps));
                 continue;
-            }//暂时使用Invoke_Direct处理Invoke_Interface
+            }
+            //暂时使用Invoke_Direct处理Invoke_Interface
             if(ps.opcodes.startsWith(OpCode_List.Op_Invoke_Interface)){
                 ps_list.set(ps_list.lastIndexOf(ps), new PrototypeStatement_Invoke_Direct(ps));
                 continue;
             }
             
+            //处理Throw
             if(ps.opcodes.startsWith(OpCode_List.Op_Throw)){
                 ps_list.set(ps_list.lastIndexOf(ps), PrototypeStatement.convertTotype(ps, PrototypeStatement_Throw.class));
                 continue;
@@ -253,6 +269,8 @@ public class JavaMethod {
                     continue;
                 }
             }
+            
+            
         }
         
 //        //寻找新建对象

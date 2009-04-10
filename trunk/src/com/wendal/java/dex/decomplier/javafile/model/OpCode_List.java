@@ -37,4 +37,15 @@ public class OpCode_List {
     public String Op_If_gez =  "3b";
     public String Op_If_gtz =  "3c";
     public String Op_If_lez =  "3d";
+    
+    
+
+    public static final String Op_Conset4 = "12";
+    public static final String Op_Conset16 = "13";
+    public static final String Op_Conset_V = "14";
+    public static final String Op_Conset_high16 = "15";
+    public static final String Op_Conset_wide16 = "16";
+    public static final String Op_Conset_wide32 = "17";
+    public static final String Op_Conset_wide = "18";
+    public static final String Op_Conset_wide_high16 = "19";
 }

@@ -66,5 +66,13 @@ public class OpCode_List {
     public static final String Op_Move_object_16 = "09";
     
     public static final String Op_Instance_of = "20";
+
+    public static final String Op_sget = "60";
+    public static final String Op_sget_wide = "61";
+    public static final String Op_sget_object = "62";
+    public static final String Op_sget_boolean = "63";
+    public static final String op_sget_byte = "64";
+    public static final String Op_sget_char = "65";
+    public static final String Op_sget_short = "66";
     
 }

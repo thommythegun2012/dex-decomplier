@@ -27,7 +27,7 @@ public class PrototypeStatement_Invoke_Static extends PrototypeStatement {
             }
             
             String tmp_str = info.substring(info.indexOf(", L")+1, info.indexOf(";"));
-            class_name = String_Toolkit.parseSingleClassName(tmp_str);
+            class_name = String_Toolkit.parseSingleClassName(tmp_str).replaceAll(";", "");
             
             method_name = info.substring(info.indexOf(".")+1, info.indexOf(":"));
             

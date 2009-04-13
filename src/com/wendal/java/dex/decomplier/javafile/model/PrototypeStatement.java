@@ -77,6 +77,7 @@ public class PrototypeStatement {
                         break;
                     }else{
                         i++;
+                        src_statement += "\n";
                         src_statement+=opcode_src.get(i);
                     }
                 }

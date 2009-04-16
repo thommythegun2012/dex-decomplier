@@ -16,31 +16,7 @@ public class PrototypeStatement {
 
     public String note;
     
-    //public boolean isString;
-    
-//    public int type = NORMAL;
-//
-//    public static final int NORMAL = 1000;
-//    public static final int RETRUN_VOID = 2000;
-//    public static final int RETRUN_OBJECT = 3000;
-//    public static final int GOTO = 4000;
-//    public static final int IF = 5000;
-//    public static final int STRING = 6000;
-    
     protected PrototypeStatement(){}
-    
-//    /**
-//     * 判断这段opcode的类型
-//     */
-//    public void parseType() {
-//        if(opcodes.startsWith(OpCode_List.Op_Goto)){
-//            this.type = GOTO;
-//        }
-//        if(opcodes.startsWith(OpCode_List.Op_Return_Void)){
-//            this.type = RETRUN_VOID;
-//        }
-//
-//    }
 
     /**
      * 已知格式 dex_offset: opcodes |line_index info note
@@ -70,18 +46,22 @@ public class PrototypeStatement {
 //                ps_new.opcodes = ps.opcodes;
                 ps = ps_new;
                 int len = src_statement.indexOf("\"");
+                int tag_i = i;
+                String src_tmp = src_statement.substring(len);
                 while(true){
-                    String src_tmp = src_statement.substring(len);
-                    if(src_tmp.matches("\\\".+ // string@[0-9a-z]{4}$")){
-                        //System.out.println("Here---------------------------------------------------");
+                    if(src_tmp.matches("\\\".*\\\" // string@[0-9a-z]{4}$")){
                         break;
                     }else{
-                        i++;
-                        src_statement += "\n";
+                        tag_i++;
+                        src_tmp+=opcode_src.get(tag_i);
+                    }
+                }
+                if(tag_i != i){
+                    for (; i < tag_i; i++) {
+                        src_statement+= "\n";
                         src_statement+=opcode_src.get(i);
                     }
                 }
-                
             }
 
             ps.line_index = src_statement.substring(index_1 + 1, index_1 + 5);

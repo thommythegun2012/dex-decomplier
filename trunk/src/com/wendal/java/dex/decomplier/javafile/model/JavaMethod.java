@@ -16,6 +16,7 @@ import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatemen
 import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_ReturnX;
 import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_ReturnVoid;
 import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_Throw;
+import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_new_instance;
 import com.wendal.java.dex.decomplier.toolkit.String_Toolkit;
 
 public class JavaMethod {
@@ -282,6 +283,12 @@ public class JavaMethod {
             //处理instance of
             if(ps.opcodes.startsWith(OpCode_List.Op_Instance_of)){
                 ps_list.set(ps_list.lastIndexOf(ps), PrototypeStatement.convertTotype(ps, PrototypeStatement_Instance_Of.class));
+                continue;
+            }
+            
+            //处理new_instance
+            if(ps.opcodes.startsWith(OpCode_List.Op_new_instance)){
+                ps_list.set(ps_list.lastIndexOf(ps), PrototypeStatement.convertTotype(ps, PrototypeStatement_new_instance.class));
                 continue;
             }
             

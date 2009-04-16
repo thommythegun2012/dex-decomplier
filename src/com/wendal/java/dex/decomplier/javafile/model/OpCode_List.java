@@ -75,4 +75,6 @@ public class OpCode_List {
     public static final String Op_sget_char = "65";
     public static final String Op_sget_short = "66";
     
+    
+    public static final String Op_new_instance = "22";
 }

@@ -13,10 +13,20 @@ import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatemen
 import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_Invoke_Static;
 import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_Move;
 import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_Move_Result;
-import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_ReturnX;
 import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_ReturnVoid;
+import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_ReturnX;
 import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_Throw;
+import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_aget;
+import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_aput;
+import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_array_length;
+import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_cmp;
+import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_iget;
+import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_iput;
+import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_new_array;
 import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_new_instance;
+import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_nop;
+import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_sget;
+import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_sput;
 import com.wendal.java.dex.decomplier.toolkit.String_Toolkit;
 
 public class JavaMethod {
@@ -252,8 +262,13 @@ public class JavaMethod {
                 ps_list.set(ps_list.lastIndexOf(ps), new PrototypeStatement_Invoke_Direct(ps));
                 continue;
             }
-            //暂时使用Invoke_Direct处理Invoke_Interface
+          //暂时使用Invoke_Direct处理Invoke_Interface
             if(ps.opcodes.startsWith(OpCode_List.Op_Invoke_Interface)){
+                ps_list.set(ps_list.lastIndexOf(ps), new PrototypeStatement_Invoke_Direct(ps));
+                continue;
+            }
+            //暂时使用Invoke_Direct处理Invoke_Super
+            if(ps.opcodes.startsWith(OpCode_List.Op_Invoke_Super)){
                 ps_list.set(ps_list.lastIndexOf(ps), new PrototypeStatement_Invoke_Direct(ps));
                 continue;
             }
@@ -316,12 +331,110 @@ public class JavaMethod {
                     ps.opcodes.startsWith(OpCode_List.Op_sget_boolean) ||
                     ps.opcodes.startsWith(OpCode_List.op_sget_byte) ||
                     ps.opcodes.startsWith(OpCode_List.Op_sget_char) ||
-                    ps.opcodes.startsWith(OpCode_List.Op_sget_char) ){
-                ps_list.set(ps_list.lastIndexOf(ps), PrototypeStatement.convertTotype(ps, PrototypeStatement_Move.class));
+                    ps.opcodes.startsWith(OpCode_List.Op_sget_short) ){
+                ps_list.set(ps_list.lastIndexOf(ps), PrototypeStatement.convertTotype(ps, PrototypeStatement_sget.class));
                 continue;
             }
             
+          //处理sput
+            if(ps.opcodes.startsWith(OpCode_List.Op_sput) ||
+                    ps.opcodes.startsWith(OpCode_List.Op_sput_wide) ||
+                    ps.opcodes.startsWith(OpCode_List.Op_sput_object) ||
+                    ps.opcodes.startsWith(OpCode_List.Op_sput_short) ||
+                    ps.opcodes.startsWith(OpCode_List.Op_sput_boolean) ||
+                    ps.opcodes.startsWith(OpCode_List.op_sput_byte) ||
+                    ps.opcodes.startsWith(OpCode_List.Op_sput_char) ||
+                    ps.opcodes.startsWith(OpCode_List.Op_sput_short) ){
+                ps_list.set(ps_list.lastIndexOf(ps), PrototypeStatement.convertTotype(ps, PrototypeStatement_sput.class));
+                continue;
+            }
+            
+          //处理iget
+            if(ps.opcodes.startsWith(OpCode_List.Op_iget) ||
+                    ps.opcodes.startsWith(OpCode_List.Op_iget_wide) ||
+                    ps.opcodes.startsWith(OpCode_List.Op_iget_object) ||
+                    ps.opcodes.startsWith(OpCode_List.Op_iget_short) ||
+                    ps.opcodes.startsWith(OpCode_List.Op_iget_boolean) ||
+                    ps.opcodes.startsWith(OpCode_List.op_iget_byte) ||
+                    ps.opcodes.startsWith(OpCode_List.Op_iget_char) ||
+                    ps.opcodes.startsWith(OpCode_List.Op_iget_short) ){
+                ps_list.set(ps_list.lastIndexOf(ps), PrototypeStatement.convertTotype(ps, PrototypeStatement_iget.class));
+                continue;
+            }
+            
+          //处理iput
+            if(ps.opcodes.startsWith(OpCode_List.Op_iput) ||
+                    ps.opcodes.startsWith(OpCode_List.Op_iput_wide) ||
+                    ps.opcodes.startsWith(OpCode_List.Op_iput_object) ||
+                    ps.opcodes.startsWith(OpCode_List.Op_iput_short) ||
+                    ps.opcodes.startsWith(OpCode_List.Op_iput_boolean) ||
+                    ps.opcodes.startsWith(OpCode_List.Op_iput_byte) ||
+                    ps.opcodes.startsWith(OpCode_List.Op_iput_char) ||
+                    ps.opcodes.startsWith(OpCode_List.Op_iput_short) ){
+                ps_list.set(ps_list.lastIndexOf(ps), PrototypeStatement.convertTotype(ps, PrototypeStatement_iput.class));
+                continue;
+            }
+            
+            
+          //处理aget
+            if(ps.opcodes.startsWith(OpCode_List.Op_aget) ||
+                    ps.opcodes.startsWith(OpCode_List.Op_aget_wide) ||
+                    ps.opcodes.startsWith(OpCode_List.Op_aget_object) ||
+                    ps.opcodes.startsWith(OpCode_List.Op_aget_short) ||
+                    ps.opcodes.startsWith(OpCode_List.Op_aget_boolean) ||
+                    ps.opcodes.startsWith(OpCode_List.op_aget_byte) ||
+                    ps.opcodes.startsWith(OpCode_List.Op_aget_char) ||
+                    ps.opcodes.startsWith(OpCode_List.Op_aget_short) ){
+                ps_list.set(ps_list.lastIndexOf(ps), PrototypeStatement.convertTotype(ps, PrototypeStatement_aget.class));
+                continue;
+            }
+            
+          //处理aput
+            if(ps.opcodes.startsWith(OpCode_List.Op_aput) ||
+                    ps.opcodes.startsWith(OpCode_List.Op_aput_wide) ||
+                    ps.opcodes.startsWith(OpCode_List.Op_aput_object) ||
+                    ps.opcodes.startsWith(OpCode_List.Op_aput_short) ||
+                    ps.opcodes.startsWith(OpCode_List.Op_aput_boolean) ||
+                    ps.opcodes.startsWith(OpCode_List.Op_aput_byte) ||
+                    ps.opcodes.startsWith(OpCode_List.Op_aput_char) ||
+                    ps.opcodes.startsWith(OpCode_List.Op_aput_short) ){
+                ps_list.set(ps_list.lastIndexOf(ps), PrototypeStatement.convertTotype(ps, PrototypeStatement_aput.class));
+                continue;
+            }
+            
+            //处理new array
+            if(ps.opcodes.startsWith(OpCode_List.Op_new_array)){
+                ps_list.set(ps_list.lastIndexOf(ps), PrototypeStatement.convertTotype(ps, PrototypeStatement_new_array.class));
+                continue;
+            }
+            
+            //处理cmp
+            if(ps.opcodes.startsWith(OpCode_List.Op_cmpl_float) ||
+                    ps.opcodes.startsWith(OpCode_List.Op_cmpg_float) ||
+                    ps.opcodes.startsWith(OpCode_List.Op_cmpl_double) ||
+                    ps.opcodes.startsWith(OpCode_List.Op_cmpg_double) ||
+                    ps.opcodes.startsWith(OpCode_List.Op_cmp_long) ){
+                ps_list.set(ps_list.lastIndexOf(ps), PrototypeStatement.convertTotype(ps, PrototypeStatement_cmp.class));
+                continue;
+            }
+            
+          //处理 array length
+            if(ps.opcodes.startsWith(OpCode_List.Op_array_length)){
+                ps_list.set(ps_list.lastIndexOf(ps), PrototypeStatement.convertTotype(ps, PrototypeStatement_array_length.class));
+                continue;
+            }
+            
+          //处理 array length
+            if(ps.opcodes.startsWith(OpCode_List.Op_nop)){
+                ps_list.set(ps_list.lastIndexOf(ps), PrototypeStatement.convertTotype(ps, PrototypeStatement_nop.class));
+                continue;
+            }
         }
+//        for (PrototypeStatement ps : ps_list) {
+//            if(ps.getClass().equals(PrototypeStatement.class)){
+//                System.out.println(ps);
+//            }
+//        }
         
 //        //寻找新建对象
 //        if(this.name.equals("<init>")){

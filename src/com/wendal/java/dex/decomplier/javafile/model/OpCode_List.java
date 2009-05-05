@@ -2,6 +2,8 @@ package com.wendal.java.dex.decomplier.javafile.model;
 
 public class OpCode_List {
 
+    public static final String Op_nop = "00";
+
     public static final String Op_Goto = "28";
     public static final String Op_Goto16 = "29";
 //    public static final String Op_Goto32 = "2a";
@@ -12,6 +14,7 @@ public class OpCode_List {
     public static final String Op_Invoke_Direct = "70";
     public static final String Op_Invoke_Virtual = "6e";
     public static final String Op_Invoke_Interface = "72";
+    public static final String Op_Invoke_Super = "6f";
     
 
     public static final String Op_Throw = "27";
@@ -66,6 +69,39 @@ public class OpCode_List {
     public static final String Op_Move_object_16 = "09";
     
     public static final String Op_Instance_of = "20";
+    
+    public static final String Op_aget = "44";
+    public static final String Op_aget_wide = "45";
+    public static final String Op_aget_object = "46";
+    public static final String Op_aget_boolean = "47";
+    public static final String op_aget_byte = "48";
+    public static final String Op_aget_char = "49";
+    public static final String Op_aget_short = "4a";
+    
+    public static final String Op_aput = "4b";
+    public static final String Op_aput_wide = "4c";
+    public static final String Op_aput_object = "4d";
+    public static final String Op_aput_boolean = "4e";
+    public static final String Op_aput_byte = "4f";
+    public static final String Op_aput_char = "50";
+    public static final String Op_aput_short = "51";
+    
+    
+    public static final String Op_iget = "52";
+    public static final String Op_iget_wide = "53";
+    public static final String Op_iget_object = "54";
+    public static final String Op_iget_boolean = "55";
+    public static final String op_iget_byte = "56";
+    public static final String Op_iget_char = "57";
+    public static final String Op_iget_short = "58";
+    
+    public static final String Op_iput = "59";
+    public static final String Op_iput_wide = "5a";
+    public static final String Op_iput_object = "5b";
+    public static final String Op_iput_boolean = "5c";
+    public static final String Op_iput_byte = "5d";
+    public static final String Op_iput_char = "5e";
+    public static final String Op_iput_short = "5f";
 
     public static final String Op_sget = "60";
     public static final String Op_sget_wide = "61";
@@ -75,6 +111,24 @@ public class OpCode_List {
     public static final String Op_sget_char = "65";
     public static final String Op_sget_short = "66";
     
+    public static final String Op_sput = "67";
+    public static final String Op_sput_wide = "68";
+    public static final String Op_sput_object = "69";
+    public static final String Op_sput_boolean = "6a";
+    public static final String op_sput_byte = "6b";
+    public static final String Op_sput_char = "6c";
+    public static final String Op_sput_short = "6d";
     
     public static final String Op_new_instance = "22";
+    
+    public static final String Op_new_array = "23";
+    
+    public static final String Op_array_length = "21";
+
+    public static final String Op_cmpl_float = "2d";
+    public static final String Op_cmpg_float = "2e";
+    public static final String Op_cmpl_double = "2f";
+    public static final String Op_cmpg_double = "30";
+    public static final String Op_cmp_long = "31";
+    
 }

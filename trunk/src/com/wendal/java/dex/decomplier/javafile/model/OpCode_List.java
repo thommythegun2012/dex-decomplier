@@ -26,6 +26,7 @@ import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatemen
 import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_binop_lit16;
 import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_cmp;
 import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_fill_array_data;
+import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_filled_new_array;
 import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_iget;
 import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_iput;
 import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_new_array;
@@ -165,8 +166,10 @@ public class OpCode_List {
     private static final String Op_sput_short = "6d";
     
     private static final String Op_new_instance = "22";
-    
+
     private static final String Op_new_array = "23";
+    private static final String Op_filled_new_array = "24";
+    private static final String Op_filled_new_array_range = "25";
     
     private static final String Op_array_length = "21";
 
@@ -422,6 +425,9 @@ public class OpCode_List {
         map.put(Op_new_instance, PrototypeStatement_new_instance.class);
 
         map.put(Op_new_array, PrototypeStatement_new_array.class);
+
+        map.put(Op_filled_new_array, PrototypeStatement_filled_new_array.class);
+        map.put(Op_filled_new_array_range, PrototypeStatement_filled_new_array.class);
         
         map.put(Op_array_length, PrototypeStatement_array_length.class);
 

@@ -10,6 +10,8 @@ import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatemen
 import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_Instance_Of;
 import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_Invoke_Direct;
 import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_Invoke_Static;
+import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_Monitor_enter;
+import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_Monitor_exit;
 import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_Move;
 import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_Move_Exception;
 import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_Move_Result;
@@ -281,6 +283,10 @@ public class OpCode_List {
     private static final String Op_shr_int_lit8 = "e1";
     private static final String Op_ushr_int_lit8 = "e2";
     
+
+    private static final String Op_monitor_enter = "1d";
+    private static final String Op_monitor_exit = "1e";
+    
     
     private static final HashMap<String, Class<? extends PrototypeStatement>> map = new HashMap<String, Class<? extends PrototypeStatement>>();
     
@@ -521,6 +527,9 @@ public class OpCode_List {
         map.put(Op_shl_int_lit8 , PrototypeStatement_binop_lit16.class);
         map.put(Op_shr_int_lit8 , PrototypeStatement_binop_lit16.class);
         map.put(Op_ushr_int_lit8 , PrototypeStatement_binop_lit16.class);
+
+        map.put(Op_monitor_enter, PrototypeStatement_Monitor_enter.class);
+        map.put(Op_monitor_exit, PrototypeStatement_Monitor_exit.class);
     }
     
     public static Class<? extends PrototypeStatement> getByOpcode(String op_pre){

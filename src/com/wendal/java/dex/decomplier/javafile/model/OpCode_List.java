@@ -50,6 +50,11 @@ public class OpCode_List {
     private static final String Op_Invoke_Interface = "72";
     private static final String Op_Invoke_Super = "6f";
     
+    private static final String Op_Invoke_Static_range = "77";
+    private static final String Op_Invoke_Direct_range = "76";
+    private static final String Op_Invoke_Virtual_range = "74";
+    private static final String Op_Invoke_Interface_range = "78";
+    private static final String Op_Invoke_Super_range = "75";
 
     private static final String Op_Throw = "27";
 
@@ -308,6 +313,12 @@ public class OpCode_List {
         map.put(Op_Invoke_Interface, PrototypeStatement_Invoke_Direct.class);
         map.put(Op_Invoke_Super, PrototypeStatement_Invoke_Direct.class);
         map.put(Op_Invoke_Virtual, PrototypeStatement_Invoke_Direct.class);
+        
+        map.put(Op_Invoke_Static_range, PrototypeStatement_Invoke_Static.class);
+        map.put(Op_Invoke_Direct_range, PrototypeStatement_Invoke_Direct.class);
+        map.put(Op_Invoke_Interface_range, PrototypeStatement_Invoke_Direct.class);
+        map.put(Op_Invoke_Super_range, PrototypeStatement_Invoke_Direct.class);
+        map.put(Op_Invoke_Virtual_range, PrototypeStatement_Invoke_Direct.class);
         
         map.put(Op_Throw, PrototypeStatement_Throw.class);
         

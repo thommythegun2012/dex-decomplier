@@ -6,12 +6,14 @@ import com.wendal.java.dex.decomplier.dexfile.model.Dex_Method;
 import com.wendal.java.dex.decomplier.dexfile.model.Dex_Method.LocalVar;
 import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_Check_Cast;
 import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_Const;
+import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_Const_class;
 import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_Goto;
 import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_If;
 import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_Instance_Of;
 import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_Invoke_Direct;
 import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_Invoke_Static;
 import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_Move;
+import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_Move_Exception;
 import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_Move_Result;
 import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_ReturnVoid;
 import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_ReturnX;
@@ -19,6 +21,9 @@ import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatemen
 import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_aget;
 import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_aput;
 import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_array_length;
+import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_binop;
+import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_binop_2addr;
+import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_binop_lit16;
 import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_cmp;
 import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_iget;
 import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_iput;
@@ -27,6 +32,7 @@ import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatemen
 import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_nop;
 import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_sget;
 import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_sput;
+import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_unop;
 import com.wendal.java.dex.decomplier.toolkit.String_Toolkit;
 
 public class JavaMethod {
@@ -200,7 +206,7 @@ public class JavaMethod {
                     if(string.equals(ps_goto.goto_line_index)){
                         //替换成return-void
                         int index = ps_list.indexOf(ps);
-                        ps_list.set(index, new PrototypeStatement_ReturnVoid(ps.line_index));
+                        ps_list.set(index, PrototypeStatement.convertTotype(ps, PrototypeStatement_ReturnVoid.class));
                         
 //                        System.out.println("--->替换跳转return-void: " + ps_goto.line_index+" --> "+ps_goto.goto_line_index);
                         break;
@@ -247,29 +253,23 @@ public class JavaMethod {
                 continue;
             }
             
+            if(ps.opcodes.startsWith(OpCode_List.Op_Conset_class)){
+                ps_list.set(ps_list.lastIndexOf(ps), PrototypeStatement.convertTotype(ps, PrototypeStatement_Const_class.class));
+                continue;
+            }
             
+            //处理invoke static
             if(ps.opcodes.startsWith(OpCode_List.Op_Invoke_Static)){
-                ps_list.set(ps_list.lastIndexOf(ps), new PrototypeStatement_Invoke_Static(ps));
+                ps_list.set(ps_list.lastIndexOf(ps), PrototypeStatement.convertTotype(ps, PrototypeStatement_Invoke_Static.class));
                 continue;
             }
             
-            if(ps.opcodes.startsWith(OpCode_List.Op_Invoke_Direct)){
-                ps_list.set(ps_list.lastIndexOf(ps), new PrototypeStatement_Invoke_Direct(ps));
-                continue;
-            }
-            //暂时使用Invoke_Direct处理Invoke_Virtual
-            if(ps.opcodes.startsWith(OpCode_List.Op_Invoke_Virtual)){
-                ps_list.set(ps_list.lastIndexOf(ps), new PrototypeStatement_Invoke_Direct(ps));
-                continue;
-            }
-          //暂时使用Invoke_Direct处理Invoke_Interface
-            if(ps.opcodes.startsWith(OpCode_List.Op_Invoke_Interface)){
-                ps_list.set(ps_list.lastIndexOf(ps), new PrototypeStatement_Invoke_Direct(ps));
-                continue;
-            }
-            //暂时使用Invoke_Direct处理Invoke_Super
-            if(ps.opcodes.startsWith(OpCode_List.Op_Invoke_Super)){
-                ps_list.set(ps_list.lastIndexOf(ps), new PrototypeStatement_Invoke_Direct(ps));
+            //处理invoke_kinds
+            if(ps.opcodes.startsWith(OpCode_List.Op_Invoke_Direct)
+                    || ps.opcodes.startsWith(OpCode_List.Op_Invoke_Virtual)
+                    || ps.opcodes.startsWith(OpCode_List.Op_Invoke_Interface)
+                    || ps.opcodes.startsWith(OpCode_List.Op_Invoke_Super)){
+                ps_list.set(ps_list.lastIndexOf(ps), PrototypeStatement.convertTotype(ps, PrototypeStatement_Invoke_Direct.class));
                 continue;
             }
             
@@ -278,6 +278,12 @@ public class JavaMethod {
                     ps.opcodes.startsWith(OpCode_List.Op_Move_Result_Wide) ||
                     ps.opcodes.startsWith(OpCode_List.Op_Move_Result_Object)){
                 ps_list.set(ps_list.lastIndexOf(ps), PrototypeStatement.convertTotype(ps, PrototypeStatement_Move_Result.class));
+                continue;
+            }
+            
+          //处理Move-Exception
+            if(ps.opcodes.startsWith(OpCode_List.Op_Move_Exception) ){
+                ps_list.set(ps_list.lastIndexOf(ps), PrototypeStatement.convertTotype(ps, PrototypeStatement_Move_Exception.class));
                 continue;
             }
             
@@ -429,12 +435,47 @@ public class JavaMethod {
                 ps_list.set(ps_list.lastIndexOf(ps), PrototypeStatement.convertTotype(ps, PrototypeStatement_nop.class));
                 continue;
             }
+            
+            //处理unop\
+            {
+            int op_int = Integer.parseInt(ps.opcodes.substring(0, 2), 16);
+                if(op_int >= 0x7b && op_int <= 0x8f){
+                    ps_list.set(ps_list.lastIndexOf(ps), PrototypeStatement.convertTotype(ps, PrototypeStatement_unop.class));
+                    continue;
+            }
+            }
+            {
+            //处理binop
+            int op_int = Integer.parseInt(ps.opcodes.substring(0, 2), 16);
+                if(op_int >= 0x90 && op_int <= 0xaf){
+                    ps_list.set(ps_list.lastIndexOf(ps), PrototypeStatement.convertTotype(ps, PrototypeStatement_binop.class));
+                    continue;
+                }
+            }
+            {
+            //处理binnop_2addr
+            int op_int = Integer.parseInt(ps.opcodes.substring(0, 2), 16);
+                if(op_int >= 0xb0 && op_int <= 0xcf){
+                    ps_list.set(ps_list.lastIndexOf(ps), PrototypeStatement.convertTotype(ps, PrototypeStatement_binop_2addr.class));
+                    continue;
+                }
+            }
+            
+            {
+            //处理binop_lit16 binop_lit8
+              int op_int = Integer.parseInt(ps.opcodes.substring(0, 2), 16);
+                 if(op_int >= 0xd0 && op_int <= 0xe2){
+                        ps_list.set(ps_list.lastIndexOf(ps), PrototypeStatement.convertTotype(ps, PrototypeStatement_binop_lit16.class));
+                        continue;
+                 }
+            }
+            
         }
-//        for (PrototypeStatement ps : ps_list) {
-//            if(ps.getClass().equals(PrototypeStatement.class)){
-//                System.out.println(ps);
-//            }
-//        }
+        for (PrototypeStatement ps : ps_list) {
+            if(ps.getClass().equals(PrototypeStatement.class)){
+                System.err.println(ps);
+            }
+        }
         
 //        //寻找新建对象
 //        if(this.name.equals("<init>")){

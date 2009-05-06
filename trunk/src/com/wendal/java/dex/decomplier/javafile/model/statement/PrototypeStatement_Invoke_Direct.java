@@ -14,40 +14,39 @@ public class PrototypeStatement_Invoke_Direct extends PrototypeStatement {
     
     public boolean hasRetrun = false;
     
-    public PrototypeStatement_Invoke_Direct(PrototypeStatement ps) {
-        this.dex_offset = ps.dex_offset;
-        this.note = ps.note;
-        this.info = ps.info;
-        this.opcodes = ps.opcodes.trim();
+    public PrototypeStatement_Invoke_Direct() {
         
-        {
-            String tmp = info.substring(info.indexOf("{") + 1, info.indexOf("}"));
-            parameters = tmp.split(",");
-            for (int i = 0; i < parameters.length; i++) {
-                parameters[i] = parameters[i].trim();
-            }
-            //第一应该为object_var
-            object_var = parameters[0];
-//            System.out.println(parameters.length);
-            if(parameters.length > 1){
-                parameters = Arrays.copyOfRange(parameters, 1, parameters.length );
-            }else{
-                parameters = new String[]{};
-            }
-            
-//            System.out.println(parameters.length);
-            
-            
-            method_name = info.substring(info.indexOf(".")+1, info.indexOf(":"));
-            
-            if(info.trim().endsWith(")V")){
-                hasRetrun = false;
-            }else{
-                hasRetrun = true;
-            }
-        }
     }
 
+    @Override
+    public void parse() {
+        super.parse();
+        String tmp = info.substring(info.indexOf("{") + 1, info.indexOf("}"));
+        parameters = tmp.split(",");
+        for (int i = 0; i < parameters.length; i++) {
+            parameters[i] = parameters[i].trim();
+        }
+        //第一应该为object_var
+        object_var = parameters[0];
+//        System.out.println(parameters.length);
+        if(parameters.length > 1){
+            parameters = Arrays.copyOfRange(parameters, 1, parameters.length );
+        }else{
+            parameters = new String[]{};
+        }
+        
+//        System.out.println(parameters.length);
+        
+        
+        method_name = info.substring(info.indexOf(".")+1, info.indexOf(":"));
+        
+        if(info.trim().endsWith(")V")){
+            hasRetrun = false;
+        }else{
+            hasRetrun = true;
+        }
+    }
+    
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();

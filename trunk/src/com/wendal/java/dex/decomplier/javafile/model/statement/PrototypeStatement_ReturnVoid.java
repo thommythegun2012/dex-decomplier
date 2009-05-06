@@ -8,6 +8,9 @@ public class PrototypeStatement_ReturnVoid extends PrototypeStatement {
 //        this.type = PrototypeStatement.RETRUN_VOID;
         this.line_index = line_index;
     }
+    
+    public PrototypeStatement_ReturnVoid() {
+    }
 
     @Override
     public String toString() {

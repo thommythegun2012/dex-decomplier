@@ -13,29 +13,28 @@ public class PrototypeStatement_Invoke_Static extends PrototypeStatement {
     
     public boolean hasRetrun = false;
     
-    public PrototypeStatement_Invoke_Static(PrototypeStatement ps) {
-        this.dex_offset = ps.dex_offset;
-        this.note = ps.note;
-        this.info = ps.info;
-        this.opcodes = ps.opcodes.trim();
+    public PrototypeStatement_Invoke_Static() {
         
-        {
-            String tmp = info.substring(info.indexOf("{") + 1, info.indexOf("}"));
-            parameters = tmp.split(",");
-            for (int i = 0; i < parameters.length; i++) {
-                parameters[i] = parameters[i].trim();
-            }
-            
-            String tmp_str = info.substring(info.indexOf(", L")+1, info.indexOf(";"));
-            class_name = String_Toolkit.parseSingleClassName(tmp_str).replaceAll(";", "");
-            
-            method_name = info.substring(info.indexOf(".")+1, info.indexOf(":"));
-            
-            if(info.trim().endsWith(")V")){
-                hasRetrun = false;
-            }else{
-                hasRetrun = true;
-            }
+    }
+    
+    @Override
+    public void parse() {
+        super.parse();
+        String tmp = info.substring(info.indexOf("{") + 1, info.indexOf("}"));
+        parameters = tmp.split(",");
+        for (int i = 0; i < parameters.length; i++) {
+            parameters[i] = parameters[i].trim();
+        }
+        
+        String tmp_str = info.substring(info.indexOf(", L")+1, info.indexOf(";"));
+        class_name = String_Toolkit.parseSingleClassName(tmp_str).replaceAll(";", "");
+        
+        method_name = info.substring(info.indexOf(".")+1, info.indexOf(":"));
+        
+        if(info.trim().endsWith(")V")){
+            hasRetrun = false;
+        }else{
+            hasRetrun = true;
         }
     }
     

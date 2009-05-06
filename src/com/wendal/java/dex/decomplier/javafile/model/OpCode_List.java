@@ -32,7 +32,9 @@ import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatemen
 import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_new_array;
 import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_new_instance;
 import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_nop;
+import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_packed_switch;
 import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_sget;
+import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_sparse_switch;
 import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_sput;
 import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_unop;
 
@@ -45,6 +47,9 @@ public class OpCode_List {
 //    private static final String Op_Goto32 = "2a";
     
     public static final String Op_Return_Void = "0e";
+
+    private static final String Op_packed_switch = "2b";
+    private static final String Op_sparse_switch = "2c";
 
     private static final String Op_Invoke_Static = "71";
     private static final String Op_Invoke_Direct = "70";
@@ -553,6 +558,8 @@ public class OpCode_List {
         
         map.put(Op_fill_array_data, PrototypeStatement_fill_array_data.class);
         
+        map.put(Op_packed_switch, PrototypeStatement_packed_switch.class);
+        map.put(Op_sparse_switch, PrototypeStatement_sparse_switch.class);
         
     }
     

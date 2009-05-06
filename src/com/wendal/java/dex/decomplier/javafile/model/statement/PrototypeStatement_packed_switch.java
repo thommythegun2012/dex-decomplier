@@ -2,7 +2,8 @@ package com.wendal.java.dex.decomplier.javafile.model.statement;
 
 import com.wendal.java.dex.decomplier.javafile.model.PrototypeStatement;
 
-public class PrototypeStatement_fill_array_data extends PrototypeStatement {
+public class PrototypeStatement_packed_switch extends PrototypeStatement {
+
     public String vx_name;
     
     public String data_offset;
@@ -19,6 +20,6 @@ public class PrototypeStatement_fill_array_data extends PrototypeStatement {
 
     @Override
     public String toString() {
-        return super.toString() + "\n/* fill data from line_offset " + data_offset + " into "+ vx_name+" /*";
+        return super.toString() + "\n/* get switch data from line_offset " + data_offset + " into "+ vx_name+" /*";
     }
 }

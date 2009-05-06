@@ -208,7 +208,7 @@ public class JavaMethod {
         }
         for (PrototypeStatement ps : ps_list) {
             if(ps.getClass().equals(PrototypeStatement.class)){
-                System.err.println(ps);
+                throw new RuntimeException("Some unknown opcode found!");
             }
         }
         

@@ -16,13 +16,8 @@ public class PrototypeStatement_If extends PrototypeStatement {
     public String If_gt =  "if-gt";
     public String If_le =  "if-le";
     
-    public PrototypeStatement_If(PrototypeStatement ps) {
-        this.info = ps.info.trim();
-        this.line_index = ps.line_index;
-        this.note = ps.note;
-        this.opcodes = ps.opcodes.trim();
+    public PrototypeStatement_If() {
         
-        parse();
     }
     
     public String jump_to ;

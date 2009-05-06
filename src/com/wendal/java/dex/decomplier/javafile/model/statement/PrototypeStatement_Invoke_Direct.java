@@ -1,3 +1,11 @@
+//:~
+/**
+ * $Id: $
+ * 
+ * @author $Author: $
+ * @version $revision: $
+ * 
+ */
 package com.wendal.java.dex.decomplier.javafile.model.statement;
 
 import java.util.Arrays;

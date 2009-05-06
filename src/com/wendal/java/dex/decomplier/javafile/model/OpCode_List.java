@@ -27,19 +27,19 @@ public class OpCode_List {
     public static final String Op_CheckCase = "1f";
 
 
-    public String Op_If_eq =  "32";
-    public String Op_If_ne =  "33";
-    public String Op_If_lt =  "34";
-    public String Op_If_ge =  "35";
-    public String Op_If_gt =  "36";
-    public String Op_If_le =  "37";
+    public static final String Op_If_eq =  "32";
+    public static final String Op_If_ne =  "33";
+    public static final String Op_If_lt =  "34";
+    public static final String Op_If_ge =  "35";
+    public static final String Op_If_gt =  "36";
+    public static final String Op_If_le =  "37";
     
-    public String Op_If_eqz =  "38";
-    public String Op_If_nez =  "39";
-    public String Op_If_ltz =  "3a";
-    public String Op_If_gez =  "3b";
-    public String Op_If_gtz =  "3c";
-    public String Op_If_lez =  "3d";
+    public static final String Op_If_eqz =  "38";
+    public static final String Op_If_nez =  "39";
+    public static final String Op_If_ltz =  "3a";
+    public static final String Op_If_gez =  "3b";
+    public static final String Op_If_gtz =  "3c";
+    public static final String Op_If_lez =  "3d";
     
     
 
@@ -51,6 +51,9 @@ public class OpCode_List {
     public static final String Op_Conset_wide32 = "17";
     public static final String Op_Conset_wide = "18";
     public static final String Op_Conset_wide_high16 = "19";
+
+    public static final String Op_Conset_class = "1c";
+    
 
     public static final String Op_Move_Result = "0a";
     public static final String Op_Move_Result_Wide = "0b";
@@ -67,6 +70,8 @@ public class OpCode_List {
     public static final String Op_Move_object = "07";
     public static final String Op_Move_object_from16 = "08";
     public static final String Op_Move_object_16 = "09";
+    
+    public static final String Op_Move_Exception = "0d";
     
     public static final String Op_Instance_of = "20";
     
@@ -131,4 +136,116 @@ public class OpCode_List {
     public static final String Op_cmpg_double = "30";
     public static final String Op_cmp_long = "31";
     
+
+    public static final String Op_neg_int = "7b";
+    public static final String Op_not_int = "7c";
+    public static final String Op_neg_long = "7d";
+    public static final String Op_not_long = "7e";
+    public static final String Op_neg_float = "7f";
+    public static final String Op_neg_double = "80";
+    public static final String Op_int_to_long = "81";
+    public static final String Op_int_to_float = "82";
+    public static final String Op_int_to_double = "83";
+    public static final String Op_long_to_int = "84";
+    public static final String Op_long_to_float = "85";
+    public static final String Op_long_to_double = "86";
+    public static final String Op_float_to_int = "87";
+    public static final String Op_float_to_long = "88";
+    public static final String Op_float_to_double = "89";
+    public static final String Op_double_to_int = "8a";
+    public static final String Op_double_to_long = "8b";
+    public static final String Op_double_to_float = "8c";
+    public static final String Op_int_to_byte = "8d";
+    public static final String Op_int_to_char = "8e";
+    public static final String Op_int_to_short = "8f";
+    
+
+    public static final String Op_add_int = "90";
+    public static final String Op_sub_int = "91";
+    public static final String Op_mul_int = "92";
+    public static final String Op_div_int = "93";
+    public static final String Op_rem_int = "94";
+    public static final String Op_and_int = "95";
+    public static final String Op_or_int = "96";
+    public static final String Op_xor_int = "97";
+    public static final String Op_shl_int = "98";
+    public static final String Op_shr_int = "99";
+    public static final String Op_ushr_int = "9a";
+    public static final String Op_add_long = "9b";
+    public static final String Op_sub_long = "9c";
+    public static final String Op_mul_long = "9d";
+    public static final String Op_div_long = "9e";
+    public static final String Op_rem_long = "9f";
+    public static final String Op_and_long = "a0";
+    public static final String Op_or_long = "a1";
+    public static final String Op_xor_long = "a2";
+    public static final String Op_shl_long = "a3";
+    public static final String Op_shr_long = "a4";
+    public static final String Op_ushr_long = "a5";
+    public static final String Op_add_float = "a6";
+    public static final String Op_sub_float = "a7";
+    public static final String Op_mul_float = "a8";
+    public static final String Op_div_float = "a9";
+    public static final String Op_rem_float = "aa";
+    public static final String Op_add_double = "ab";
+    public static final String Op_sub_double = "ac";
+    public static final String Op_mul_double = "ad";
+    public static final String Op_div_double = "ae";
+    public static final String Op_rem_double = "af";
+    
+    
+    public static final String Op_add_int_2addr = "b0";
+    public static final String Op_sub_int_2addr = "b1";
+    public static final String Op_mul_int_2addr = "b2";
+    public static final String Op_div_int_2addr = "b3";
+    public static final String Op_rem_int_2addr = "b4";
+    public static final String Op_and_int_2addr = "b5";
+    public static final String Op_or_int_2addr = "b6";
+    public static final String Op_xor_int_2addr = "b7";
+    public static final String Op_shl_int_2addr = "b8";
+    public static final String Op_shr_int_2addr = "b9";
+    public static final String Op_ushr_int_2addr = "ba";
+    public static final String Op_add_long_2addr = "bb";
+    public static final String Op_sub_long_2addr = "bc";
+    public static final String Op_mul_long_2addr = "bd";
+    public static final String Op_div_long_2addr = "be";
+    public static final String Op_rem_long_2addr = "bf";
+    public static final String Op_and_long_2addr = "c0";
+    public static final String Op_or_long_2addr = "c1";
+    public static final String Op_xor_long_2addr = "c2";
+    public static final String Op_shl_long_2addr = "c3";
+    public static final String Op_shr_long_2addr = "c4";
+    public static final String Op_ushr_long_2addr = "c5";
+    public static final String Op_add_float_2addr = "c6";
+    public static final String Op_sub_float_2addr = "c7";
+    public static final String Op_mul_float_2addr = "c8";
+    public static final String Op_div_float_2addr = "c9";
+    public static final String Op_rem_float_2addr = "ca";
+    public static final String Op_add_double_2addr = "cb";
+    public static final String Op_sub_double_2addr = "cc";
+    public static final String Op_mul_double_2addr = "cd";
+    public static final String Op_div_double_2addr = "ce";
+    public static final String Op_rem_double_2addr = "cf";
+    
+
+    public static final String Op_add_int_lit16 = "d0";
+    public static final String Op_rsub_int = "d1";
+    public static final String Op_mul_int_lit16 = "d2";
+    public static final String Op_div_int_lit16 = "d3";
+    public static final String Op_rem_int_lit16 = "d4";
+    public static final String Op_and_int_lit16 = "d5";
+    public static final String Op_or_int_lit16 = "d6";
+    public static final String Op_xor_int_lit16  = "d7";
+
+    public static final String Op_add_int_lit8 = "d8";
+    public static final String Op_rsub_int_lit8 = "d9";
+    public static final String Op_mul_int_lit8 = "da";
+    public static final String Op_div_int_lit8 = "db";
+    public static final String Op_rem_int_lit8 = "dc";
+    public static final String Op_and_int_lit8 = "dd";
+    public static final String Op_or_int_lit8 = "de";
+    public static final String Op_xor_int_lit8 = "df";
+    public static final String Op_shl_int_lit8 = "e0";
+    public static final String Op_shr_int_lit8 = "e1";
+    public static final String Op_ushr_int_lit8 = "e2";
 }

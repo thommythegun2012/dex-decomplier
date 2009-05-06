@@ -25,6 +25,7 @@ import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatemen
 import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_binop_2addr;
 import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_binop_lit16;
 import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_cmp;
+import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_fill_array_data;
 import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_iget;
 import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_iput;
 import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_new_array;
@@ -291,6 +292,8 @@ public class OpCode_List {
 
     private static final String Op_monitor_enter = "1d";
     private static final String Op_monitor_exit = "1e";
+
+    private static final String Op_fill_array_data = "26";
     
     
     private static final HashMap<String, Class<? extends PrototypeStatement>> map = new HashMap<String, Class<? extends PrototypeStatement>>();
@@ -541,6 +544,10 @@ public class OpCode_List {
 
         map.put(Op_monitor_enter, PrototypeStatement_Monitor_enter.class);
         map.put(Op_monitor_exit, PrototypeStatement_Monitor_exit.class);
+        
+        map.put(Op_fill_array_data, PrototypeStatement_fill_array_data.class);
+        
+        
     }
     
     public static Class<? extends PrototypeStatement> getByOpcode(String op_pre){

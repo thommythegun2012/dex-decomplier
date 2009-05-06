@@ -17,7 +17,7 @@ public class PrototypeStatement_binop_lit16 extends PrototypeStatement {
 
         vx_name = info.substring(info.indexOf(" ")+1 , info.indexOf(","));
         
-        vy_name = info.substring(info.indexOf(",")+1 , info.indexOf("#"));
+        vy_name = info.substring(info.indexOf(",")+1 , info.indexOf(", #"));
         
         vz_value = info.substring(info.lastIndexOf(" ")+1);
         

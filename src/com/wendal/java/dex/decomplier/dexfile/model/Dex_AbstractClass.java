@@ -1,8 +1,8 @@
 //:~
 /**
- * $Id: $
+ * $Id$
  * 
- * @author $Author: $
+ * @author $Author$
  * @version $revision: $
  * 
  */

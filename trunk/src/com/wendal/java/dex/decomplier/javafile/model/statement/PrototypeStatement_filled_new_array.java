@@ -4,7 +4,7 @@ import com.wendal.java.dex.decomplier.javafile.model.PrototypeStatement;
 import com.wendal.java.dex.decomplier.toolkit.String_Toolkit;
 
 public class PrototypeStatement_filled_new_array extends PrototypeStatement {
-public String [] v_data;
+    public String [] v_data;
     
     public String vx_type;
 

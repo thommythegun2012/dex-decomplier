@@ -1,3 +1,11 @@
+//:~
+/**
+ * $Id: $
+ * 
+ * @author $Author: $
+ * @version $revision: $
+ * 
+ */
 package com.wendal.java.dex.decomplier.dexfile.model;
 
 import com.wendal.java.dex.decomplier.toolkit.String_Toolkit;

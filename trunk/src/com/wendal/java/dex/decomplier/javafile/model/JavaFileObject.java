@@ -1,9 +1,9 @@
 //:~
 /**
- * $Id: $
+ * $Id$
  * 
- * @author $Author: $
- * @version $revision: $
+ * $LastChangedBy$
+ * @version $Revision$
  * 
  */
 package com.wendal.java.dex.decomplier.javafile.model;

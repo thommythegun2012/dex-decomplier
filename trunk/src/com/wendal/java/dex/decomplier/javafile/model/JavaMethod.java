@@ -23,9 +23,9 @@
 package com.wendal.java.dex.decomplier.javafile.model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.wendal.java.dex.decomplier.dexfile.model.Dex_Method;
-import com.wendal.java.dex.decomplier.dexfile.model.Dex_Method.LocalVar;
 import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_Goto;
 import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_ReturnVoid;
 import com.wendal.java.dex.decomplier.toolkit.String_Toolkit;
@@ -50,7 +50,7 @@ public class JavaMethod {
 
     public String return_value = "void";
 
-    public ArrayList<String> parameter_list = new ArrayList<String>();
+    public List<String> parameter_list = new ArrayList<String>();
 
     public ArrayList<String> src_code = new ArrayList<String>(100);
 
@@ -79,8 +79,10 @@ public class JavaMethod {
             sb.append("(");
             for (int i = parameter_list.size() - 1; i > -1; i--) {
                 sb.append(parameter_list.get(i));
+                sb.append(" ");
+                
                 if (i > 0) {
-                    sb.append(" ,");
+                    sb.append(",");
                 }
             }
             sb.append(")");
@@ -159,21 +161,7 @@ public class JavaMethod {
             } else {
                 // System.out.println("------------------------->>> "+
                 // tmp_type);
-                ArrayList<LocalVar> cv_list = this.dex_method.getLocals_list();
-                String tmp_str = "";
-                int count_parameter = 0;
-                for (int i = cv_list.size() - 1; i > -1; i--) {
-                    tmp_str = cv_list.get(i).src_name + tmp_str;
-                    count_parameter++;
-                    String parameter_type = String_Toolkit.parseType(
-                            cv_list.get(i).type).replaceAll(";", "");
-                    String parameter = parameter_type + " "
-                            + cv_list.get(i).name;
-                    parameter_list.add(parameter);
-                    if (tmp_str.equals(tmp_type)) {
-                        break;
-                    }
-                }
+                parameter_list = String_Toolkit.parseParameterList(tmp_type);
             }
         }
         parseOpcode();
@@ -228,13 +216,10 @@ public class JavaMethod {
             }
             
         }
-        for (PrototypeStatement ps : ps_list) {
-            if(ps.getClass().equals(PrototypeStatement.class)){
-                throw new RuntimeException("Some unknown opcode found!");
-            }
-        }
-        
+//        for (PrototypeStatement ps : ps_list) {
+//            if(ps.getClass().equals(PrototypeStatement.class)){
+//                throw new RuntimeException("Some unknown opcode found!");
+//            }
+//        }
     }
-    
-    
 }

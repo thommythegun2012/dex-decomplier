@@ -22,6 +22,9 @@
  */
 package com.wendal.java.dex.decomplier.toolkit;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public final class String_Toolkit {
 
     public static String parseType(String src) {
@@ -64,6 +67,62 @@ public final class String_Toolkit {
 
         // System.out.println(tmp);
         return tmp;
+    }
+    
+    public static List<String> parseParameterList(String p_str) {
+        List<String> list = new ArrayList<String>();
+        
+        String [] p_tmps = p_str.split(";");
+        for (String p_tmp : p_tmps) {
+            String current_p = "";
+            String current_p_tmp = p_tmp;
+            while(current_p_tmp.length() > 0){
+                
+                if(current_p_tmp.startsWith("L")){
+                    current_p = current_p_tmp.substring(1).replaceAll("/", ".") + current_p;
+                    list.add(current_p);
+                    break;
+                }
+                
+                String srcA = current_p_tmp.substring(0,1);
+
+                if ("I".equals(srcA))
+                    current_p = "int" + current_p;
+                if ("S".equals(srcA))
+                    current_p = "short"+ current_p;
+                if ("J".equals(srcA))
+                    current_p = "long"+ current_p;
+                if ("Z".equals(srcA))
+                    current_p = "boolean"+ current_p;
+                if ("C".equals(srcA))
+                    current_p = "char"+ current_p;
+                if ("F".equals(srcA))
+                    current_p = "float"+ current_p;
+                if ("D".equals(srcA))
+                    current_p = "double"+ current_p;
+                if ("B".equals(srcA))
+                    current_p = "byte"+ current_p;
+                
+                if("[".equals(srcA)){
+                    current_p += "[]";
+                }
+                
+                if(current_p.startsWith("[]")){
+                    ;
+                }else{
+                    list.add(current_p);
+                    current_p = "";
+                }
+                current_p_tmp = current_p_tmp.substring(1);
+            }
+        }
+        
+        
+        return list;
+    }
+    
+    private static void parseOneParameter(String p_str) {
+        
     }
 
     private static int countC(String src, int count) {

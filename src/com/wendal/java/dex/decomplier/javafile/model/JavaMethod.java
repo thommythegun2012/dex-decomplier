@@ -30,6 +30,7 @@ import com.wendal.java.dex.decomplier.dexfile.model.Dex_Method.LocalVar;
 import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_Goto;
 import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_ReturnVoid;
 import com.wendal.java.dex.decomplier.toolkit.String_Toolkit;
+import com.wendal.java.dex.decomplier.vm.Vm_Main;
 
 public class JavaMethod {
 
@@ -53,7 +54,7 @@ public class JavaMethod {
 
     public List<String> parameter_list = new ArrayList<String>();
 
-    public ArrayList<String> src_code = new ArrayList<String>(100);
+    public List<String> src_code = new ArrayList<String>(100);
 
     private Dex_Method dex_method;
 
@@ -101,9 +102,9 @@ public class JavaMethod {
             ;
         } else {
             sb.append("{\n");
-//            for (String str : src_code) {
-//                sb.append(str).append(";\n");
-//            }
+            for (String str : src_code) {
+                sb.append(str).append(";\n");
+            }
 //            for (PrototypeStatement ps : ps_list) {
 //                sb.append(ps.toString()).append(";\n");
 //            }
@@ -191,6 +192,8 @@ public class JavaMethod {
             }
         }
         parseOpcode();
+        
+        src_code = Vm_Main.parse(ps_list, locals_list, ces);
     }
     private void parseOpcode() {
         ArrayList<String> opcode_src = this.dex_method.getOpcodes_list();

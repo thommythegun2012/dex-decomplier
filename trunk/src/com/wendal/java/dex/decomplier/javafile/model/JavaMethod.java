@@ -62,6 +62,8 @@ public class JavaMethod {
     private ArrayList<PrototypeStatement> ps_list;
     
     private ArrayList<LocalVar> locals_list;
+    
+    private ArrayList<CatchException> ces;
 
     @Override
     public String toString() {
@@ -113,6 +115,22 @@ public class JavaMethod {
     public JavaMethod(Dex_Method dex_method) {
         this.dex_method = dex_method;
         this.locals_list = dex_method.getLocals_list();
+        this.ces = parseCE(dex_method.getCatches_list());
+    }
+    
+    private ArrayList<CatchException> parseCE(List<String> ce_src) {
+        ArrayList<CatchException> list = new ArrayList<CatchException>();
+        CatchException ce = null;
+        for (String string : ce_src) {
+            if(string.startsWith("0x")){
+                ce = new CatchException(string);
+                list.add(ce);
+            }else if(string.startsWith("L")){//Must be a Class name
+                ce.parseAndAdd(string);
+            }
+        }
+        
+        return list;
     }
 
     public void parse() {

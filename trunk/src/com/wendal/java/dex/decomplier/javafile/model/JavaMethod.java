@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.wendal.java.dex.decomplier.dexfile.model.Dex_Method;
+import com.wendal.java.dex.decomplier.dexfile.model.Dex_Method.LocalVar;
 import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_Goto;
 import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_ReturnVoid;
 import com.wendal.java.dex.decomplier.toolkit.String_Toolkit;
@@ -59,6 +60,8 @@ public class JavaMethod {
     private boolean isStaticConstructor = false;
     
     private ArrayList<PrototypeStatement> ps_list;
+    
+    private ArrayList<LocalVar> locals_list;
 
     @Override
     public String toString() {
@@ -77,11 +80,15 @@ public class JavaMethod {
         } else {
             sb.append(name);
             sb.append("(");
-            for (int i = parameter_list.size() - 1; i > -1; i--) {
+            int index_tmp = locals_list.size() - parameter_list.size();
+            for (int i = 0; i < parameter_list.size(); i++) {
                 sb.append(parameter_list.get(i));
                 sb.append(" ");
-                
-                if (i > 0) {
+                int name_index = locals_list.size() - i - 1;
+                if(name_index > -1){
+                    sb.append(locals_list.get(index_tmp + i).name);
+                }
+                if (i < parameter_list.size() -1) {
                     sb.append(",");
                 }
             }
@@ -95,9 +102,9 @@ public class JavaMethod {
 //            for (String str : src_code) {
 //                sb.append(str).append(";\n");
 //            }
-            for (PrototypeStatement ps : ps_list) {
-                sb.append(ps.toString()).append(";\n");
-            }
+//            for (PrototypeStatement ps : ps_list) {
+//                sb.append(ps.toString()).append(";\n");
+//            }
             sb.append("}\n");
         }
         return sb.toString();
@@ -105,6 +112,7 @@ public class JavaMethod {
 
     public JavaMethod(Dex_Method dex_method) {
         this.dex_method = dex_method;
+        this.locals_list = dex_method.getLocals_list();
     }
 
     public void parse() {

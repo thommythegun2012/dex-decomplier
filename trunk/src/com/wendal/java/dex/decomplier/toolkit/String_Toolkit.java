@@ -121,9 +121,6 @@ public final class String_Toolkit {
         return list;
     }
     
-    private static void parseOneParameter(String p_str) {
-        
-    }
 
     private static int countC(String src, int count) {
         // String tmp = "[]";

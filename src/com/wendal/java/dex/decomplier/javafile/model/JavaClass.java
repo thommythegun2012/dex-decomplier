@@ -38,7 +38,7 @@ public class JavaClass {
     /**
      * public , private , protected , or ""
      */
-    public String access_flags = DEFAUFT;
+    public String access_flag = DEFAUFT;
 
     public static String PUBLIC = "public";
     public static String PRIVATE = "private";
@@ -114,6 +114,16 @@ public class JavaClass {
         } else {
             this.superClass = super_class;
         }
+        
+        // 处理访问控制符
+        String af = dex_class.getAccess_flags();
+        if (af.indexOf("PUBLIC") > -1) {
+            this.access_flag = PUBLIC;
+        } else if (af.indexOf("PRIVATE") > -1) {
+            this.access_flag = PRIVATE;
+        } else if (af.indexOf("PROTECTED") > -1) {
+            this.access_flag = PROTECTED;
+        }
 
         // 处理implementat的接口
         interface_list.addAll(dex_class.getInterface_list());
@@ -176,14 +186,15 @@ public class JavaClass {
             sb.append("package").append(" ");
         }
         sb.append(class_package).append(";").append("\n\n");
+        sb.append(access_flag);
+        sb.append(" ");
         if (isStatic) {
             sb.append("static").append(" ");
         }
         if (isFinal) {
             sb.append("final").append(" ");
-        }
-        if (isAbstract) {
-            sb.append("abstract").append("");
+        }else if (isAbstract) {
+            sb.append("abstract").append(" ");
         }
         sb.append(type).append(" ");
         sb.append(class_name).append(" ");

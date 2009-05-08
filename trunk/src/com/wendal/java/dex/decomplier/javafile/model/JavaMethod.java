@@ -251,4 +251,28 @@ public class JavaMethod {
 //            }
 //        }
     }
+
+    public ArrayList<PrototypeStatement> getPs_list() {
+        return ps_list;
+    }
+
+    public void setPs_list(ArrayList<PrototypeStatement> ps_list) {
+        this.ps_list = ps_list;
+    }
+
+    public ArrayList<LocalVar> getLocals_list() {
+        return locals_list;
+    }
+
+    public void setLocals_list(ArrayList<LocalVar> locals_list) {
+        this.locals_list = locals_list;
+    }
+
+    public ArrayList<CatchException> getCes() {
+        return ces;
+    }
+
+    public void setCes(ArrayList<CatchException> ces) {
+        this.ces = ces;
+    }
 }

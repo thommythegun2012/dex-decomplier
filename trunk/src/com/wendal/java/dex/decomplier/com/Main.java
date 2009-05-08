@@ -22,29 +22,43 @@
  */
 package com.wendal.java.dex.decomplier.com;
 
-import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 
-import com.wendal.java.dex.decomplier.converter.Dex2Java;
-import com.wendal.java.dex.decomplier.dexfile.model.DexTaken;
-import com.wendal.java.dex.decomplier.dexfile.model.Dex_AbstractClass;
-import com.wendal.java.dex.decomplier.toolkit.IO_Tool;
+import com.wendal.java.dex.decomplier.toolkit.Logger;
 
 public class Main {
 
 
     public static void main(String[] args) throws IOException {
-        File file = new File("dex/com/wendal/dex/simple/easy/returnvoid/SimpleReturnVoid.dump.txt");
-        ArrayList<String> list = IO_Tool.getFile(file.getPath());
-//        System.out.println(list.size());
-        ArrayList<Dex_AbstractClass> dex_class_list = DexTaken.getDexClassList(list);
-        System.out.println("Totla Class : "+dex_class_list.size());
-        System.out.println();
-        for (Dex_AbstractClass dex_AbstractClass : dex_class_list) {
-            dex_AbstractClass.parse();
-            Dex2Java.parseDex(dex_AbstractClass);
+        if (args.length > 0) {
+            CommandLineConfig cc = CommandLineConfig.parse(args);
+            if(cc.verify()){
+                DexD dexD = new DexD(cc);
+                dexD.init();
+                dexD.convert2DexModel();
+                dexD.convert2JavaModel();
+                dexD.VM_parse();
+                dexD.reshaping();
+                dexD.outputSource();
+            }else{
+                printUsage();
+            }
+        }else{
+            printUsage();
         }
     }
 
+    private static void printUsage(){
+        StringBuilder sb = new StringBuilder("\n");
+        
+        sb.append("Usage:\n");
+        sb.append("    <filename.apk>      apk filename (Required)").append("\n");
+        sb.append("    -dest <dir>               dest dir").append("\n");
+        sb.append("    -v                        Show Verbose info").append("\n");
+        sb.append("\n");
+        
+        sb.append("This program is free software under GPL v3");
+        
+        Logger.getLogger().w("Main", sb.toString());
+    }
 }

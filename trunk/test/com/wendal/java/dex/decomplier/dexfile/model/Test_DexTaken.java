@@ -7,6 +7,8 @@ import java.util.List;
 
 import org.junit.Test;
 
+import com.wendal.java.dex.decomplier.com.CommandLineConfig;
+import com.wendal.java.dex.decomplier.com.DexD;
 import com.wendal.java.dex.decomplier.converter.Dex2Java;
 import com.wendal.java.dex.decomplier.toolkit.IO_Tool;
 
@@ -31,14 +33,16 @@ public class Test_DexTaken {
                 ,
                 "dex/com/wendal/dex/simple/easy/methods/Static_Methods.dump.txt"
         };
-        
         for (String string : fileList) {
-            List<Dex_AbstractClass> list = DexTaken.getDexClassList(IO_Tool.getFile(string));
+            List<String> list = IO_Tool.getFile(string);
             assertTrue(list.size() > 0);
-            for (Dex_AbstractClass dex_AbstractClass : list) {
-                dex_AbstractClass.parse();
-                Dex2Java.parseDex(dex_AbstractClass);
-            }
+            DexD dexD = new DexD(CommandLineConfig.parse(new String[]{"-dir" , "."}));
+            dexD.setDex_dump_str(list);
+            dexD.convert2DexModel();
+            dexD.convert2JavaModel();
+            dexD.VM_parse();
+            dexD.reshaping();
+            dexD.outputSource();
         }
         
     }

@@ -99,7 +99,7 @@ public class JavaMethod {
         }
         sb.append("\n");
         if (isAbstract) {
-            ;
+            sb.append(";\n");
         } else {
             sb.append("{\n");
             for (String str : src_code) {

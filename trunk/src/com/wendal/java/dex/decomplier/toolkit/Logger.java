@@ -1,6 +1,7 @@
 package com.wendal.java.dex.decomplier.toolkit;
 
-public class Logger {
+
+public class Logger  {
     private static final Logger logger = new Logger();
 
     public static final int ERROR = 5;

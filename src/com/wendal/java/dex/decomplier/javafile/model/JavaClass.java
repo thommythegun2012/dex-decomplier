@@ -168,7 +168,7 @@ public class JavaClass {
             }
         }
 
-        System.out.println(this);
+//        System.out.println(this);
     }
 
     private void parse4Interface() {

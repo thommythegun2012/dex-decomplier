@@ -51,4 +51,8 @@ public final class IO_Tool {
         return null;
     }
 
+    public static void dexdump(String filepath) throws IOException{
+        Runtime runtime = Runtime.getRuntime();
+        runtime.exec("dexdump", new String[]{filepath , ">classes.txt"} );
+    }
 }

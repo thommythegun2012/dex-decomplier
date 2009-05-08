@@ -36,7 +36,7 @@ public class Test_DexTaken {
         for (String string : fileList) {
             List<String> list = IO_Tool.getFile(string);
             assertTrue(list.size() > 0);
-            DexD dexD = new DexD(CommandLineConfig.parse(new String[]{"-dir" , "."}));
+            DexD dexD = new DexD(CommandLineConfig.parse(new String[]{"-dir" , "." , "-dest" ,"."}));
             dexD.setDex_dump_str(list);
             dexD.convert2DexModel();
             dexD.convert2JavaModel();

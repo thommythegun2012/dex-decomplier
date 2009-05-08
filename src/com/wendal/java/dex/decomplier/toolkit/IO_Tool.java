@@ -22,29 +22,19 @@
  */
 package com.wendal.java.dex.decomplier.toolkit;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.commons.io.FileUtils;
 
 public final class IO_Tool {
 
-    public static ArrayList<String> getFile(String filepath) throws IOException {
+    public static List<String> getFile(String filepath) throws IOException {
         if (filepath != null) {
             File file = new File(filepath);
             if (file.exists() && file.isFile()) {
-                FileReader fileReader = new FileReader(file);
-                BufferedReader br = new BufferedReader(fileReader);
-                ArrayList<String> list = new ArrayList<String>();
-                while (br.ready()) {
-                    String str = br.readLine();
-                    if (str != null) {
-                        list.add(str);
-                    }
-                }
-                br.close();
-                return list;
+                return FileUtils.readLines(file);
             }
         }
         /*Ä¬ÈÏ·µ»Ønull*/
@@ -54,5 +44,9 @@ public final class IO_Tool {
     public static void dexdump(String filepath) throws IOException{
         Runtime runtime = Runtime.getRuntime();
         runtime.exec("dexdump", new String[]{filepath , ">classes.txt"} );
+    }
+    
+    public static void write2File(String rootDir , String path_name , String filename){
+        
     }
 }

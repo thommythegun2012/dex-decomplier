@@ -24,11 +24,7 @@ package com.wendal.java.dex.decomplier.com;
 
 import java.io.IOException;
 
-import com.wendal.java.dex.decomplier.toolkit.Logger;
-
 public class Main {
-
-
     public static void main(String[] args) throws IOException {
         if (args.length > 0) {
             CommandLineConfig cc = CommandLineConfig.parse(args);
@@ -41,24 +37,10 @@ public class Main {
                 dexD.reshaping();
                 dexD.outputSource();
             }else{
-                printUsage();
+                CommandLineConfig.printHelp();
             }
         }else{
-            printUsage();
+            CommandLineConfig.printHelp();
         }
-    }
-
-    private static void printUsage(){
-        StringBuilder sb = new StringBuilder("\n");
-        
-        sb.append("Usage:\n");
-        sb.append("    <filename.apk>      apk filename (Required)").append("\n");
-        sb.append("    -dest <dir>               dest dir").append("\n");
-        sb.append("    -v                        Show Verbose info").append("\n");
-        sb.append("\n");
-        
-        sb.append("This program is free software under GPL v3");
-        
-        Logger.getLogger().w("Main", sb.toString());
     }
 }

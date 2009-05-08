@@ -115,8 +115,20 @@ public class JavaClass {
             this.superClass = super_class;
         }
         
-        // 处理访问控制符
+        // 处理控制符
         String af = dex_class.getAccess_flags();
+        if (af.indexOf("ABSTRACT") > -1) {
+            this.isAbstract = true;
+        } else if (af.indexOf("FINAL") > -1) {
+                this.isFinal = true;
+        }
+        if (af.indexOf("STATIC") > -1) {
+            this.isStatic = true;
+        }
+        
+        
+        // 处理访问控制符
+//        String af = dex_class.getAccess_flags();
         if (af.indexOf("PUBLIC") > -1) {
             this.access_flag = PUBLIC;
         } else if (af.indexOf("PRIVATE") > -1) {

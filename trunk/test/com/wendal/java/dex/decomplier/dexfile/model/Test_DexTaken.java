@@ -1,6 +1,6 @@
 package com.wendal.java.dex.decomplier.dexfile.model;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
 import java.util.List;
@@ -9,7 +9,6 @@ import org.junit.Test;
 
 import com.wendal.java.dex.decomplier.com.CommandLineConfig;
 import com.wendal.java.dex.decomplier.com.DexD;
-import com.wendal.java.dex.decomplier.converter.Dex2Java;
 import com.wendal.java.dex.decomplier.toolkit.IO_Tool;
 
 public class Test_DexTaken {
@@ -36,7 +35,7 @@ public class Test_DexTaken {
         for (String string : fileList) {
             List<String> list = IO_Tool.getFile(string);
             assertTrue(list.size() > 0);
-            DexD dexD = new DexD(CommandLineConfig.parse(new String[]{"-dir" , "." , "-dest" ,"."}));
+            DexD dexD = new DexD(CommandLineConfig.parse(new String[]{"-dir" , "." , "-dest" ,"X:"}));
             dexD.setDex_dump_str(list);
             dexD.convert2DexModel();
             dexD.convert2JavaModel();

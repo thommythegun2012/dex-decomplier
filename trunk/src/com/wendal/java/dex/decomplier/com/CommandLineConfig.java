@@ -41,6 +41,7 @@ public class CommandLineConfig {
         options.addOption(verbose_option);
         options.addOption(dest_Option);
         options.addOption(dir_Option);
+        options.addOption(help_Option);
     }
     
 

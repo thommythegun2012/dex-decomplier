@@ -28,6 +28,10 @@ public class Main {
     public static void main(String[] args) throws IOException {
         if (args.length > 0) {
             CommandLineConfig cc = CommandLineConfig.parse(args);
+            if(cc.isNeedHelp()){
+                CommandLineConfig.printHelp();
+                return;
+            }
             if(cc.verify()){
                 DexD dexD = new DexD(cc);
                 dexD.init();

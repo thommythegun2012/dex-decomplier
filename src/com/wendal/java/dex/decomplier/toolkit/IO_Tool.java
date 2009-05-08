@@ -46,7 +46,18 @@ public final class IO_Tool {
         runtime.exec("dexdump", new String[]{filepath , ">classes.txt"} );
     }
     
-    public static void write2File(String rootDir , String path_name , String filename){
+    public static void write2File(String rootDir , String package_name , String filename , String data) throws IOException{
+        String tmp []  = package_name.split("[.]");
+        String tmp_str = rootDir;
+        for (int i = 0; i < tmp.length; i++) {
+            tmp_str += "\\";
+            tmp_str += tmp[i];
+        }
+        File dir_file = new File(tmp_str + "\\" );
+        dir_file.mkdirs();
         
+        File src_file = new File(dir_file.getPath()+ "\\"+filename);
+        src_file.createNewFile();
+        FileUtils.writeStringToFile(src_file, data);
     }
 }

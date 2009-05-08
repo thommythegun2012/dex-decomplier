@@ -40,6 +40,9 @@ public class DexD {
     public void init() throws IOException{
         IO_Tool.dexdump(tmpFile.getPath()+"/classes.dex");
         this.Dex_dump_str = IO_Tool.getFile(tmpFile.getPath()+"/classes.dex");
+        if(cc.isVerbose()){
+            log.i("DexD", "Init done.");
+        }
     }
     
     public void convert2DexModel(){
@@ -47,12 +50,18 @@ public class DexD {
         for (Dex_AbstractClass dac : this.dexmodel_list) {
             dac.parse();
         }
+        if(cc.isVerbose()){
+            log.i("DexD", "convert2DexModel.");
+        }
     }
     
     public void convert2JavaModel(){
         for (Dex_AbstractClass dac : this.dexmodel_list) {
             JavaClass javaClass = Dex2Java.parseDex(dac);
             javamodel_list.add(javaClass);
+        }
+        if(cc.isVerbose()){
+            log.i("DexD", "convert2JavaModel.");
         }
     }
     
@@ -63,16 +72,32 @@ public class DexD {
                 jm.src_code = source_list;
             }
         }
+        if(cc.isVerbose()){
+            log.i("DexD", "VM_parse.");
+        }
     }
     
     public void  reshaping(){
         
     }
     
+    /**
+     * Just for development use
+     */
+    private static boolean print2Console = true; 
+    
     public void outputSource(){
         for (JavaClass jc : javamodel_list) {
-            log.i("\n/** Class Source: */\n", jc.toString());
+            if(print2Console){
+                log.i("\n/** Class Source: */\n", jc.toString());
+            }
+            try {
+                IO_Tool.write2File(destRoot.getPath(), jc.class_package.name, jc.class_name+".java", jc.toString());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
+        log.i("DexD", "ALL done.");
     }
 
 

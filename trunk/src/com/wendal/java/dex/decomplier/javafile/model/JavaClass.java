@@ -23,6 +23,7 @@
 package com.wendal.java.dex.decomplier.javafile.model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.wendal.java.dex.decomplier.converter.DexField2JavaField;
 import com.wendal.java.dex.decomplier.converter.DexMethod2JavaMethod;
@@ -66,6 +67,9 @@ public class JavaClass {
     public ArrayList<JavaMethod> method_list = new ArrayList<JavaMethod>();
 
     private Dex_AbstractClass dex_class;
+    
+
+    private List<JavaClass> innerClass = new ArrayList<JavaClass>();
 
     public JavaClass(Dex_AbstractClass dex_class) {
         this.dex_class = dex_class;
@@ -158,11 +162,11 @@ public class JavaClass {
         {
             for (Dex_Method dex_Method : dex_class.getDirect_methods_list()) {
                 JavaMethod temp = DexMethod2JavaMethod.parseDex(dex_Method);
-                if(temp.name.equals("<init>")){
-                    temp.name = this.class_name;
-                }else if(temp.name.equals("<clinit>")){
-                    temp.name = this.class_name;
-                }
+//                if(temp.name.equals("<init>")){
+//                    temp.name = this.class_name;
+//                }else if(temp.name.equals("<clinit>")){
+//                    temp.name = this.class_name;
+//                }
                 method_list.add(temp);
             }
         }
@@ -171,11 +175,11 @@ public class JavaClass {
         {
             for (Dex_Method dex_Method : dex_class.getVirtual_methods_list()) {
                 JavaMethod temp = DexMethod2JavaMethod.parseDex(dex_Method);
-                if(temp.name.equals("<init>")){
-                    temp.name = this.class_name;
-                }else if(temp.name.equals("<clinit>")){
-                    temp.name = this.class_name;
-                }
+//                if(temp.name.equals("<init>")){
+//                    temp.name = this.class_name;
+//                }else if(temp.name.equals("<clinit>")){
+//                    temp.name = this.class_name;
+//                }
                 method_list.add(temp);
             }
         }
@@ -195,9 +199,8 @@ public class JavaClass {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         if (class_package != null) {
-            sb.append("package").append(" ");
+            sb.append("package").append(" ").append(class_package).append("\n\n");
         }
-        sb.append(class_package).append(";").append("\n\n");
         sb.append(access_flag);
         sb.append(" ");
         if (isStatic) {
@@ -231,10 +234,32 @@ public class JavaClass {
             sb.append(field.toString()).append(";\n");
         }
         for (JavaMethod method : method_list) {
+            if(method.name.equals("<init>")){
+                method.name = this.class_name;
+            }else if(method.name.equals("<clinit>")){
+                method.name = this.class_name;
+            }
             sb.append(method.toString()).append("\n");
+        }
+        //Insert Inner Class
+        for (JavaClass jc : innerClass) {
+            sb.append(jc.toString()).append("\n\n");
         }
         sb.append("}");
         return sb.toString();
     }
 
+    public void addInnerClass(JavaClass jc){
+        jc.class_package = null;
+        innerClass.add(jc);
+    }
+    
+    public JavaClass getInnerClass(String name){
+        for (JavaClass jc : innerClass) {
+            if(jc.class_name.equals(name)){
+                return jc;
+            }
+        }
+        return null;
+    }
 }

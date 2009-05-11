@@ -3,7 +3,9 @@ package com.wendal.java.dex.decomplier.com;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.wendal.java.dex.decomplier.converter.Dex2Java;
 import com.wendal.java.dex.decomplier.dexfile.model.DexTaken;
@@ -78,13 +80,37 @@ public class DexD {
     }
     
     public void  reshaping(){
-        
+        //Parse Inner Class
+//        List<String> known_class_name = new ArrayList<String>(javamodel_list.size());
+        Map<String,JavaClass> maps = new HashMap<String, JavaClass>();
+        for (JavaClass jc : javamodel_list) {
+                maps.put(jc.class_package + "." + jc.class_name , jc);
+        }
+        System.out.println("here");
+        flag : while(true){
+            for (int i = 0; i < javamodel_list.size(); i++) {
+                JavaClass jc = javamodel_list.get(i);
+                if(jc.class_name.indexOf("$") > -1){
+                    String tmp_str = jc.class_package +"."+ jc.class_name;
+                    String father_classname = tmp_str.substring(0, tmp_str.lastIndexOf("$"));
+                    JavaClass jc_father = maps.get(father_classname);
+                    if(jc_father !=null){
+                        jc.class_name = tmp_str.substring(tmp_str.lastIndexOf("$")+1);
+                        jc_father.addInnerClass(jc);
+                        javamodel_list.remove(jc);
+                        System.out.println("--->>>");
+                        continue flag;
+                    }
+                }
+            }
+            break;
+        }
     }
     
     /**
      * Just for development use
      */
-    private static boolean print2Console = true; 
+    private static boolean print2Console = false; 
     
     public void outputSource(){
         for (JavaClass jc : javamodel_list) {

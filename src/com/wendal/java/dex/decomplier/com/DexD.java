@@ -20,7 +20,7 @@ public class DexD {
     
     private CommandLineConfig cc;
     
-    private File tmpFile;
+    private File dexFile;
     
     private File destRoot;
     
@@ -32,14 +32,14 @@ public class DexD {
     
     public DexD(CommandLineConfig cc) {
         this.cc = cc;
-        this.tmpFile = new File(cc.getFilepath_str());
+        this.dexFile = new File(cc.getDex_filepath_str());
         this.destRoot = new File(cc.getDest_filepath_str());
     }
 
     
     public void init() throws IOException{
-        IO_Tool.dexdump(tmpFile.getPath()+"/classes.dex");
-        this.Dex_dump_str = IO_Tool.getFile(tmpFile.getPath()+"/classes.dex");
+//        IO_Tool.dexdump(dexFile.getPath());
+        this.Dex_dump_str = IO_Tool.getFile(dexFile.getPath());
         if(cc.isVerbose()){
             log.i("DexD", "Init done.");
         }

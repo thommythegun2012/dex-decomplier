@@ -19,37 +19,37 @@ public class CommandLineConfig {
     
     static {
         Option verbose_option = new Option("v",false,"show verbose message");
-        Option dir_Option = new Option("dir",true,"tmp dir");
+        Option dex_Option = new Option("dex",true,"dex filename");
         Option dest_Option = new Option("dest",true,"output dir");
         Option help_Option = new Option("help",true,"print usage");
         
         verbose_option.setRequired(false);
-        dir_Option.setRequired(true);
-        dest_Option.setRequired(true);
+        dex_Option.setRequired(false);
+        dest_Option.setRequired(false);
         help_Option.setRequired(false);
 
         verbose_option.setArgs(0);
         dest_Option.setArgs(1);
-        dir_Option.setArgs(1);
+        dex_Option.setArgs(1);
         help_Option.setArgs(0);
         
-        dir_Option.setArgName("tmp_dir");
+        dex_Option.setArgName("filename.dex");
         dest_Option.setArgName("output_dir");
         
         options = new Options();
         
         options.addOption(verbose_option);
         options.addOption(dest_Option);
-        options.addOption(dir_Option);
+        options.addOption(dex_Option);
         options.addOption(help_Option);
     }
     
 
     private boolean verbose = false;
 
-    private String filepath_str = null;
+    private String dex_filepath_str = "classes.dex";
 
-    private String dest_filepath_str = ".";
+    private String dest_filepath_str = "src";
     
     private boolean needHelp = false;
 
@@ -63,31 +63,27 @@ public class CommandLineConfig {
             if(cmd.hasOption("help")){
                 cc.needHelp = true;
             }
-            if(cmd.getOptionValue("dir") != null){
-                cc.filepath_str = cmd.getOptionValue("dir");
+            if(cmd.getOptionValue("dex") != null){
+                cc.dex_filepath_str = cmd.getOptionValue("dex");
             }
             if(cmd.getOptionValue("dest") != null){
                 cc.dest_filepath_str = cmd.getOptionValue("dest");
             }
         } catch (ParseException exp) {
             System.err.println( "Parsing failed.  Reason: " + exp.getMessage() );
+            cc.dex_filepath_str = null;
         }
         return cc;
     }
 
     public boolean verify() {
-        if (filepath_str != null) {
-            File tmp_file = new File(filepath_str);
-            if (tmp_file.exists() && tmp_file.isDirectory()) {
-
-                // Search classes.dex
-                File dex_file = new File(tmp_file.getPath() + "/classes.dex");
-                if (dex_file.exists()) {
+        if (dex_filepath_str != null) {
+            File tmp_file = new File(dex_filepath_str);
+            if (tmp_file.exists() && tmp_file.isFile()) {
                     File tmp_file2 = new File(dest_filepath_str);
                     if (tmp_file2.exists() && tmp_file2.isDirectory()) {
                         return true;
                     }
-                }
             }
         }
         return false;
@@ -106,12 +102,12 @@ public class CommandLineConfig {
         this.verbose = verbose;
     }
 
-    public String getFilepath_str() {
-        return filepath_str;
+    public String getDex_filepath_str() {
+        return dex_filepath_str;
     }
 
-    public void setFilepath_str(String filepath_str) {
-        this.filepath_str = filepath_str;
+    public void setDex_filepath_str(String dex_filepath_str) {
+        this.dex_filepath_str = dex_filepath_str;
     }
 
     public String getDest_filepath_str() {

@@ -30,6 +30,7 @@ import org.apache.commons.io.FileUtils;
 
 public final class IO_Tool {
 
+    @SuppressWarnings("unchecked")
     public static List<String> getFile(String filepath) throws IOException {
         if (filepath != null) {
             File file = new File(filepath);

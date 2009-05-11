@@ -27,27 +27,30 @@ public class CommandLineConfig_Test extends TestCase{
         tmp_file = new File("classes.dex");
         tmp_file.createNewFile();
         
-        list_bad.add(new String[]{""});
-        list_bad.add(new String[]{"","","","",""});
-        list_bad.add(new String[]{"-dir"});
+        list_good.add(new String[]{""});
+        list_good.add(new String[]{"","","","",""});
+        list_bad.add(new String[]{"-dex"});
         list_bad.add(new String[]{"-dest"});
-        list_bad.add(new String[]{"v"});
-        list_bad.add(new String[]{"dir"});
-        list_bad.add(new String[]{"dest"});
-        list_bad.add(new String[]{"134"});
-        list_bad.add(new String[]{"-v" ,"C:\\ssf"});
-        list_bad.add(new String[]{"-dest" , "."});
-        list_bad.add(new String[]{"-dir" , "."});
+        list_good.add(new String[]{"v"});
+        list_good.add(new String[]{"dest"});
+        list_good.add(new String[]{"dex"});
+        list_good.add(new String[]{"134"});
+        list_bad.add(new String[]{"-dex" , "."});
+        list_bad.add(new String[]{"-v","-dex"});
         list_bad.add(new String[]{"-v","-dest"});
-        list_bad.add(new String[]{"-v","-dir"});
-        list_bad.add(new String[]{"-v","dir","dest"});
-        list_bad.add(new String[]{"-v"});
+        list_bad.add(new String[]{"-v","-dest","-dex"});
         
-        list_verbose.add(new String[]{"-v","-dir",".","-dest","."});
-        list_verbose.add(new String[]{"-dir",".","-v","-dest","."});
-        list_verbose.add(new String[]{"-dir",".","-dest",".","-v"});
+        list_verbose.add(new String[]{"-v"});
         
-        list_non_verbose.add(new String[]{"-dir",".","-dest","."});
+        list_good.add(new String[]{"-dest" , "."});
+        
+        list_good.add(new String[]{"-v" ,"C:\\ssf"});
+        
+        list_verbose.add(new String[]{"-v","-dest",".","-dex","classes.dex"});
+        list_verbose.add(new String[]{"-dest",".","-v","-dex","classes.dex"});
+        list_verbose.add(new String[]{"-dest",".","-dex","classes.dex","-v"});
+        
+        list_non_verbose.add(new String[]{"-dest",".","-dex","classes.dex"});
         
         list_good.addAll(list_verbose);
         
@@ -78,6 +81,9 @@ public class CommandLineConfig_Test extends TestCase{
             assertTrue(CommandLineConfig.parse(args).verify());
         }
         for (String [] args : list_bad) {
+            if(CommandLineConfig.parse(args).verify()){
+                System.out.println(args[0]);
+            }
             assertFalse(CommandLineConfig.parse(args).verify());
         }
     }

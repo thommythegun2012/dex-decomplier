@@ -49,45 +49,45 @@ public class PrototypeStatement_unop extends PrototypeStatement {
         
         vy_name = info.substring(info.indexOf(", ")+2);
         
-        if(opcodes.startsWith("neg-")){
+        if(info.startsWith("neg-")){
             v_op = "-";
-        }else if(opcodes.startsWith("not-")){
+        }else if(info.startsWith("not-")){
             v_op = "^";
-        }else if(opcodes.startsWith("int-to-long")){
+        }else if(info.startsWith("int-to-long")){
             v_op = "(long)";
-        }else if(opcodes.startsWith("int-to-float")){
+        }else if(info.startsWith("int-to-float")){
             v_op = "(float)";
-        }else if(opcodes.startsWith("int-to-double")){
+        }else if(info.startsWith("int-to-double")){
             v_op = "(double)";
-        }else if(opcodes.startsWith("long-to-int")){
+        }else if(info.startsWith("long-to-int")){
             v_op = "(int)";
-        }else if(opcodes.startsWith("long-to-float")){
+        }else if(info.startsWith("long-to-float")){
             v_op = "(float)";
-        }else if(opcodes.startsWith("long-to-double")){
+        }else if(info.startsWith("long-to-double")){
             v_op = "(double)";
-        }else if(opcodes.startsWith("float-to-int")){
+        }else if(info.startsWith("float-to-int")){
             v_op = "(int)";
-        }else if(opcodes.startsWith("float-to-long")){
+        }else if(info.startsWith("float-to-long")){
             v_op = "(long)";
-        }else if(opcodes.startsWith("float-to-double")){
+        }else if(info.startsWith("float-to-double")){
             v_op = "(double)";
-        }else if(opcodes.startsWith("double-to-int")){
+        }else if(info.startsWith("double-to-int")){
             v_op = "(int)";
-        }else if(opcodes.startsWith("double-to-long")){
+        }else if(info.startsWith("double-to-long")){
             v_op = "(long)";
-        }else if(opcodes.startsWith("double-to-float")){
+        }else if(info.startsWith("double-to-float")){
             v_op = "(float)";
-        }else if(opcodes.startsWith("int-to-byte")){
+        }else if(info.startsWith("int-to-byte")){
             v_op = "(byte)";
-        }else if(opcodes.startsWith("int-to-char")){
+        }else if(info.startsWith("int-to-char")){
             v_op = "(char)";
-        }else if(opcodes.startsWith("int-to-short")){
+        }else if(info.startsWith("int-to-short")){
             v_op = "(short)";
         }
     }
 
     @Override
     public String toString() {
-        return super.toString() + "\n/*"  + vx_name + " = "+v_op+ " vy_name ";
+        return super.toString() + "\n/*"  + vx_name + " = "+v_op+ " "+ vy_name;
     }
 }

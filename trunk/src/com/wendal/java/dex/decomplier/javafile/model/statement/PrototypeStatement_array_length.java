@@ -26,21 +26,21 @@ import com.wendal.java.dex.decomplier.javafile.model.PrototypeStatement;
 
 public class PrototypeStatement_array_length extends PrototypeStatement {
     
-    String vx;
+    String vx_name;
     
-    String vy;
+    String vy_name;
     
     @Override
     public void parse() {
         super.parse();
 
-        vx = info.substring(info.indexOf(" ")+1,info.indexOf(","));
-        vy = info.substring(info.indexOf(",")+1);
+        vx_name = info.substring(info.indexOf(" ")+1,info.indexOf(","));
+        vy_name = info.substring(info.indexOf(",")+1);
     }
 
     @Override
     public String toString() {
-        return vx + " = " + vy + ".length";
+        return vx_name + " = " + vy_name + ".length";
     }
 
 }

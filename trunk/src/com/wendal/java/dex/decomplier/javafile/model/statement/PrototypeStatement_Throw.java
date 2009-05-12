@@ -30,19 +30,19 @@ public class PrototypeStatement_Throw extends PrototypeStatement {
         // TODO Auto-generated constructor stub
     }
     
-    public String throw_obj;
+    public String vx_name;
     
     @Override
     public void parse() {
         
-        throw_obj = info.substring(info.indexOf(" ")).trim();
+        vx_name = info.substring(info.indexOf(" ")).trim();
         
         super.parse();
     }
     
     @Override
     public String toString() {
-        return "throw "+throw_obj;
+        return "throw "+vx_name;
     }
 
 }

@@ -30,13 +30,13 @@ public class PrototypeStatement_Move_Result extends PrototypeStatement {
     
     public boolean isObject;
     
-    public String var_name;
+    public String vx_name;
     
     @Override
     public void parse() {
         super.parse();
         
-        var_name = info.substring(info.indexOf(" ")+1).trim();
+        vx_name = info.substring(info.indexOf(" ")+1).trim();
         if(info.startsWith("move-result-wide ")){
             isWide = true;
         }
@@ -48,6 +48,6 @@ public class PrototypeStatement_Move_Result extends PrototypeStatement {
 
     @Override
     public String toString() {
-        return super.toString() + "\nMove-Result --> "+var_name;
+        return super.toString() + "\nMove-Result --> "+vx_name;
     }
 }

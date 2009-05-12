@@ -31,7 +31,7 @@ public class PrototypeStatement_ReturnX extends PrototypeStatement {
     }
     
     
-    public String return_obj;
+    public String vx_name;
     
     public String obj_type;
     
@@ -39,7 +39,7 @@ public class PrototypeStatement_ReturnX extends PrototypeStatement {
     @Override
     public void parse() {
         super.parse();
-        return_obj = info.substring(info.indexOf(" ")).trim();
+        vx_name = info.substring(info.indexOf(" ")).trim();
         
         if(info.startsWith("return ")){
             obj_type = "V";
@@ -58,6 +58,6 @@ public class PrototypeStatement_ReturnX extends PrototypeStatement {
 
     @Override
     public String toString() {
-        return "return "+return_obj;
+        return "return "+vx_name;
     }
 }

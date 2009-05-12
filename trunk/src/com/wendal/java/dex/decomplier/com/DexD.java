@@ -70,7 +70,7 @@ public class DexD {
     public void VM_parse(){
         for (JavaClass javaclass : javamodel_list) {
             for (JavaMethod jm : javaclass.method_list) {
-                List<String> source_list = Vm_Main.parse(jm.getPs_list(), jm.getLocals_list(), jm.getCes());
+                List<String> source_list = new Vm_Main().parse(jm.getPs_list(), jm.getLocals_list(), jm.getCes());
                 jm.src_code = source_list;
             }
         }

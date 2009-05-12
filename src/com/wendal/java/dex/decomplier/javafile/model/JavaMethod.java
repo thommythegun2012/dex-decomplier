@@ -30,7 +30,6 @@ import com.wendal.java.dex.decomplier.dexfile.model.Dex_Method.LocalVar;
 import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_Goto;
 import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_ReturnVoid;
 import com.wendal.java.dex.decomplier.toolkit.String_Toolkit;
-import com.wendal.java.dex.decomplier.vm.Vm_Main;
 
 public class JavaMethod {
 
@@ -193,7 +192,7 @@ public class JavaMethod {
         }
         parseOpcode();
         
-        src_code = Vm_Main.parse(ps_list, locals_list, ces);
+//        src_code = new Vm_Main().parse(ps_list, locals_list, ces);
     }
     private void parseOpcode() {
         ArrayList<String> opcode_src = this.dex_method.getOpcodes_list();

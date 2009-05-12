@@ -8,6 +8,7 @@ public class RegisterUnit {
     public static final int CONST = 1 << 2;
     public static final int VAR = 1 << 3;
     public static final int UNKNOWN = 1 << 4;
+    public static final int LV = 1 << 5;
     
     private String value ;
     

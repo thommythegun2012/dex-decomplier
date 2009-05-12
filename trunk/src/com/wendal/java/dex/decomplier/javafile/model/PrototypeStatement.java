@@ -27,8 +27,6 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_Goto;
-import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_ReturnVoid;
 import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_String;
 import com.wendal.java.dex.decomplier.toolkit.Logger;
 
@@ -105,15 +103,15 @@ public class PrototypeStatement {
             }
 
             // 处理类型
-            if (ps.opcodes.startsWith(OpCode_List.Op_Goto)
-                    || ps.opcodes.startsWith(OpCode_List.Op_Goto16)) {
-                ps = PrototypeStatement.convertTotype(ps,
-                        PrototypeStatement_Goto.class);
-            }
-            if (ps.opcodes.startsWith(OpCode_List.Op_Return_Void)) {
-                ps = PrototypeStatement.convertTotype(ps,
-                        PrototypeStatement_ReturnVoid.class);
-            }
+//            if (ps.opcodes.startsWith(OpCode_List.Op_Goto)
+//                    || ps.opcodes.startsWith(OpCode_List.Op_Goto16)) {
+//                ps = PrototypeStatement.convertTotype(ps,
+//                        PrototypeStatement_Goto.class);
+//            }
+//            if (ps.opcodes.startsWith(OpCode_List.Op_Return_Void)) {
+//                ps = PrototypeStatement.convertTotype(ps,
+//                        PrototypeStatement_ReturnVoid.class);
+//            }
             if (ps instanceof PrototypeStatement_String) {
                 ((PrototypeStatement_String) ps).parse();
             }

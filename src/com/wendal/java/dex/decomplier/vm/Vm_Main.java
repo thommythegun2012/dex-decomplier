@@ -7,12 +7,12 @@ import java.util.List;
 import com.wendal.java.dex.decomplier.dexfile.model.LocalVar;
 import com.wendal.java.dex.decomplier.javafile.model.CatchException;
 import com.wendal.java.dex.decomplier.javafile.model.PrototypeStatement;
+import com.wendal.java.dex.decomplier.javafile.model.Vxxx;
 import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_Goto;
 import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_If;
 import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_ReturnVoid;
 import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_packed_switch;
 import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_sparse_switch;
-import com.wendal.java.dex.decomplier.toolkit.Logger;
 
 public class Vm_Main {
 
@@ -30,27 +30,29 @@ public class Vm_Main {
         this.ps_list = list;
         this.lv_list = lv_list;
         this.exp_list = exp_list;
-        
-        //登记全部return-void语句,只记录line_index
+
+        // 登记全部return-void语句,只记录line_index
         ArrayList<String> ps_returnvoid_list = new ArrayList<String>();
         for (PrototypeStatement ps : ps_list) {
             if (ps instanceof PrototypeStatement_ReturnVoid) {
-                ps_returnvoid_list.add(Integer.toString(ps.line_index,16));
+                ps_returnvoid_list.add(Integer.toString(ps.line_index, 16));
             }
         }
-        //替换掉指向return-void的goto语句
-        //System.out.println(ps_returnvoid_list.size());
-        for (int i = 0;i < ps_list.size();i++) {
+        // 替换掉指向return-void的goto语句
+        // System.out.println(ps_returnvoid_list.size());
+        for (int i = 0; i < ps_list.size(); i++) {
             PrototypeStatement ps = ps_list.get(i);
             if (ps instanceof PrototypeStatement_Goto) {
-                PrototypeStatement_Goto ps_goto = (PrototypeStatement_Goto)ps;
+                PrototypeStatement_Goto ps_goto = (PrototypeStatement_Goto) ps;
                 for (String string : ps_returnvoid_list) {
-                    if(string.equals(ps_goto.goto_line_index)){
-                        //替换成return-void
+                    if (string.equals(ps_goto.goto_line_index)) {
+                        // 替换成return-void
                         int index = ps_list.indexOf(ps);
-                        ps_list.set(index, PrototypeStatement.convertTotype(ps, PrototypeStatement_ReturnVoid.class));
-                        
-//                        System.out.println("--->替换跳转return-void: " + ps_goto.line_index+" --> "+ps_goto.goto_line_index);
+                        ps_list.set(index, PrototypeStatement.convertTotype(ps,
+                                PrototypeStatement_ReturnVoid.class));
+
+                        // System.out.println("--->替换跳转return-void: " +
+                        // ps_goto.line_index+" --> "+ps_goto.goto_line_index);
                         break;
                     }
                 }
@@ -79,8 +81,7 @@ public class Vm_Main {
             }
         }
 
-        parseLocalVals();
-
+        
         if (simple_method) {
             parseSimpleMethod();
         } else {
@@ -106,7 +107,25 @@ public class Vm_Main {
      * Simple method is that without any Goto and If , switch
      */
     private void parseSimpleMethod() {
-
+        parseLocalVals();
+        {
+            VirtualRegister vr = initRegiterByPrototypeStatement();
+            for (String key  : vr.getKeys()) {
+                RegisterUnit ru = vr.getRegiter(key);
+                //Find some register only make get
+                if(ru.rh.hasPutEvent() ){
+                    ;
+                }else{
+                    List<PrototypeStatement> tmp_ps_list = new ArrayList<PrototypeStatement>();
+                    for (PrototypeStatement ps : ps_list) {
+                        if(ps.hasVxxx(key)){
+                            tmp_ps_list.add(ps);
+                        }
+                    }
+                    //TODO Handle it
+                }
+            }
+        }
         for (PrototypeStatement ps : ps_list) {
 
             source_statement.add(ps.toString());
@@ -120,9 +139,43 @@ public class Vm_Main {
             for (PrototypeStatement ps : ps_list) {
                 if (ps.line_index >= lv.start_line_index
                         && ps.line_index <= lv.end_line_index) {
-                    ps.setVxxxValue("v"+lv.reg, lv.name);
+                    ps.setVxxxValue("v" + lv.reg, lv.name);
                 }
             }
         }
+    }
+
+    private VirtualRegister initRegiterByPrototypeStatement() {
+        VirtualRegister vr = new VirtualRegister();
+        for (PrototypeStatement ps : ps_list) {
+            if (ps instanceof PrototypeStatement_If) {
+                for (RegisterUnit ru : vr.getRegiters()) {
+                    ru.passIf();
+                }
+                continue;
+            }
+            if (ps instanceof PrototypeStatement_Goto) {
+                for (RegisterUnit ru : vr.getRegiters()) {
+                    ru.passGOTO();
+                }
+                continue;
+            }
+
+            for (Field field : ps.getV()) {
+                Vxxx vx = field.getAnnotation(Vxxx.class);
+                if (vx.type().equals(Vxxx.Type.GET)) {
+                    String tmp_str = ps.getVxxxValue(field);
+                    if (tmp_str != null) {
+                        vr.getRegiter(tmp_str).getValue();
+                    }
+                } else if (vx.type().equals(Vxxx.Type.GET)) {
+                    String tmp_str = ps.getVxxxValue(field);
+                    if (tmp_str != null) {
+                        vr.getRegiter(tmp_str).addSetEvent();
+                    }
+                }
+            }
+        }
+        return vr;
     }
 }

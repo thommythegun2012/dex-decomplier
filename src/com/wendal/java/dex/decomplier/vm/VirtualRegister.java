@@ -3,6 +3,7 @@ package com.wendal.java.dex.decomplier.vm;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import com.wendal.java.dex.decomplier.dexfile.model.LocalVar;
 
@@ -34,5 +35,13 @@ public class VirtualRegister {
             
             maps.put(r_name, ru);
         }
+    }
+    
+    public Iterable<RegisterUnit> getRegiters(){
+        return maps.values();
+    }
+    
+    public Set<String> getKeys(){
+        return maps.keySet();
     }
 }

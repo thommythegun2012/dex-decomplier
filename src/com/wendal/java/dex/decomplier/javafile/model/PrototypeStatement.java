@@ -201,4 +201,24 @@ public class PrototypeStatement {
     public boolean needParseVxxx(){
         return getV().size() > 0;
     }
+    
+    public String getVxxxValue(Field field ){
+        try {
+            return (String) field.get(this);
+        } catch (IllegalArgumentException e) {
+            Logger.getLogger().e("VM", "parseLV", e);
+        } catch (IllegalAccessException e) {
+            Logger.getLogger().e("VM", "parseLV", e);
+        }
+        return null;
+    }
+    
+    public boolean hasVxxx(String vx_name){
+        for (Field field : getV()) {
+            if(field.getName().equals(vx_name)){
+                return true;
+            }
+        }
+        return false;
+    }
 }

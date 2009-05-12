@@ -32,7 +32,7 @@ import com.wendal.java.dex.decomplier.toolkit.String_Toolkit;
  *
  */
 public class PrototypeStatement_sget extends PrototypeStatement {
-    @Vxxx
+    @Vxxx(type=Vxxx.Type.PUT)
     public String vx_name;
 
     public String field__name;

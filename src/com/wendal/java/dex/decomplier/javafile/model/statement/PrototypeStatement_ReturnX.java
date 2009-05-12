@@ -23,6 +23,7 @@
 package com.wendal.java.dex.decomplier.javafile.model.statement;
 
 import com.wendal.java.dex.decomplier.javafile.model.PrototypeStatement;
+import com.wendal.java.dex.decomplier.javafile.model.Vxxx;
 
 public class PrototypeStatement_ReturnX extends PrototypeStatement {
     
@@ -30,7 +31,7 @@ public class PrototypeStatement_ReturnX extends PrototypeStatement {
         // TODO Auto-generated constructor stub
     }
     
-    
+    @Vxxx
     public String vx_name;
     
     public String obj_type;

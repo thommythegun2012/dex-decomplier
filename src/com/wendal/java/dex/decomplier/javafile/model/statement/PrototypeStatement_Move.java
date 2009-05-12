@@ -32,7 +32,7 @@ public class PrototypeStatement_Move extends PrototypeStatement {
     
     public boolean isObject;
 
-    @Vxxx
+    @Vxxx(type=Vxxx.Type.PUT)
     public String vx_name;
     
     @Vxxx

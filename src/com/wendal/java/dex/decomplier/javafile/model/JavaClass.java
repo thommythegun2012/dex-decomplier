@@ -199,7 +199,7 @@ public class JavaClass {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         if (class_package != null) {
-            sb.append("package").append(" ").append(class_package).append("\n\n");
+            sb.append("package").append(" ").append(class_package).append(";\n\n");
         }
         sb.append(access_flag);
         sb.append(" ");

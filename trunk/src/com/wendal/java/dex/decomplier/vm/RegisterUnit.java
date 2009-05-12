@@ -33,6 +33,10 @@ public class RegisterUnit {
 
     public void setValue(String value) {
         this.value = value;
+        addSetEvent();
+    }
+    
+    void addSetEvent(){
         rh.addPUTEvent();
     }
     
@@ -40,11 +44,12 @@ public class RegisterUnit {
         rh.addIFEvent();
     }
     
-    public void passElse(){
-        rh.addELSEEvent();
-    }
     
     public void passGOTO(){
         rh.addGOTOEvent();
+    }
+
+    public void passEndIF() {
+        rh.addEndIfEvent();
     }
 }

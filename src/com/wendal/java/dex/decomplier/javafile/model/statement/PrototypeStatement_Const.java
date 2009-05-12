@@ -26,7 +26,7 @@ import com.wendal.java.dex.decomplier.javafile.model.PrototypeStatement;
 
 public class PrototypeStatement_Const extends PrototypeStatement {
     
-    public String var_name;
+    public String vx_name;
     
     public String var_type;
     
@@ -38,7 +38,7 @@ public class PrototypeStatement_Const extends PrototypeStatement {
     public void parse() {
         super.parse();
         
-        var_name = info.substring(info.indexOf(" ")+1 , info.lastIndexOf(",")).trim();
+        vx_name = info.substring(info.indexOf(" ")+1 , info.lastIndexOf(",")).trim();
         
         var_type = info.substring(info.indexOf("#")+1 , info.lastIndexOf(" ")).trim();
         var_value = info.substring(info.lastIndexOf(" ")).trim();
@@ -50,6 +50,6 @@ public class PrototypeStatement_Const extends PrototypeStatement {
     
     @Override
     public String toString() {
-        return super.toString() + "\n" + var_type + " " + var_name + " = " + var_value;
+        return super.toString() + "\n" + var_type + " " + vx_name + " = " + var_value;
     }
 }

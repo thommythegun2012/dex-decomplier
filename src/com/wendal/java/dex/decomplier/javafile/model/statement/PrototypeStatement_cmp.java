@@ -25,11 +25,11 @@ package com.wendal.java.dex.decomplier.javafile.model.statement;
 import com.wendal.java.dex.decomplier.javafile.model.PrototypeStatement;
 
 public class PrototypeStatement_cmp extends PrototypeStatement {
-    String vx;
+    String vx_name;
 
-    String vy;
+    String vy_name;
     
-    String vz;
+    String vz_name;
     
     String type = "";
 
@@ -39,15 +39,15 @@ public class PrototypeStatement_cmp extends PrototypeStatement {
         
         type = info.substring(info.indexOf("cmp")+3 , info.indexOf(" "));
 
-        vx = info.substring(info.indexOf(" ") + 1, info.indexOf(","));
-        vy = info.substring(info.indexOf(", ")+2 , info.lastIndexOf(","));
-        vz = info.substring(info.lastIndexOf(",")+1).trim();
+        vx_name = info.substring(info.indexOf(" ") + 1, info.indexOf(","));
+        vy_name = info.substring(info.indexOf(", ")+2 , info.lastIndexOf(","));
+        vz_name = info.substring(info.lastIndexOf(",")+1).trim();
         
     }
 
     @Override
     public String toString() {
-        return super.toString() + "\n" + vx + " = (" +vy + " > " + vz+")";
+        return super.toString() + "\n" + vx_name + " = (" +vy_name + " > " + vz_name+")";
     }
 
 }

@@ -39,15 +39,15 @@ public class PrototypeStatement_String extends PrototypeStatement {
      */
     public String var_values;
     
-    public String var_name;
+    public String vx_name;
     
     public void parse() {
-        var_name = info.substring("const-string ".length() , info.indexOf(",")).trim();
+        vx_name = info.substring("const-string ".length() , info.indexOf(",")).trim();
         var_values = info.substring(info.indexOf("\""), info.lastIndexOf("\"")+1);
     }
 
     @Override
     public String toString() {
-        return var_name + " = " + var_values;
+        return vx_name + " = " + var_values;
     }
 }

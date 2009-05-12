@@ -23,9 +23,11 @@
 package com.wendal.java.dex.decomplier.javafile.model.statement;
 
 import com.wendal.java.dex.decomplier.javafile.model.PrototypeStatement;
+import com.wendal.java.dex.decomplier.javafile.model.Vxxx;
 
 public class PrototypeStatement_Const extends PrototypeStatement {
-    
+
+    @Vxxx
     public String vx_name;
     
     public String var_type;

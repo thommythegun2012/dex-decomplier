@@ -23,6 +23,7 @@
 package com.wendal.java.dex.decomplier.javafile.model.statement;
 
 import com.wendal.java.dex.decomplier.javafile.model.PrototypeStatement;
+import com.wendal.java.dex.decomplier.javafile.model.Vxxx;
 import com.wendal.java.dex.decomplier.toolkit.String_Toolkit;
 
 public class PrototypeStatement_Move extends PrototypeStatement {
@@ -31,7 +32,10 @@ public class PrototypeStatement_Move extends PrototypeStatement {
     
     public boolean isObject;
 
+    @Vxxx
     public String vx_name;
+    
+    @Vxxx
     public String vy_name;
     
     @Override

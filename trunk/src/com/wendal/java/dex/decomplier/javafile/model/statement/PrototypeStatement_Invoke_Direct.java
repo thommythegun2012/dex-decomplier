@@ -25,10 +25,12 @@ package com.wendal.java.dex.decomplier.javafile.model.statement;
 import java.util.Arrays;
 
 import com.wendal.java.dex.decomplier.javafile.model.PrototypeStatement;
+import com.wendal.java.dex.decomplier.javafile.model.Vxxx;
 
 public class PrototypeStatement_Invoke_Direct extends PrototypeStatement {
-    
-    public String object_var;
+
+    @Vxxx
+    public String vx_name;
     
     public String method_name;
     
@@ -49,7 +51,7 @@ public class PrototypeStatement_Invoke_Direct extends PrototypeStatement {
             parameters[i] = parameters[i].trim();
         }
         //第一应该为object_var
-        object_var = parameters[0];
+        vx_name = parameters[0];
 //        System.out.println(parameters.length);
         if(parameters.length > 1){
             parameters = Arrays.copyOfRange(parameters, 1, parameters.length );
@@ -75,7 +77,7 @@ public class PrototypeStatement_Invoke_Direct extends PrototypeStatement {
         
 //        sb.append(super.toString()).append("\n");
         
-        sb.append(object_var).append(".").append(method_name);
+        sb.append(vx_name).append(".").append(method_name);
         sb.append("(");
         for (int i = 0; i < parameters.length; i++) {
             sb.append(parameters[i]);

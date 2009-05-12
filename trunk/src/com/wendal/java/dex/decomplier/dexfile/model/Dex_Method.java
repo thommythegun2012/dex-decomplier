@@ -171,36 +171,4 @@ public class Dex_Method {
     public void setLocals_list(ArrayList<LocalVar> locals_list) {
         this.locals_list = locals_list;
     }
-    
-    public static class LocalVar{
-        public int reg;
-        public String name;
-        public String type;
-        
-        public String src_name;
-        
-        public LocalVar(String data) {
-            //Get regs
-            int index = data.indexOf("reg=");
-            {
-                String tmp = data.substring(index + 4);
-                String tmp2 =  tmp.substring(0, tmp.indexOf(" "));
-                this.reg = Integer.parseInt(tmp2);
-            }
-            {
-                String tmp_str = "reg="+reg;
-                String tmp = data.substring(index + tmp_str.length()+1);
-                String tmp2 =  tmp.substring(0, tmp.indexOf(" "));
-                this.name = tmp2;
-            }
-            {
-                String tmp_str = "reg="+reg+" "+name;
-                String tmp = data.substring(index + tmp_str.length()+ 1).trim();
-                this.src_name = tmp.replaceAll("/", ".");
-//                System.out.println("---+++>>>>>>>>>>>>>> "+src_name);
-                this.type = String_Toolkit.parseSingleClassName(tmp).replace(';', ' ').trim();
-//                System.out.println("++++>+++>>>>+++>>>"+type);
-            }
-        }
-    }
 }

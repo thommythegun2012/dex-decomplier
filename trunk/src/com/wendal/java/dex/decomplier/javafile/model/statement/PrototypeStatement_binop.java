@@ -23,12 +23,16 @@
 package com.wendal.java.dex.decomplier.javafile.model.statement;
 
 import com.wendal.java.dex.decomplier.javafile.model.PrototypeStatement;
+import com.wendal.java.dex.decomplier.javafile.model.Vxxx;
 
 public class PrototypeStatement_binop extends PrototypeStatement {
+    @Vxxx
     public String vx_name;
-    
+
+    @Vxxx
     public String vy_name;
-    
+
+    @Vxxx
     public String vz_name;
     
     public String v_op;

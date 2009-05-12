@@ -23,12 +23,15 @@
 package com.wendal.java.dex.decomplier.javafile.model.statement;
 
 import com.wendal.java.dex.decomplier.javafile.model.PrototypeStatement;
+import com.wendal.java.dex.decomplier.javafile.model.Vxxx;
 import com.wendal.java.dex.decomplier.toolkit.String_Toolkit;
 
 public class PrototypeStatement_Instance_Of extends PrototypeStatement {
-    
+
+    @Vxxx
     public String vx_name;
-    
+
+    @Vxxx
     public String vy_name;
     
     public String type_id_name;

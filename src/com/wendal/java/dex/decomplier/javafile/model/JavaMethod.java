@@ -29,6 +29,7 @@ import com.wendal.java.dex.decomplier.dexfile.model.Dex_Method;
 import com.wendal.java.dex.decomplier.dexfile.model.Dex_Method.LocalVar;
 import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_Goto;
 import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_ReturnVoid;
+import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_nop;
 import com.wendal.java.dex.decomplier.toolkit.String_Toolkit;
 
 public class JavaMethod {
@@ -242,7 +243,9 @@ public class JavaMethod {
             if(ps_class != null){
                 ps_list.set(i, PrototypeStatement.convertTotype(ps, ps_class));
             }
-            
+            if(ps_list.get(i) instanceof PrototypeStatement_nop){
+                break;
+            }
         }
 //        for (PrototypeStatement ps : ps_list) {
 //            if(ps.getClass().equals(PrototypeStatement.class)){

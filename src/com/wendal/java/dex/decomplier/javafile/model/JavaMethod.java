@@ -27,8 +27,7 @@ import java.util.List;
 
 import com.wendal.java.dex.decomplier.dexfile.model.Dex_Method;
 import com.wendal.java.dex.decomplier.dexfile.model.LocalVar;
-import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_Goto;
-import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_ReturnVoid;
+import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_String;
 import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_nop;
 import com.wendal.java.dex.decomplier.toolkit.String_Toolkit;
 
@@ -200,41 +199,21 @@ public class JavaMethod {
         opcode_src.remove(0);//去掉第一行,即方法签名
         
         
+
         ps_list = PrototypeStatement.newInstanceList(opcode_src);
-        //登记全部return-void语句,只记录line_index
-        ArrayList<String> ps_returnvoid_list = new ArrayList<String>();
-        for (PrototypeStatement ps : ps_list) {
-            if (ps instanceof PrototypeStatement_ReturnVoid) {
-                ps_returnvoid_list.add(Integer.toString(ps.line_index,16));
-            }
-        }
-        //替换掉指向return-void的goto语句
-        //System.out.println(ps_returnvoid_list.size());
-        for (int i = 0;i < ps_list.size();i++) {
-            PrototypeStatement ps = ps_list.get(i);
-            if (ps instanceof PrototypeStatement_Goto) {
-                PrototypeStatement_Goto ps_goto = (PrototypeStatement_Goto)ps;
-                for (String string : ps_returnvoid_list) {
-                    if(string.equals(ps_goto.goto_line_index)){
-                        //替换成return-void
-                        int index = ps_list.indexOf(ps);
-                        ps_list.set(index, PrototypeStatement.convertTotype(ps, PrototypeStatement_ReturnVoid.class));
-                        
-//                        System.out.println("--->替换跳转return-void: " + ps_goto.line_index+" --> "+ps_goto.goto_line_index);
-                        break;
-                    }
-                }
-            }
-        }
         
         for (int i = 0;i < ps_list.size();i++) {
             PrototypeStatement ps = ps_list.get(i);
             
-            if(ps instanceof PrototypeStatement_ReturnVoid){
-                continue;
-            }
+//            if(ps instanceof PrototypeStatement_ReturnVoid){
+//                continue;
+//            }
+//            
+//            if(ps instanceof PrototypeStatement_Goto){
+//                continue;
+//            }
             
-            if(ps instanceof PrototypeStatement_Goto){
+            if(ps instanceof PrototypeStatement_String){
                 continue;
             }
 

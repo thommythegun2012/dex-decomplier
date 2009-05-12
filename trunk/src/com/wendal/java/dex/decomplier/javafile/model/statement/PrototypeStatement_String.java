@@ -40,7 +40,7 @@ public class PrototypeStatement_String extends PrototypeStatement {
      */
     public String var_values;
 
-    @Vxxx
+    @Vxxx(type=Vxxx.Type.PUT)
     public String vx_name;
     
     public void parse() {

@@ -26,7 +26,7 @@ import com.wendal.java.dex.decomplier.javafile.model.PrototypeStatement;
 import com.wendal.java.dex.decomplier.javafile.model.Vxxx;
 
 public class PrototypeStatement_cmp extends PrototypeStatement {
-    @Vxxx
+    @Vxxx(type=Vxxx.Type.PUT)
     String vx_name;
 
     @Vxxx

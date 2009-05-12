@@ -31,7 +31,7 @@ public class PrototypeStatement_Move_Result extends PrototypeStatement {
     
     public boolean isObject;
 
-    @Vxxx
+    @Vxxx(type=Vxxx.Type.PUT)
     public String vx_name;
     
     @Override

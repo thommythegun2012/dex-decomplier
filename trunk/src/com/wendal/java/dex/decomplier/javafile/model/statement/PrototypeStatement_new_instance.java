@@ -28,7 +28,7 @@ import com.wendal.java.dex.decomplier.toolkit.String_Toolkit;
 
 public class PrototypeStatement_new_instance extends PrototypeStatement {
 
-    @Vxxx
+    @Vxxx(type=Vxxx.Type.PUT)
     String vx_name;
     
     String var_type;

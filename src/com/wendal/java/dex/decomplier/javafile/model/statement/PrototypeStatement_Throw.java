@@ -23,13 +23,15 @@
 package com.wendal.java.dex.decomplier.javafile.model.statement;
 
 import com.wendal.java.dex.decomplier.javafile.model.PrototypeStatement;
+import com.wendal.java.dex.decomplier.javafile.model.Vxxx;
 
 public class PrototypeStatement_Throw extends PrototypeStatement {
     
     public PrototypeStatement_Throw() {
         // TODO Auto-generated constructor stub
     }
-    
+
+    @Vxxx
     public String vx_name;
     
     @Override

@@ -1,34 +1,35 @@
 package com.wendal.java.dex.decomplier.vm;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.wendal.java.dex.decomplier.dexfile.model.Dex_Method.LocalVar;
+import com.wendal.java.dex.decomplier.dexfile.model.LocalVar;
 import com.wendal.java.dex.decomplier.javafile.model.CatchException;
 import com.wendal.java.dex.decomplier.javafile.model.PrototypeStatement;
 import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_Goto;
 import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_If;
 import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_packed_switch;
 import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_sparse_switch;
+import com.wendal.java.dex.decomplier.toolkit.Logger;
 
 public class Vm_Main {
 
     private List<PrototypeStatement> ps_list;
-    
+
     private List<LocalVar> lv_list;
-    
+
     private List<CatchException> exp_list;
     private List<String> source_statement = new ArrayList<String>();
+
     public List<String> parse(List<PrototypeStatement> list,
             List<LocalVar> lv_list, List<CatchException> exp_list,
             Object... setting) {
-        
+
         this.ps_list = list;
         this.lv_list = lv_list;
-        this.exp_list =exp_list;
-        
-        
-        
+        this.exp_list = exp_list;
+
         boolean simple_method = true;
         for (int i = 0; i < ps_list.size(); i++) {
             PrototypeStatement ps = ps_list.get(i);
@@ -50,6 +51,8 @@ public class Vm_Main {
                 simple_method = false;
             }
         }
+
+        parseLocalVals();
 
         if (simple_method) {
             parseSimpleMethod();
@@ -76,10 +79,23 @@ public class Vm_Main {
      * Simple method is that without any Goto and If , switch
      */
     private void parseSimpleMethod() {
+
+        for (PrototypeStatement ps : ps_list) {
+
+            source_statement.add(ps.toString());
+        }
+    }
+
+    private void parseLocalVals() {
         VirtualRegister vr = new VirtualRegister();
         vr.initLocalVa(lv_list);
-        for (PrototypeStatement ps : ps_list) {
-            source_statement.add(ps.toString());
+        for (LocalVar lv : lv_list) {
+            for (PrototypeStatement ps : ps_list) {
+                if (ps.line_index >= lv.start_line_index
+                        && ps.line_index <= lv.end_line_index) {
+                    ps.setVxxxValue("v"+lv.reg, lv.name);
+                }
+            }
         }
     }
 }

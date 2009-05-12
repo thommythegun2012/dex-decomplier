@@ -26,7 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.wendal.java.dex.decomplier.dexfile.model.Dex_Method;
-import com.wendal.java.dex.decomplier.dexfile.model.Dex_Method.LocalVar;
+import com.wendal.java.dex.decomplier.dexfile.model.LocalVar;
 import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_Goto;
 import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_ReturnVoid;
 import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_nop;
@@ -205,7 +205,7 @@ public class JavaMethod {
         ArrayList<String> ps_returnvoid_list = new ArrayList<String>();
         for (PrototypeStatement ps : ps_list) {
             if (ps instanceof PrototypeStatement_ReturnVoid) {
-                ps_returnvoid_list.add(ps.line_index);
+                ps_returnvoid_list.add(Integer.toString(ps.line_index,16));
             }
         }
         //Ìæ»»µôÖ¸Ïòreturn-voidµÄgotoÓï¾ä

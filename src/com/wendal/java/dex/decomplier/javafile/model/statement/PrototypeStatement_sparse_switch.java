@@ -23,9 +23,11 @@
 package com.wendal.java.dex.decomplier.javafile.model.statement;
 
 import com.wendal.java.dex.decomplier.javafile.model.PrototypeStatement;
+import com.wendal.java.dex.decomplier.javafile.model.Vxxx;
 
 public class PrototypeStatement_sparse_switch extends PrototypeStatement {
-public String vx_name;
+    @Vxxx
+    public String vx_name;
     
     public String data_offset;
 

@@ -40,7 +40,7 @@ public class PrototypeStatement_Goto extends PrototypeStatement {
         }else{
             String tmp_goto_index = info.substring(info.indexOf("#")+1).trim().substring(4);
             int tmp_index = Integer.parseInt(tmp_goto_index, 16) - 0x10000;
-            int my_index = Integer.parseInt(line_index,16);
+            int my_index = line_index;
             String tmp_go = Integer.toHexString(my_index + tmp_index);
             while(tmp_go.length() < 4){
                 tmp_go = "0"+tmp_go;

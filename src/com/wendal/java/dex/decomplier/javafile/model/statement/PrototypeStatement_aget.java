@@ -23,12 +23,16 @@
 package com.wendal.java.dex.decomplier.javafile.model.statement;
 
 import com.wendal.java.dex.decomplier.javafile.model.PrototypeStatement;
+import com.wendal.java.dex.decomplier.javafile.model.Vxxx;
 
 public class PrototypeStatement_aget  extends PrototypeStatement{
+    @Vxxx
     public String vx_name;
-    
+
+    @Vxxx
     public String vy_name;
 
+    @Vxxx
     public String vz_name;
 
     @Override
@@ -50,4 +54,5 @@ public class PrototypeStatement_aget  extends PrototypeStatement{
         return super.toString() + "\n"  + vx_name + " = " + vy_name + "[" + vz_name +"]";
     }
 
+    
 }

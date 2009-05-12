@@ -23,13 +23,15 @@
 package com.wendal.java.dex.decomplier.javafile.model.statement;
 
 import com.wendal.java.dex.decomplier.javafile.model.PrototypeStatement;
+import com.wendal.java.dex.decomplier.javafile.model.Vxxx;
 
 public class PrototypeStatement_Move_Result extends PrototypeStatement {
     
     public boolean isWide;
     
     public boolean isObject;
-    
+
+    @Vxxx
     public String vx_name;
     
     @Override

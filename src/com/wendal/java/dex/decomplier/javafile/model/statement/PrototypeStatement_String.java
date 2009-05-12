@@ -23,6 +23,7 @@
 package com.wendal.java.dex.decomplier.javafile.model.statement;
 
 import com.wendal.java.dex.decomplier.javafile.model.PrototypeStatement;
+import com.wendal.java.dex.decomplier.javafile.model.Vxxx;
 
 public class PrototypeStatement_String extends PrototypeStatement {
     
@@ -38,7 +39,8 @@ public class PrototypeStatement_String extends PrototypeStatement {
      * °üº¬Ë«ÒýºÅ
      */
     public String var_values;
-    
+
+    @Vxxx
     public String vx_name;
     
     public void parse() {

@@ -23,6 +23,7 @@
 package com.wendal.java.dex.decomplier.javafile.model.statement;
 
 import com.wendal.java.dex.decomplier.javafile.model.PrototypeStatement;
+import com.wendal.java.dex.decomplier.javafile.model.Vxxx;
 
 /**
  * Perform the identified unary operation on the source register, storing the result in the destination register.
@@ -30,8 +31,11 @@ import com.wendal.java.dex.decomplier.javafile.model.PrototypeStatement;
  *
  */
 public class PrototypeStatement_unop extends PrototypeStatement {
+
+    @Vxxx
     public String vx_name;
-    
+
+    @Vxxx
     public String vy_name;
 
     public String v_op;

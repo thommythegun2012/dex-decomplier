@@ -26,6 +26,10 @@ public class RegisterUnit {
         Type = type;
     }
 
+    public void cleanHistory(){
+        this.rh.clear();
+    }
+    
     public String getValue() {
         rh.addGETEvent();
         return value;

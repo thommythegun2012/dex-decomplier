@@ -28,8 +28,11 @@ import com.wendal.java.dex.decomplier.toolkit.String_Toolkit;
 
 public class PrototypeStatement_new_array extends PrototypeStatement {
 
-    @Vxxx
+    @Vxxx(type=Vxxx.Type.PUT)
     String vx_name;
+    
+    @Vxxx
+    String vy_name;
     
     String var_type;
     
@@ -38,11 +41,14 @@ public class PrototypeStatement_new_array extends PrototypeStatement {
         super.parse();
 
         vx_name = info.substring(info.indexOf(" ")+1,info.indexOf(","));
+        
+        vy_name = info.substring(info.indexOf(", ")+2,info.lastIndexOf(","));
+        
         var_type = String_Toolkit.parseType(info.substring(info.lastIndexOf(", ")+2).replaceAll(";", "")).replaceAll("/", ".");
     }
 
     @Override
     public String toString() {
-        return super.toString() + "\n"+var_type + " " + vx_name ;
+        return super.toString() + "\n" + vx_name +" = new "+var_type.substring(0,var_type.length()-1) + vy_name + "]";
     }
 }

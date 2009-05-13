@@ -25,7 +25,9 @@ package com.wendal.java.dex.decomplier.javafile.model;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_String;
 import com.wendal.java.dex.decomplier.toolkit.Logger;
@@ -103,15 +105,15 @@ public class PrototypeStatement {
             }
 
             // 处理类型
-//            if (ps.opcodes.startsWith(OpCode_List.Op_Goto)
-//                    || ps.opcodes.startsWith(OpCode_List.Op_Goto16)) {
-//                ps = PrototypeStatement.convertTotype(ps,
-//                        PrototypeStatement_Goto.class);
-//            }
-//            if (ps.opcodes.startsWith(OpCode_List.Op_Return_Void)) {
-//                ps = PrototypeStatement.convertTotype(ps,
-//                        PrototypeStatement_ReturnVoid.class);
-//            }
+            // if (ps.opcodes.startsWith(OpCode_List.Op_Goto)
+            // || ps.opcodes.startsWith(OpCode_List.Op_Goto16)) {
+            // ps = PrototypeStatement.convertTotype(ps,
+            // PrototypeStatement_Goto.class);
+            // }
+            // if (ps.opcodes.startsWith(OpCode_List.Op_Return_Void)) {
+            // ps = PrototypeStatement.convertTotype(ps,
+            // PrototypeStatement_ReturnVoid.class);
+            // }
             if (ps instanceof PrototypeStatement_String) {
                 ((PrototypeStatement_String) ps).parse();
             }
@@ -126,8 +128,7 @@ public class PrototypeStatement {
         sb.append(line_index).append(" :  ");
         sb.append(this.info);
         if (this.info == null) {
-            System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
-                    + dex_offset);
+            throw new RuntimeException();
         }
         sb.append(" */");
         return sb.toString();
@@ -168,16 +169,16 @@ public class PrototypeStatement {
         Field fields[] = this.getClass().getFields();
         ArrayList<Field> list = new ArrayList<Field>();
         for (Field field : fields) {
-            if(parsedVxxx.contains(field.getName())){
+            if (parsedVxxx.contains(field.getName())) {
                 continue;
             }
             for (Annotation an : field.getAnnotations()) {
-                if (an instanceof Vxxx ) {
-                    if(this.getVxxxValue(field).startsWith(" ")){
-                        throw new RuntimeException(""+this.info);
+                if (an instanceof Vxxx) {
+                    if (this.getVxxxValue(field).startsWith(" ")) {
+                        throw new RuntimeException("" + this.info);
                     }
-                    if(this.getVxxxValue(field).endsWith(" ")){
-                        throw new RuntimeException(""+this.info);
+                    if (this.getVxxxValue(field).endsWith(" ")) {
+                        throw new RuntimeException("" + this.info);
                     }
                     list.add(field);
                 }
@@ -186,13 +187,19 @@ public class PrototypeStatement {
         return list;
     }
 
-    public void setVxxxValue(String field_Vxxx_value, String value) {
+    public void setVxxxValue(String field_var_value, String value) {
+
+        // if(value.equals("6666")){
+        // System.out.println("-----------------------------------??");
+        // }
+
         List<Field> f_list = this.getV();
         for (Field field : f_list) {
             try {
-                if (field_Vxxx_value.equals((String) field.get(this))) {
+                if (field_var_value.equals((String) field.get(this))) {
                     field.set(this, value);
                     parsedVxxx.add(field.getName());
+                    // System.out.println(value);
                 }
             } catch (IllegalArgumentException e) {
                 Logger.getLogger().e("VM", "parseLV", e);
@@ -202,13 +209,13 @@ public class PrototypeStatement {
         }
     }
 
-    private List<String> parsedVxxx = new ArrayList<String>();
+    private Set<String> parsedVxxx = new HashSet<String>();
 
-    public boolean needParseVxxx(){
+    public boolean needParseVxxx() {
         return getV().size() > 0;
     }
-    
-    public String getVxxxValue(Field field ){
+
+    public String getVxxxValue(Field field) {
         try {
             return (String) field.get(this);
         } catch (IllegalArgumentException e) {
@@ -218,13 +225,25 @@ public class PrototypeStatement {
         }
         return null;
     }
-    
-    public boolean hasVxxx(String vx_name){
-        System.out.println(vx_name);
+
+    public boolean hasVxxx(String vx_name) {
+        // System.out.println(vx_name);
         for (Field field : getV()) {
-            if(field.getName().equals(vx_name)){
-                
+            if (getVxxxValue(field).equals(vx_name)) {
                 return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean needPutVxxx(String vx_name) {
+        List<Field> f_list = this.getV();
+        for (Field field : f_list) {
+            if (vx_name.equals(this.getVxxxValue(field))) {
+                Vxxx vxxx = field.getAnnotation(Vxxx.class);
+                if (vxxx.type().equals(Vxxx.Type.PUT)) {
+                    return true;
+                }
             }
         }
         return false;

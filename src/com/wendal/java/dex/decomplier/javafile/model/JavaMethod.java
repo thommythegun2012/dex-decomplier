@@ -49,7 +49,7 @@ public class JavaMethod {
     public static String PROTECTED = "protected";
     public static String DEFAUFT = "";
 
-    public String return_value = "void";
+    private String return_value = "void";
 
     public List<String> parameter_list = new ArrayList<String>();
 
@@ -58,6 +58,7 @@ public class JavaMethod {
     private Dex_Method dex_method;
 
     private boolean isStaticConstructor = false;
+    private boolean isConstructor = false;
     
     private ArrayList<PrototypeStatement> ps_list;
     
@@ -76,7 +77,11 @@ public class JavaMethod {
         if (isFinal) {
             sb.append("final").append(" ");
         }
-        sb.append(return_value).append(" ");
+        if(isConstructor){
+            ;
+        }else{
+            sb.append(return_value).append(" ");
+        }
         if (isStaticConstructor) {
             ;
         } else {
@@ -170,9 +175,11 @@ public class JavaMethod {
             }
             // 如果包含<init>,则表示其为构造方法,如果为<clinit>则为静态块
             if (this.name.indexOf("<init>") > -1) {
-                this.return_value = "";
+//                this.return_value = "";
+                this.isConstructor = true;
             } else if (this.name.indexOf("<clinit>") > -1) {
-                this.return_value = "";
+//                this.return_value = "";
+                this.isConstructor = true;
                 this.isStaticConstructor = true;
             }
         }

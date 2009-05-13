@@ -13,6 +13,8 @@ import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatemen
 import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_ReturnVoid;
 import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_packed_switch;
 import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_sparse_switch;
+import com.wendal.java.dex.decomplier.vm.patternmatching.ConstHandler;
+import com.wendal.java.dex.decomplier.vm.patternmatching.IPatternMatching;
 
 public class Vm_Main {
 
@@ -58,7 +60,21 @@ public class Vm_Main {
                 }
             }
         }
-
+        
+        
+        parseLocalVals();
+        
+//        for (PrototypeStatement ps : this.ps_list) {
+//            System.out.println(ps);
+//        }
+        
+        IPatternMatching ipm = new ConstHandler();
+        try {
+            ipm.parse(this.ps_list, this.lv_list, this.exp_list, setting);
+        } catch (Throwable e) {
+            e.printStackTrace();
+        }
+        
         boolean simple_method = true;
         for (int i = 0; i < ps_list.size(); i++) {
             PrototypeStatement ps = ps_list.get(i);
@@ -81,7 +97,7 @@ public class Vm_Main {
             }
         }
         
-        parseLocalVals();
+        
         
         
         
@@ -110,23 +126,7 @@ public class Vm_Main {
      * Simple method is that without any Goto and If , switch
      */
     private void parseSimpleMethod() {
-        
-//        {
-//            VirtualRegister vr = initRegiterByPrototypeStatement(ps_list);
-//            for (String key  : vr.getKeys()) {
-//                RegisterUnit ru = vr.getRegiter(key);
-//                List<PrototypeStatement> tmp_ps_list = new ArrayList<PrototypeStatement>();
-//                    for (PrototypeStatement ps : ps_list) {
-//                        if(ps.hasVxxx(key)){
-//                            tmp_ps_list.add(ps);
-//                            System.out.println(ps.dex_offset );
-//                    }
-//                }
-//            }
-////            System.out.println(vr.getKeys().size());
-//        }
         for (PrototypeStatement ps : ps_list) {
-
             source_statement.add(ps.toString());
         }
     }
@@ -136,10 +136,11 @@ public class Vm_Main {
         vr.initLocalVa(lv_list);
         for (LocalVar lv : lv_list) {
             for (PrototypeStatement ps : ps_list) {
-                if (ps.line_index >= lv.start_line_index
+                if (ps.line_index >= lv.start_line_index 
                         && ps.line_index <= lv.end_line_index) {
                     ps.setVxxxValue("v" + lv.reg, lv.name);
                 }
+//                System.out.println(ps);
             }
         }
     }

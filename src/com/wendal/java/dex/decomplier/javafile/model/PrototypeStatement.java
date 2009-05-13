@@ -77,7 +77,7 @@ public class PrototypeStatement {
                 int tag_i = i;
                 String src_tmp = src_statement.substring(len);
                 while (true) {
-                    if (src_tmp.matches("\\\".*\\\" // string@[0-9a-z]{4}$")) {
+                    if (src_tmp.matches("\\\".*\\\" // string@[0-9a-z]{4}")) {
                         break;
                     } else {
                         tag_i++;
@@ -85,11 +85,15 @@ public class PrototypeStatement {
                     }
                 }
                 if (tag_i != i) {
-                    for (; i < tag_i; i++) {
-                        src_statement += "\n";
+                    i++;
+                    for (; i <= tag_i; i++) {
+                        src_statement += "\\n";
                         src_statement += opcode_src.get(i);
                     }
                 }
+                System.out.println("--------------------------------");
+                System.out.println(src_statement);
+                System.out.println("--------------------------------");
             }
 
             ps.line_index = Integer.parseInt(src_statement.substring(

@@ -7,6 +7,10 @@ public class RegisterHistory {
     
     private List<RegiterEvent> list = new ArrayList<RegiterEvent>();
     
+    void clear(){
+        list.clear();
+    }
+    
     public void addEvent(RegiterEvent re){
         list.add(re);
     }

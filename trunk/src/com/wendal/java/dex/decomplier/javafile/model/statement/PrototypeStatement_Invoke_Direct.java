@@ -23,6 +23,8 @@
 package com.wendal.java.dex.decomplier.javafile.model.statement;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.wendal.java.dex.decomplier.javafile.model.PrototypeStatement;
 import com.wendal.java.dex.decomplier.javafile.model.Vxxx;
@@ -69,14 +71,13 @@ public class PrototypeStatement_Invoke_Direct extends PrototypeStatement {
         }else{
             hasRetrun = true;
         }
+        
+        initMaps();
     }
     
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        
-//        sb.append(super.toString()).append("\n");
-        
         sb.append(vx_name).append(".").append(method_name);
         sb.append("(");
         for (int i = 0; i < parameters.length; i++) {
@@ -86,7 +87,35 @@ public class PrototypeStatement_Invoke_Direct extends PrototypeStatement {
             }
         }
         sb.append(")");
-//        sb.append("\n/*hasRetrun -->").append(hasRetrun).append("*/");
         return sb.toString();
     }
-}
+    
+    private Map<Integer, Boolean> maps = new HashMap<Integer, Boolean>();
+    
+    private void initMaps(){
+        for (int i = 0; i < parameters.length; i++) {
+            maps.put(i, new Boolean(false));
+        }
+    }
+    
+    @Override
+    public boolean hasVxxx(String vx_name) {
+        for (int i = 0; i < parameters.length; i++) {
+            if(maps.get(i).booleanValue() == false && parameters[i].equals(vx_name)){
+                return true;
+            }
+        }
+        return super.hasVxxx(vx_name);
+    }
+    
+    @Override
+    public void setVxxxValue(String field_Vxxx_value, String value) {
+        for (int i = 0; i < parameters.length; i++) {
+            if(maps.get(i).booleanValue() == false && parameters[i].equals(field_Vxxx_value)){
+                parameters[i] = value;
+                maps.put(i, true);
+            }
+        }
+        super.setVxxxValue(field_Vxxx_value, value);
+    }
+} 

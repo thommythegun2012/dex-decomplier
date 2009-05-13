@@ -80,7 +80,10 @@ public class Vm_Main {
                 simple_method = false;
             }
         }
-
+        
+        parseLocalVals();
+        
+        
         
         if (simple_method) {
             parseSimpleMethod();
@@ -107,21 +110,21 @@ public class Vm_Main {
      * Simple method is that without any Goto and If , switch
      */
     private void parseSimpleMethod() {
-        parseLocalVals();
-        {
-            VirtualRegister vr = initRegiterByPrototypeStatement(ps_list);
-            for (String key  : vr.getKeys()) {
-                RegisterUnit ru = vr.getRegiter(key);
-                List<PrototypeStatement> tmp_ps_list = new ArrayList<PrototypeStatement>();
-                    for (PrototypeStatement ps : ps_list) {
-                        if(ps.hasVxxx(key)){
-                            tmp_ps_list.add(ps);
-                            System.out.println(ps.dex_offset );
-                    }
-                }
-            }
-//            System.out.println(vr.getKeys().size());
-        }
+        
+//        {
+//            VirtualRegister vr = initRegiterByPrototypeStatement(ps_list);
+//            for (String key  : vr.getKeys()) {
+//                RegisterUnit ru = vr.getRegiter(key);
+//                List<PrototypeStatement> tmp_ps_list = new ArrayList<PrototypeStatement>();
+//                    for (PrototypeStatement ps : ps_list) {
+//                        if(ps.hasVxxx(key)){
+//                            tmp_ps_list.add(ps);
+//                            System.out.println(ps.dex_offset );
+//                    }
+//                }
+//            }
+////            System.out.println(vr.getKeys().size());
+//        }
         for (PrototypeStatement ps : ps_list) {
 
             source_statement.add(ps.toString());

@@ -109,22 +109,18 @@ public class Vm_Main {
     private void parseSimpleMethod() {
         parseLocalVals();
         {
-            VirtualRegister vr = initRegiterByPrototypeStatement();
+            VirtualRegister vr = initRegiterByPrototypeStatement(ps_list);
             for (String key  : vr.getKeys()) {
                 RegisterUnit ru = vr.getRegiter(key);
-                //Find some register only make get
-                if(ru.rh.hasPutEvent() ){
-                    ;
-                }else{
-                    List<PrototypeStatement> tmp_ps_list = new ArrayList<PrototypeStatement>();
+                List<PrototypeStatement> tmp_ps_list = new ArrayList<PrototypeStatement>();
                     for (PrototypeStatement ps : ps_list) {
                         if(ps.hasVxxx(key)){
                             tmp_ps_list.add(ps);
-                        }
+                            System.out.println(ps.dex_offset );
                     }
-                    //TODO Handle it
                 }
             }
+//            System.out.println(vr.getKeys().size());
         }
         for (PrototypeStatement ps : ps_list) {
 
@@ -145,9 +141,9 @@ public class Vm_Main {
         }
     }
 
-    private VirtualRegister initRegiterByPrototypeStatement() {
+    private static VirtualRegister initRegiterByPrototypeStatement(List<PrototypeStatement> v_ps_list) {
         VirtualRegister vr = new VirtualRegister();
-        for (PrototypeStatement ps : ps_list) {
+        for (PrototypeStatement ps : v_ps_list) {
             if (ps instanceof PrototypeStatement_If) {
                 for (RegisterUnit ru : vr.getRegiters()) {
                     ru.passIf();

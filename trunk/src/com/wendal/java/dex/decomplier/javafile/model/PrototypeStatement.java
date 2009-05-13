@@ -173,6 +173,12 @@ public class PrototypeStatement {
             }
             for (Annotation an : field.getAnnotations()) {
                 if (an instanceof Vxxx ) {
+                    if(this.getVxxxValue(field).startsWith(" ")){
+                        throw new RuntimeException(""+this.info);
+                    }
+                    if(this.getVxxxValue(field).endsWith(" ")){
+                        throw new RuntimeException(""+this.info);
+                    }
                     list.add(field);
                 }
             }
@@ -214,8 +220,10 @@ public class PrototypeStatement {
     }
     
     public boolean hasVxxx(String vx_name){
+        System.out.println(vx_name);
         for (Field field : getV()) {
             if(field.getName().equals(vx_name)){
+                
                 return true;
             }
         }

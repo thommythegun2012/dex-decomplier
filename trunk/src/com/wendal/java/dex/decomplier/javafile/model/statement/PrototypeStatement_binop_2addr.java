@@ -45,7 +45,7 @@ public class PrototypeStatement_binop_2addr extends PrototypeStatement {
         
         vy_name = vx_name;
         
-        vz_name = info.substring(info.indexOf(",")+1 );
+        vz_name = info.substring(info.indexOf(", ")+2 );
         
         if(info.startsWith("add")){
             v_op = "+";

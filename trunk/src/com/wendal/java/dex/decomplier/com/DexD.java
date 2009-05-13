@@ -86,7 +86,7 @@ public class DexD {
         for (JavaClass jc : javamodel_list) {
                 maps.put(jc.class_package + "." + jc.class_name , jc);
         }
-        System.out.println("here");
+//        System.out.println("here");
         flag : while(true){
             for (int i = 0; i < javamodel_list.size(); i++) {
                 JavaClass jc = javamodel_list.get(i);
@@ -98,7 +98,7 @@ public class DexD {
                         jc.class_name = tmp_str.substring(tmp_str.lastIndexOf("$")+1);
                         jc_father.addInnerClass(jc);
                         javamodel_list.remove(jc);
-                        System.out.println("--->>>");
+//                        System.out.println("--->>>");
                         continue flag;
                     }
                 }

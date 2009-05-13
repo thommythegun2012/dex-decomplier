@@ -91,9 +91,9 @@ public class PrototypeStatement {
                         src_statement += opcode_src.get(i);
                     }
                 }
-                System.out.println("--------------------------------");
-                System.out.println(src_statement);
-                System.out.println("--------------------------------");
+//                System.out.println("--------------------------------");
+//                System.out.println(src_statement);
+//                System.out.println("--------------------------------");
             }
 
             ps.line_index = Integer.parseInt(src_statement.substring(

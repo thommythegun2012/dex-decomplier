@@ -37,7 +37,7 @@ public class PrototypeStatement_Const_class extends PrototypeStatement {
         
         vx_name = info.substring(info.indexOf(" ")+1 , info.lastIndexOf(",")).trim();
         
-        var_value = info.substring(info.lastIndexOf("L") , info.indexOf(";")).replaceAll("/", ".");
+        var_value = info.substring(info.lastIndexOf("L")+1 , info.indexOf(";")).replaceAll("/", ".");
         
     }
     

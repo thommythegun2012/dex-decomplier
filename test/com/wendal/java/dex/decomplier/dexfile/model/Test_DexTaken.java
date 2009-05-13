@@ -41,6 +41,7 @@ public class Test_DexTaken {
         file_list
                 .add("dex/com/wendal/dex/simple/easy/methods/Static_Methods.dump.txt");
         
+        file_list.add("dex/com/wendal/dex/jmmmm_a/Jmmm_a.dump.txt");
         for (String string : file_list) {
             List<String> list = IO_Tool.getFile(string);
             assertTrue(list.size() > 0);

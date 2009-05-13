@@ -35,7 +35,7 @@ public class PrototypeStatement_sget extends PrototypeStatement {
     @Vxxx(type=Vxxx.Type.PUT)
     public String vx_name;
 
-    public String field__name;
+    public String field_name;
     
     public String class_name;
     
@@ -51,7 +51,7 @@ public class PrototypeStatement_sget extends PrototypeStatement {
         String tmp_str = info.substring(info.indexOf(", L")+1, info.indexOf(";"));
         class_name = String_Toolkit.parseSingleClassName(tmp_str).replaceAll(";", "");
         
-        field__name = info.substring(info.indexOf(".")+1, info.indexOf(":"));
+        field_name = info.substring(info.indexOf(".")+1, info.indexOf(":"));
         
 
     }
@@ -59,6 +59,23 @@ public class PrototypeStatement_sget extends PrototypeStatement {
     @Override
     public String toString() {
         // TODO Auto-generated method stub
-        return super.toString() + "\n" + vx_name + " = " + class_name + "."+field__name;
+        return super.toString() + "\n" + vx_name + " = " + class_name + "."+field_name;
+    }
+
+    public PrototypeStatement convert2Const() {
+        PrototypeStatement_Const psc = new PrototypeStatement_Const();
+        
+        psc.info = this.info;
+        psc.dex_offset = this.dex_offset;
+        psc.note = this.note;
+        psc.opcodes = this.opcodes;
+        
+        psc.line_index = this.line_index;
+        
+        psc.var_value = class_name + "."+field_name;
+        psc.vx_name = this.vx_name;
+        psc.var_type = "/* Covert from PrototypeStatement_sget */\n";
+        
+        return psc;
     }
 }

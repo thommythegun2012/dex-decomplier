@@ -52,4 +52,21 @@ public class PrototypeStatement_String extends PrototypeStatement {
     public String toString() {
         return vx_name + " = " + var_values;
     }
+    
+    public PrototypeStatement_Const convert2Const(){
+        PrototypeStatement_Const psc = new PrototypeStatement_Const();
+        
+        psc.info = this.info;
+        psc.dex_offset = this.dex_offset;
+        psc.note = this.note;
+        psc.opcodes = this.opcodes;
+        
+        psc.line_index = this.line_index;
+        
+        psc.var_value = this.var_values;
+        psc.vx_name = this.vx_name;
+        psc.var_type = "java.lang.String";
+        
+        return psc;
+    }
 }

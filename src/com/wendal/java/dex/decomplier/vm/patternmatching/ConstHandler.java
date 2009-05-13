@@ -12,15 +12,37 @@ import com.wendal.java.dex.decomplier.javafile.model.PrototypeStatement;
 import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_Const;
 import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_Goto;
 import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_If;
+import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_String;
 import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_packed_switch;
+import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_sget;
 import com.wendal.java.dex.decomplier.javafile.model.statement.PrototypeStatement_sparse_switch;
 
+/**
+ * Handle Const
+ * <p/> Const Const-String sget
+ * @author zcchen
+ *
+ */
 public class ConstHandler extends AbstractPatternMatching {
 
     @Override
     public boolean handle(List<PrototypeStatement> ps_list,
             List<LocalVar> lv_list, List<CatchException> exp_list,
             Object... setting) throws Throwable {
+        
+        for (int i = 0; i < ps_list.size(); i++) {
+            PrototypeStatement ps = ps_list.get(i);
+            if(ps instanceof PrototypeStatement_String){
+                ps_list.set(i, ((PrototypeStatement_String)ps).convert2Const());
+            }
+        }
+        
+        for (int i = 0; i < ps_list.size(); i++) {
+            PrototypeStatement ps = ps_list.get(i);
+            if(ps instanceof PrototypeStatement_sget){
+                ps_list.set(i, ((PrototypeStatement_sget)ps).convert2Const());
+            }
+        }
         
         Set<String> v_list = new HashSet<String>();
         
